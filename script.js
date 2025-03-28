@@ -211,6 +211,13 @@ function getFilteredEarthquakeData() {
 // Main function to initialize the timeline
 async function initializeTimeline() {
     try {
+        // Show loading spinner
+        document.getElementById('timeline').innerHTML = `
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+            </div>
+        `;
+        
         allEarthquakeData = await fetchEarthquakeData();
         if (allEarthquakeData && allEarthquakeData.length > 0) {
             // Render the filtered data based on current filter setting
@@ -704,8 +711,14 @@ function renderTimeline(earthquakeData) {
     
     // Set up dimensions
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };
+    // Make margins responsive for mobile
+    if (window.innerWidth < 768) {
+        margin.left = 40;
+        margin.right = 20;
+    }
+    
     const width = document.getElementById('timeline').clientWidth - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    const height = window.innerWidth < 768 ? 250 - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     
     // Create SVG
     const svg = d3.select('#timeline')
@@ -713,17 +726,28 @@ function renderTimeline(earthquakeData) {
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
     
-    // Add zoom hint with icon
+    // Add zoom hint with appropriate icon for device type
+    const isMobile = window.innerWidth < 768;
+    
     const zoomHint = d3.select('#timeline')
         .append('div')
         .attr('class', 'zoom-hint')
         .html(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-            </svg>
+            ${isMobile ? `
+                <svg class="touch-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v7.5"></path>
+                    <path d="M13 15.5v-3.24"></path>
+                    <path d="M9 15.5v-3.24"></path>
+                    <path d="M9 11.24c0 3.76 4 4.26 4 8.26"></path>
+                </svg>
+            ` : `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+            `}
             ${getText('zoomHint')}
         `);
     
@@ -773,8 +797,18 @@ function renderTimeline(earthquakeData) {
     const xScaleOriginal = xScale.copy();
     const yScaleOriginal = yScale.copy();
     
-    // Create axes
-    const xAxis = d3.axisBottom(xScale);
+    // Create axes with responsive font size
+    const fontSize = window.innerWidth < 768 ? 9 : 10;
+    
+    const xAxis = d3.axisBottom(xScale)
+        .tickFormat(d => {
+            // Format dates for better mobile reading
+            if (window.innerWidth < 768) {
+                return d3.timeFormat('%d/%m')(d);
+            }
+            return d3.timeFormat('%d %b')(d);
+        });
+    
     const yAxis = d3.axisLeft(yScale);
     
     // Create a group for zoom
@@ -788,33 +822,57 @@ function renderTimeline(earthquakeData) {
         .attr('transform', `translate(0,${height})`)
         .call(xAxis);
     
+    xAxisGroup.selectAll("text")
+        .style("font-size", `${fontSize}px`)
+        .attr("transform", window.innerWidth < 768 ? "rotate(-45)" : "")
+        .style("text-anchor", window.innerWidth < 768 ? "end" : "middle");
+    
     // Add X axis label
     mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
-        .attr('y', height + margin.bottom - 10)
+        .attr('y', height + (window.innerWidth < 768 ? 50 : margin.bottom - 10))
         .text(getText('xAxisLabel'))
-        .attr('fill', '#666');
+        .attr('fill', '#666')
+        .style('font-size', window.innerWidth < 768 ? '11px' : '12px');
     
     // Add Y axis
     const yAxisGroup = mainGroup.append('g')
         .attr('class', 'timeline-axis y-axis')
         .call(yAxis);
     
+    yAxisGroup.selectAll("text")
+        .style("font-size", `${fontSize}px`);
+    
     // Add Y axis label
     mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
-        .attr('y', -margin.left + 15)
+        .attr('y', -margin.left + (window.innerWidth < 768 ? 10 : 15))
         .attr('x', -height / 2)
         .text(getText('yAxisLabel'))
-        .attr('fill', '#666');
+        .attr('fill', '#666')
+        .style('font-size', window.innerWidth < 768 ? '11px' : '12px');
     
     // Create a tooltip div
     const tooltip = d3.select('body')
         .append('div')
         .attr('class', 'tooltip')
         .style('opacity', 0);
+    
+    // Function to calculate point radius based on magnitude and screen size
+    function calculatePointRadius(magnitude) {
+        // Base radius calculation
+        let radius = 3 + magnitude * 2;
+        
+        // Adjust for mobile screens
+        if (window.innerWidth < 768) {
+            // Make points slightly larger on mobile for better touch targets
+            radius = 4 + magnitude * 2.2;
+        }
+        
+        return radius;
+    }
     
     // Add the earthquake points to the zoomable group
     const points = zoomGroup.selectAll('.timeline-point')
@@ -824,7 +882,7 @@ function renderTimeline(earthquakeData) {
         .attr('class', 'timeline-point')
         .attr('cx', d => xScale(d.time))
         .attr('cy', d => yScale(d.magnitude))
-        .attr('r', d => 3 + d.magnitude * 2) // Size based on magnitude
+        .attr('r', d => calculatePointRadius(d.magnitude)) // Dynamic sizing function
         .attr('fill', d => getColorByMagnitude(d.magnitude))
         .attr('stroke', '#fff')
         .attr('stroke-width', 1)
@@ -848,10 +906,12 @@ function renderTimeline(earthquakeData) {
                 .style('top', (event.pageY - 28) + 'px');
         })
         .on('mouseout', function() {
-            d3.select(this)
-                .transition()
-                .duration(200)
-                .attr('stroke-width', 1);
+            if (!d3.select(this).classed('selected')) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('stroke-width', 1);
+            }
                 
             // Hide tooltip
             tooltip.transition()
@@ -864,16 +924,28 @@ function renderTimeline(earthquakeData) {
             // Highlight selected point
             d3.selectAll('.timeline-point')
                 .attr('stroke', '#fff')
-                .attr('stroke-width', 1);
+                .attr('stroke-width', 1)
+                .classed('selected', false);
                 
             d3.select(this)
                 .attr('stroke', '#000')
-                .attr('stroke-width', 2);
+                .attr('stroke-width', 2)
+                .classed('selected', true);
+                
+            // Scroll to the details on mobile
+            if (window.innerWidth < 768) {
+                const detailsElement = document.querySelector('.earthquake-details');
+                if (detailsElement) {
+                    setTimeout(() => {
+                        detailsElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            }
         });
     
-    // Define zoom behavior
+    // Define zoom behavior with different limits for mobile
     const zoom = d3.zoom()
-        .scaleExtent([1, 20])  // Limit zoom scale from 1x to 20x
+        .scaleExtent([1, window.innerWidth < 768 ? 10 : 20])  // Less zoom on mobile to prevent getting lost
         .extent([[0, 0], [width, height]])
         .on('zoom', zoomed)
         .on('end', zoomEnded);
@@ -915,6 +987,14 @@ function renderTimeline(earthquakeData) {
         
         resetButton.style('display', 'none');
     }
+    
+    // Initial fade-in animation for better UX
+    points
+        .attr('opacity', 0)
+        .transition()
+        .delay((d, i) => i * 10)
+        .duration(500)
+        .attr('opacity', 1);
 }
 
 // Function to determine color based on magnitude
@@ -938,13 +1018,27 @@ function showEarthquakeDetails(earthquake) {
     noSelection.style.display = 'none';
     detailsContent.style.display = 'block';
     
+    // Add fade-in animation
+    detailsContent.style.opacity = 0;
+    
     // Populate details
     document.getElementById('location').textContent = earthquake.title;
     document.getElementById('datetime').textContent = formatDate(earthquake.time);
     document.getElementById('magnitude').textContent = `${earthquake.magnitude} ML`;
     document.getElementById('depth').textContent = earthquake.depth;
     document.getElementById('coordinates').textContent = `${earthquake.latitude}, ${earthquake.longitude}`;
-    document.getElementById('description').textContent = earthquake.comments || earthquake.description;
+    document.getElementById('description').textContent = earthquake.comments || earthquake.description || '-';
+    
+    // Highlight magnitude based on severity
+    const magnitudeElement = document.getElementById('magnitude');
+    magnitudeElement.style.color = getColorByMagnitude(earthquake.magnitude);
+    magnitudeElement.style.fontWeight = 'bold';
+    
+    // Fade in animation
+    setTimeout(() => {
+        detailsContent.style.transition = 'opacity 0.3s ease';
+        detailsContent.style.opacity = 1;
+    }, 50);
 }
 
 // Helper function to format date
