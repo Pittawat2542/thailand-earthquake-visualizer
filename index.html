@@ -21,6 +21,16 @@
             <div class="last-update" id="lastUpdate">Last update: Loading...</div>
         </header>
         
+        <div class="filter-controls">
+            <div class="time-filter">
+                <span id="timeFilterLabel">Time range:</span>
+                <select id="timeRangeFilter" aria-label="Select time range filter">
+                    <option value="recent" selected>Recent events (after Mar 28)</option>
+                    <option value="all">All events</option>
+                </select>
+            </div>
+        </div>
+        
         <div class="chart-container">
             <div id="timeline"></div>
         </div>
@@ -40,7 +50,7 @@
     </div>
     
     <footer>
-        <p><span id="dataSourceText">Data source:</span> <a href="https://earthquake.tmd.go.th/feed/rss_tmd.xml" target="_blank" rel="noopener">Thailand Meteorological Department</a></p>
+        <p><span id="dataSourceText">Data source:</span> <a href="https://earthquake.tmd.go.th/inside.html?ps=200" target="_blank" rel="noopener">Thailand Meteorological Department</a></p>
     </footer>
     
     <script src="script.js"></script>

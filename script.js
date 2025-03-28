@@ -17,6 +17,10 @@ const translations = {
         yAxisLabel: 'Magnitude',
         noData: 'No earthquake data available.',
         loadingError: 'Failed to load earthquake data. Please try again later.',
+        timeFilterLabel: 'Time range:',
+        timeFilterRecent: 'Recent events (after Mar 28)',
+        timeFilterAll: 'All events',
+        eventsShown: 'Showing {count} events'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -35,17 +39,31 @@ const translations = {
         yAxisLabel: 'ขนาด',
         noData: 'ไม่พบข้อมูลแผ่นดินไหว',
         loadingError: 'ไม่สามารถโหลดข้อมูลแผ่นดินไหวได้ กรุณาลองใหม่อีกครั้ง',
+        timeFilterLabel: 'ช่วงเวลา:',
+        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค.)',
+        timeFilterAll: 'เหตุการณ์ทั้งหมด',
+        eventsShown: 'กำลังแสดง {count} เหตุการณ์'
     }
 };
 
 // Current language
 let currentLang = localStorage.getItem('earthquakeAppLang') || 'en';
 
+// Current time filter setting
+let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'recent';
+
+// Cut-off date for recent events (March 28, 2025)
+const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
+
+// Store all earthquake data
+let allEarthquakeData = [];
+
 // DOM Elements for language switching
 let langElements;
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeLanguageSwitcher();
+    initializeTimeFilter();
     initializeTimeline();
 });
 
@@ -65,6 +83,7 @@ function initializeLanguageSwitcher() {
         labelCoordinates: document.getElementById('labelCoordinates'),
         labelDescription: document.getElementById('labelDescription'),
         dataSourceText: document.getElementById('dataSourceText'),
+        timeFilterLabel: document.getElementById('timeFilterLabel'),
     };
     
     // Set initial language
@@ -83,6 +102,36 @@ function initializeLanguageSwitcher() {
     updateLanguageButtons();
 }
 
+// Initialize time filter
+function initializeTimeFilter() {
+    // Set the filter dropdown to the saved value
+    const timeFilterSelect = document.getElementById('timeRangeFilter');
+    timeFilterSelect.value = currentTimeFilter;
+    
+    // Add event listener for filter changes
+    timeFilterSelect.addEventListener('change', (event) => {
+        currentTimeFilter = event.target.value;
+        localStorage.setItem('earthquakeAppTimeFilter', currentTimeFilter);
+        
+        // Re-render the timeline with the filtered data
+        if (allEarthquakeData.length > 0) {
+            renderTimeline(getFilteredEarthquakeData());
+        }
+    });
+    
+    // Update time filter options text based on language
+    updateTimeFilterOptions();
+}
+
+// Update time filter dropdown options based on selected language
+function updateTimeFilterOptions() {
+    const timeFilterSelect = document.getElementById('timeRangeFilter');
+    const options = timeFilterSelect.options;
+    
+    options[0].text = getText('timeFilterRecent');
+    options[1].text = getText('timeFilterAll');
+}
+
 // Set language and save preference
 function setLanguage(lang) {
     if (currentLang === lang) return;
@@ -92,11 +141,11 @@ function setLanguage(lang) {
     
     applyLanguage(lang);
     updateLanguageButtons();
+    updateTimeFilterOptions();
     
     // Re-render timeline with new language
-    const timelineElement = document.getElementById('timeline');
-    if (timelineElement && timelineElement.__earthquakeData) {
-        renderTimeline(timelineElement.__earthquakeData);
+    if (allEarthquakeData.length > 0) {
+        renderTimeline(getFilteredEarthquakeData());
     }
     
     // Update earthquake details if showing
@@ -131,16 +180,34 @@ function updateLanguageButtons() {
 }
 
 // Get translated text
-function getText(key) {
-    return translations[currentLang][key] || translations['en'][key];
+function getText(key, params = {}) {
+    let text = translations[currentLang][key] || translations['en'][key] || key;
+    
+    // Replace parameter placeholders
+    for (const [param, value] of Object.entries(params)) {
+        text = text.replace(`{${param}}`, value);
+    }
+    
+    return text;
+}
+
+// Get filtered earthquake data based on current filter settings
+function getFilteredEarthquakeData() {
+    if (currentTimeFilter === 'all' || !allEarthquakeData || allEarthquakeData.length === 0) {
+        return allEarthquakeData;
+    }
+    
+    // Filter for recent events (after March 28)
+    return allEarthquakeData.filter(eq => eq.time > RECENT_DATE_CUTOFF);
 }
 
 // Main function to initialize the timeline
 async function initializeTimeline() {
     try {
-        const earthquakeData = await fetchEarthquakeData();
-        if (earthquakeData && earthquakeData.length > 0) {
-            renderTimeline(earthquakeData);
+        allEarthquakeData = await fetchEarthquakeData();
+        if (allEarthquakeData && allEarthquakeData.length > 0) {
+            // Render the filtered data based on current filter setting
+            renderTimeline(getFilteredEarthquakeData());
             updateLastUpdateTime();
         } else {
             document.getElementById('timeline').innerHTML = `
@@ -160,38 +227,36 @@ async function initializeTimeline() {
     }
 }
 
-// Function to fetch and parse the RSS feed
+// Function to fetch and parse earthquake data
 async function fetchEarthquakeData() {
     try {
-        // Instead of using CORS proxies which might modify the XML structure,
-        // let's use a direct fetch with a sample data fallback
-        const targetUrl = 'https://earthquake.tmd.go.th/feed/rss_tmd.xml';
-        let xmlText = '';
+        // URL for the earthquake data webpage
+        const targetUrl = 'https://earthquake.tmd.go.th/inside.html?ps=200';
+        let htmlText = '';
         
         try {
-            // Try direct fetch first (will work if CORS is not an issue or running on the same domain)
+            // Try direct fetch first
             const response = await fetch(targetUrl, { 
-                headers: { 'Accept': 'application/xml, text/xml' },
+                headers: { 'Accept': 'text/html' },
                 mode: 'cors'
             });
             
             if (response.ok) {
-                xmlText = await response.text();
-                console.log("Successful direct fetch of RSS feed");
+                htmlText = await response.text();
+                console.log("Successful direct fetch of earthquake page");
             } else {
-                throw new Error("Direct fetch failed, trying with JSONP");
+                throw new Error("Direct fetch failed, trying with proxy");
             }
         } catch (directFetchError) {
             console.warn("Direct fetch failed:", directFetchError.message);
             
-            // Try with a simple proxy or JSONP approach
+            // Try with a simple proxy approach
             try {
-                // Use a simple fetch with a CORS proxy
                 const proxyUrl = 'https://api.allorigins.win/raw?url=';
                 const proxyResponse = await fetch(proxyUrl + encodeURIComponent(targetUrl));
                 
                 if (proxyResponse.ok) {
-                    xmlText = await proxyResponse.text();
+                    htmlText = await proxyResponse.text();
                     console.log("Successful fetch through CORS proxy");
                 } else {
                     throw new Error("Proxy fetch failed");
@@ -199,23 +264,17 @@ async function fetchEarthquakeData() {
             } catch (proxyError) {
                 console.warn("Proxy fetch failed:", proxyError.message);
                 // Use our sample data as a fallback
-                xmlText = getSampleEarthquakeData();
                 console.log("Using sample data as fallback");
+                return parseXmlSafely(getSampleEarthquakeData());
             }
         }
         
-        if (!xmlText) {
+        if (!htmlText) {
             throw new Error("Failed to retrieve earthquake data");
         }
         
-        // Log a snippet of the XML for debugging
-        console.log("XML data snippet (first 200 chars):", xmlText.substring(0, 200));
-        
-        // Sanitize the XML before parsing
-        const sanitizedXml = sanitizeXML(xmlText);
-        
-        // Parse the sanitized XML
-        return parseXmlSafely(sanitizedXml);
+        // Parse the HTML and extract earthquake data
+        return parseHtmlTableData(htmlText);
     } catch (error) {
         console.error('Error fetching earthquake data:', error);
         // Fallback to sample data if all fetching methods fail
@@ -224,32 +283,224 @@ async function fetchEarthquakeData() {
     }
 }
 
-// Function to sanitize XML and fix common issues
-function sanitizeXML(xmlText) {
-    if (!xmlText) return '';
-    
-    // Fix common XML issues
-    let sanitized = xmlText
-        // Remove any DOCTYPE declarations which can cause parsing issues
-        .replace(/<!DOCTYPE[^>]*>/i, '')
-        // Fix common namespace issues
-        .replace(/xmlns:(\w+)="([^"]+)"/g, (match) => {
-            // Keep the declaration but normalize it
-            return match.toLowerCase();
-        })
-        // Fix self-closing tags that are not properly closed
-        .replace(/<(meta|link|img|br|hr|input)([^>]*)>/gi, '<$1$2 />')
-        // Fix tags missing closing angle bracket
-        .replace(/<([a-z]+)([^>]*?[^/])\s+</gi, '<$1$2><')
-        // Remove any invalid control characters
-        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
-    
-    // Ensure the XML has proper root element
-    if (!sanitized.trim().startsWith('<?xml')) {
-        sanitized = '<?xml version="1.0" encoding="UTF-8"?>' + sanitized;
+// Function to parse the HTML table and extract earthquake data
+function parseHtmlTableData(htmlText) {
+    try {
+        // Create a DOM parser
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+        
+        // Find the main table containing earthquake data
+        const tables = htmlDoc.querySelectorAll('table');
+        console.log(`Found ${tables.length} tables in the HTML`);
+        
+        if (!tables || tables.length === 0) {
+            console.warn('No tables found in the HTML');
+            return [];
+        }
+        
+        // From the example, we know the table structure has columns like:
+        // Date/Time | Magnitude | Latitude | Longitude | Depth | Phases | Region
+        
+        // Look for the largest table with earthquake data
+        let dataTable = null;
+        let mostRows = 0;
+        
+        for (const table of tables) {
+            const rows = table.querySelectorAll('tr');
+            if (rows.length > mostRows) {
+                // Check if this looks like our earthquake table by sampling some cell content
+                const sampleCells = rows.length > 1 ? rows[1].querySelectorAll('td') : [];
+                
+                // Look for signs of earthquake data in cells (coordinates, magnitude values)
+                if (sampleCells.length >= 5) {
+                    const cellTexts = Array.from(sampleCells).map(cell => cell.textContent);
+                    const hasCoordinates = cellTexts.some(text => text.includes('°N') || text.includes('°E'));
+                    const hasMagnitude = cellTexts.some(text => /^\s*\d+\.\d+\s*$/.test(text));
+                    
+                    if (hasCoordinates || hasMagnitude) {
+                        dataTable = table;
+                        mostRows = rows.length;
+                    }
+                }
+            }
+        }
+        
+        if (!dataTable) {
+            console.warn('Could not identify the earthquake data table');
+            return [];
+        }
+        
+        // Extract rows from the data table
+        const rows = dataTable.querySelectorAll('tr');
+        console.log(`Found ${rows.length} rows in the earthquake table`);
+        
+        // First find the header row to determine column indices
+        let headerRow = rows[0];
+        const headerCells = headerRow.querySelectorAll('th');
+        
+        // Map column indices based on header text
+        const columnMap = {
+            dateTime: -1,
+            magnitude: -1,
+            latitude: -1,
+            longitude: -1,
+            depth: -1,
+            phases: -1,
+            region: -1
+        };
+        
+        // Extract column indices from header
+        for (let i = 0; i < headerCells.length; i++) {
+            const headerText = headerCells[i].textContent.toLowerCase();
+            
+            if (headerText.includes('วัน') || headerText.includes('origin time') || headerText.includes('date')) {
+                columnMap.dateTime = i;
+            } else if (headerText.includes('magnitude') || headerText.includes('ขนาด')) {
+                columnMap.magnitude = i;
+            } else if (headerText.includes('latitude')) {
+                columnMap.latitude = i;
+            } else if (headerText.includes('longitude')) {
+                columnMap.longitude = i;
+            } else if (headerText.includes('depth') || headerText.includes('ลึก')) {
+                columnMap.depth = i;
+            } else if (headerText.includes('phases')) {
+                columnMap.phases = i;
+            } else if (headerText.includes('region') || headerText.includes('บริเวณ') || headerText.includes('ศูนย์กลาง')) {
+                columnMap.region = i;
+            }
+        }
+        
+        // If we couldn't identify columns by header, use default indices based on TMD website structure
+        if (columnMap.dateTime === -1) columnMap.dateTime = 0;
+        if (columnMap.magnitude === -1) columnMap.magnitude = 1;
+        if (columnMap.latitude === -1) columnMap.latitude = 2;
+        if (columnMap.longitude === -1) columnMap.longitude = 3;
+        if (columnMap.depth === -1) columnMap.depth = 4;
+        if (columnMap.phases === -1) columnMap.phases = 5;
+        if (columnMap.region === -1) columnMap.region = 6;
+        
+        console.log('Column mapping:', columnMap);
+        
+        const earthquakes = [];
+        
+        // Process each row (skip header row)
+        for (let i = 1; i < rows.length; i++) {
+            try {
+                const row = rows[i];
+                const cells = row.querySelectorAll('td');
+                
+                if (cells.length < 5) continue; // Skip rows with insufficient cells
+                
+                // Extract cell data using our column mapping
+                const dateTimeCell = columnMap.dateTime >= 0 && cells[columnMap.dateTime] ? 
+                    cells[columnMap.dateTime].textContent.trim() : '';
+                    
+                const magnitudeCell = columnMap.magnitude >= 0 && cells[columnMap.magnitude] ? 
+                    cells[columnMap.magnitude].textContent.trim() : '';
+                    
+                const latitudeCell = columnMap.latitude >= 0 && cells[columnMap.latitude] ? 
+                    cells[columnMap.latitude].textContent.trim() : '';
+                    
+                const longitudeCell = columnMap.longitude >= 0 && cells[columnMap.longitude] ? 
+                    cells[columnMap.longitude].textContent.trim() : '';
+                    
+                const depthCell = columnMap.depth >= 0 && cells[columnMap.depth] ? 
+                    cells[columnMap.depth].textContent.trim() : '';
+                    
+                const locationCell = columnMap.region >= 0 && cells[columnMap.region] ? 
+                    cells[columnMap.region].textContent.trim() : '';
+                
+                // Process the dateTime field (which has Thai and UTC times)
+                // Format is typically: 2025-03-29 05:38:57 2025-03-28 22:38:57 UTC
+                const dateTimeParts = dateTimeCell.split(/UTC|GMT|\+0700/);
+                let thaiDateTime = '';
+                
+                if (dateTimeParts.length >= 2) {
+                    thaiDateTime = dateTimeParts[0].trim();
+                } else {
+                    thaiDateTime = dateTimeCell;
+                }
+                
+                // If the date format contains two dates (thai/utc), take the first one
+                if (thaiDateTime.match(/\d{4}-\d{2}-\d{2}.*\d{4}-\d{2}-\d{2}/)) {
+                    thaiDateTime = thaiDateTime.split(/\s+\d{4}-\d{2}-\d{2}/)[0].trim();
+                }
+                
+                // Parse magnitude (look for bold tags or just extract any number)
+                let magnitude = NaN;
+                const boldMagnitude = magnitudeCell.match(/<strong>([\d.]+)<\/strong>/);
+                if (boldMagnitude) {
+                    magnitude = parseFloat(boldMagnitude[1]);
+                } else {
+                    magnitude = parseFloat(magnitudeCell.replace(/[^\d.]/g, ''));
+                }
+                
+                // Parse coordinates
+                const latitudeMatch = latitudeCell.match(/([\d.]+)°?N?/);
+                const latitude = latitudeMatch ? parseFloat(latitudeMatch[1]) : NaN;
+                
+                const longitudeMatch = longitudeCell.match(/([\d.]+)°?E?/);
+                const longitude = longitudeMatch ? parseFloat(longitudeMatch[1]) : NaN;
+                
+                // Parse depth
+                const depth = parseFloat(depthCell);
+                
+                // Get earthquake link if available
+                let link = '';
+                const linkElement = row.querySelector('a');
+                if (linkElement && linkElement.href) {
+                    link = linkElement.href;
+                    // Fix relative URLs
+                    if (link.startsWith('./') || link.startsWith('/')) {
+                        link = 'https://earthquake.tmd.go.th' + (link.startsWith('/') ? link : link.substring(1));
+                    }
+                }
+                
+                // Process time
+                const timeObj = parseTimeString(thaiDateTime);
+                
+                // Log for debugging
+                console.log(`Processing: ${thaiDateTime} - Mag: ${magnitude} - Loc: ${locationCell}`);
+                
+                // Create earthquake object if we have valid critical data
+                if (!isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
+                    const earthquake = {
+                        title: locationCell,
+                        link: link,
+                        latitude: latitude,
+                        longitude: longitude,
+                        depth: depth,
+                        magnitude: magnitude,
+                        time: timeObj,
+                        comments: '',
+                        pubDate: new Date(),
+                        description: locationCell
+                    };
+                    earthquakes.push(earthquake);
+                } else {
+                    console.warn('Skipping earthquake with invalid data:', {
+                        dateTime: thaiDateTime,
+                        magnitude: magnitude,
+                        latitude: latitude,
+                        longitude: longitude
+                    });
+                }
+            } catch (rowError) {
+                console.error('Error parsing table row:', rowError);
+            }
+        }
+        
+        console.log(`Successfully extracted ${earthquakes.length} earthquakes`);
+        
+        // Sort by time (newest first) and handle invalid dates
+        return earthquakes
+            .filter(eq => eq.time && !isNaN(eq.time.getTime()))
+            .sort((a, b) => b.time - a.time);
+    } catch (error) {
+        console.error('Error parsing HTML table:', error);
+        return [];
     }
-    
-    return sanitized;
 }
 
 // Safe XML parsing with multiple fallback strategies
@@ -679,6 +930,12 @@ function renderTimeline(earthquakeData) {
     
     // Clear existing content
     document.getElementById('timeline').innerHTML = '';
+    
+    // Add event count information
+    const countInfo = document.createElement('div');
+    countInfo.className = 'event-count-info';
+    countInfo.textContent = getText('eventsShown', { count: earthquakeData.length });
+    document.getElementById('timeline').appendChild(countInfo);
     
     // Set up dimensions
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };

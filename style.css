@@ -18,7 +18,7 @@ body {
 }
 
 header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -69,6 +69,51 @@ h1 {
 .last-update {
     color: #6c757d;
     font-size: 0.9rem;
+}
+
+/* Filter controls */
+.filter-controls {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.time-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#timeFilterLabel {
+    font-weight: 500;
+    color: #495057;
+}
+
+#timeRangeFilter {
+    padding: 6px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#timeRangeFilter:hover {
+    border-color: #adb5bd;
+}
+
+#timeRangeFilter:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .chart-container {
@@ -179,4 +224,12 @@ footer a:hover {
     border-radius: 4px;
     margin: 20px 0;
     text-align: center;
+}
+
+.event-count-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 10px;
+    text-align: right;
+    padding-right: 10px;
 } 
