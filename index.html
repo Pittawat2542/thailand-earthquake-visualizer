@@ -3,12 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive visualization of earthquake data from Thailand and surrounding regions. View and filter earthquake events on a timeline.">
+    <meta name="description" content="Interactive timeline visualization of earthquake data from Thailand and surrounding regions. Real-time earthquake information from the Thai Meteorological Department.">
+    <meta name="keywords" content="earthquake, thailand, seismic activity, earthquake visualization, thai meteorological department, earthquake timeline">
+    <meta name="author" content="Pittawat Taveekitworachai">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pittawat2542.github.io/thailand-earthquake-visualizer/">
+    <meta property="og:title" content="Thailand Earthquake Timeline Visualization">
+    <meta property="og:description" content="Interactive timeline visualization of earthquake data from Thailand and surrounding regions. Real-time earthquake information from the Thai Meteorological Department.">
+    <meta property="og:image" content="https://pittawat2542.github.io/thailand-earthquake-visualizer/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pittawat2542.github.io/thailand-earthquake-visualizer/">
+    <meta property="twitter:title" content="Thailand Earthquake Timeline Visualization">
+    <meta property="twitter:description" content="Interactive timeline visualization of earthquake data from Thailand and surrounding regions. Real-time earthquake information from the Thai Meteorological Department.">
+    <meta property="twitter:image" content="https://pittawat2542.github.io/thailand-earthquake-visualizer/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#007bff">
-    <title>Thai Earthquake Timeline Visualization</title>
+    
+    <title>Thailand Earthquake Timeline Visualization</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Thailand Earthquake Timeline Visualization",
+        "description": "Interactive timeline visualization of earthquake data from Thailand and surrounding regions. Real-time earthquake information from the Thai Meteorological Department.",
+        "url": "https://pittawat2542.github.io/thailand-earthquake-visualizer/",
+        "applicationCategory": "Data Visualization",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Pittawat Taveekitworachai"
+        },
+        "dataProvider": {
+            "@type": "Organization",
+            "name": "Thai Meteorological Department",
+            "url": "https://earthquake.tmd.go.th/"
+        }
+    }
+    </script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.6.0/build/global/luxon.min.js"></script>
 </head>
 <body>
     <div class="container">
