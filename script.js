@@ -19,11 +19,12 @@ const translations = {
         noData: 'No earthquake data available.',
         loadingError: 'Failed to load earthquake data. Please try again later.',
         timeFilterLabel: 'Time range:',
-        timeFilterRecent: 'Recent events (after Mar 28)',
+        timeFilterRecent: 'Recent events (after Mar 28, 2025)',
         timeFilterAll: 'All events',
         eventsShown: 'Showing {count} events',
         resetZoom: 'Reset Zoom',
-        zoomHint: 'Scroll to zoom, drag to pan'
+        zoomHint: 'Scroll to zoom, drag to pan',
+        timezoneNote: 'All times shown are in GMT+7 (Thai time)'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -44,11 +45,12 @@ const translations = {
         noData: 'ไม่พบข้อมูลแผ่นดินไหว',
         loadingError: 'ไม่สามารถโหลดข้อมูลแผ่นดินไหวได้ กรุณาลองใหม่อีกครั้ง',
         timeFilterLabel: 'ช่วงเวลา:',
-        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค.)',
+        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค. 2568)',
         timeFilterAll: 'เหตุการณ์ทั้งหมด',
         eventsShown: 'กำลังแสดง {count} เหตุการณ์',
         resetZoom: 'รีเซ็ตการซูม',
-        zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน'
+        zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน',
+        timezoneNote: 'เวลาทั้งหมดแสดงในรูปแบบ GMT+7 (เวลาประเทศไทย)'
     }
 };
 
@@ -607,7 +609,18 @@ function parseTimeString(timeStr) {
     if (!timeStr) return null;
     
     try {
-        // Try direct Date parsing first
+        // Handle the case where we have both Thai time and UTC time without separator
+        // Format: "2025-03-05 18:33:062025-03-05 11:33:06"
+        const match = timeStr.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/);
+        if (match) {
+            // The first match is Thai time (GMT+7)
+            const thaiDate = new Date(match[1]);
+            if (!isNaN(thaiDate.getTime())) {
+                return thaiDate;
+            }
+        }
+        
+        // Try direct Date parsing as fallback
         const date = new Date(timeStr);
         if (!isNaN(date.getTime())) {
             return date;
@@ -708,6 +721,12 @@ function renderTimeline(earthquakeData) {
     countInfo.className = 'event-count-info';
     countInfo.textContent = getText('eventsShown', { count: earthquakeData.length });
     document.getElementById('timeline').appendChild(countInfo);
+    
+    // Add timezone information
+    const timezoneInfo = document.createElement('div');
+    timezoneInfo.className = 'timezone-info';
+    timezoneInfo.textContent = getText('timezoneNote');
+    document.getElementById('timeline').appendChild(timezoneInfo);
     
     // Set up dimensions
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };
@@ -1046,7 +1065,6 @@ function formatDate(date) {
     if (!date) return 'Unknown';
     
     return luxon.DateTime.fromJSDate(date)
-        .setZone('Asia/Bangkok')
         .toFormat('dd MMM yyyy HH:mm:ss');
 }
 
