@@ -1,6 +1,139 @@
+// Translation data
+const translations = {
+    'en': {
+        pageTitle: 'Thailand Earthquake Timeline',
+        lastUpdate: 'Last update:',
+        detailsTitle: 'Earthquake Information',
+        noSelection: 'Select an earthquake point to view details',
+        labelLocation: 'Location:',
+        labelDateTime: 'Date & Time:',
+        labelMagnitude: 'Magnitude:',
+        labelDepth: 'Depth:',
+        labelKm: 'km',
+        labelCoordinates: 'Coordinates:',
+        labelDescription: 'Description:',
+        dataSourceText: 'Data source:',
+        xAxisLabel: 'Date & Time',
+        yAxisLabel: 'Magnitude',
+        noData: 'No earthquake data available.',
+        loadingError: 'Failed to load earthquake data. Please try again later.',
+    },
+    'th': {
+        pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
+        lastUpdate: 'อัปเดตล่าสุด:',
+        detailsTitle: 'ข้อมูลแผ่นดินไหว',
+        noSelection: 'เลือกจุดบนไทม์ไลน์เพื่อดูรายละเอียด',
+        labelLocation: 'ตำแหน่ง:',
+        labelDateTime: 'วันที่และเวลา:',
+        labelMagnitude: 'ขนาด:',
+        labelDepth: 'ความลึก:',
+        labelKm: 'กม.',
+        labelCoordinates: 'พิกัด:',
+        labelDescription: 'รายละเอียด:',
+        dataSourceText: 'แหล่งข้อมูล:',
+        xAxisLabel: 'วันที่และเวลา',
+        yAxisLabel: 'ขนาด',
+        noData: 'ไม่พบข้อมูลแผ่นดินไหว',
+        loadingError: 'ไม่สามารถโหลดข้อมูลแผ่นดินไหวได้ กรุณาลองใหม่อีกครั้ง',
+    }
+};
+
+// Current language
+let currentLang = localStorage.getItem('earthquakeAppLang') || 'en';
+
+// DOM Elements for language switching
+let langElements;
+
 document.addEventListener('DOMContentLoaded', () => {
+    initializeLanguageSwitcher();
     initializeTimeline();
 });
+
+// Initialize language switcher
+function initializeLanguageSwitcher() {
+    // Define elements that need text updates for language change
+    langElements = {
+        pageTitle: document.getElementById('pageTitle'),
+        lastUpdate: document.getElementById('lastUpdate'),
+        detailsTitle: document.getElementById('detailsTitle'),
+        noSelection: document.getElementById('noSelection'),
+        labelLocation: document.getElementById('labelLocation'),
+        labelDateTime: document.getElementById('labelDateTime'),
+        labelMagnitude: document.getElementById('labelMagnitude'),
+        labelDepth: document.getElementById('labelDepth'),
+        labelKm: document.getElementById('labelKm'),
+        labelCoordinates: document.getElementById('labelCoordinates'),
+        labelDescription: document.getElementById('labelDescription'),
+        dataSourceText: document.getElementById('dataSourceText'),
+    };
+    
+    // Set initial language
+    applyLanguage(currentLang);
+    
+    // Add event listeners to language buttons
+    document.getElementById('langEn').addEventListener('click', () => {
+        setLanguage('en');
+    });
+    
+    document.getElementById('langTh').addEventListener('click', () => {
+        setLanguage('th');
+    });
+    
+    // Update button active state
+    updateLanguageButtons();
+}
+
+// Set language and save preference
+function setLanguage(lang) {
+    if (currentLang === lang) return;
+    
+    currentLang = lang;
+    localStorage.setItem('earthquakeAppLang', lang);
+    
+    applyLanguage(lang);
+    updateLanguageButtons();
+    
+    // Re-render timeline with new language
+    const timelineElement = document.getElementById('timeline');
+    if (timelineElement && timelineElement.__earthquakeData) {
+        renderTimeline(timelineElement.__earthquakeData);
+    }
+    
+    // Update earthquake details if showing
+    const detailsContent = document.getElementById('detailsContent');
+    if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
+        showEarthquakeDetails(detailsContent.__earthquakeData);
+    }
+}
+
+// Apply translations to DOM elements
+function applyLanguage(lang) {
+    const texts = translations[lang];
+    
+    // Update text for all language elements
+    for (const [key, element] of Object.entries(langElements)) {
+        if (element && texts[key]) {
+            // Special case for lastUpdate that contains dynamic content
+            if (key === 'lastUpdate') {
+                const timeText = element.textContent.split(': ')[1] || '';
+                element.textContent = `${texts[key]} ${timeText}`;
+            } else {
+                element.textContent = texts[key];
+            }
+        }
+    }
+}
+
+// Update language button active states
+function updateLanguageButtons() {
+    document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
+    document.getElementById('langTh').classList.toggle('active', currentLang === 'th');
+}
+
+// Get translated text
+function getText(key) {
+    return translations[currentLang][key] || translations['en'][key];
+}
 
 // Main function to initialize the timeline
 async function initializeTimeline() {
@@ -12,7 +145,7 @@ async function initializeTimeline() {
         } else {
             document.getElementById('timeline').innerHTML = `
                 <div class="error-message">
-                    <p>No earthquake data available. Please try again later.</p>
+                    <p>${getText('noData')}</p>
                 </div>
             `;
         }
@@ -20,7 +153,7 @@ async function initializeTimeline() {
         console.error('Error initializing timeline:', error);
         document.getElementById('timeline').innerHTML = `
             <div class="error-message">
-                <p>Failed to load earthquake data. Please try again later.</p>
+                <p>${getText('loadingError')}</p>
                 <p>Error: ${error.message}</p>
             </div>
         `;
@@ -537,9 +670,12 @@ function getSampleEarthquakeData() {
 // Function to render the D3 timeline visualization
 function renderTimeline(earthquakeData) {
     if (!earthquakeData || earthquakeData.length === 0) {
-        document.getElementById('timeline').innerHTML = '<p>No earthquake data available.</p>';
+        document.getElementById('timeline').innerHTML = `<p>${getText('noData')}</p>`;
         return;
     }
+    
+    // Store data reference for language switching
+    document.getElementById('timeline').__earthquakeData = earthquakeData;
     
     // Clear existing content
     document.getElementById('timeline').innerHTML = '';
@@ -578,7 +714,7 @@ function renderTimeline(earthquakeData) {
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
         .attr('y', height + margin.bottom - 10)
-        .text('Date & Time')
+        .text(getText('xAxisLabel'))
         .attr('fill', '#666');
     
     // Add Y axis
@@ -592,7 +728,7 @@ function renderTimeline(earthquakeData) {
         .attr('transform', 'rotate(-90)')
         .attr('y', -margin.left + 15)
         .attr('x', -height / 2)
-        .text('Magnitude')
+        .text(getText('yAxisLabel'))
         .attr('fill', '#666');
     
     // Create a tooltip div
@@ -626,8 +762,8 @@ function renderTimeline(earthquakeData) {
                 
             tooltip.html(`
                 <strong>${d.title}</strong><br/>
-                Magnitude: ${d.magnitude}<br/>
-                Date: ${formatDate(d.time)}
+                ${getText('labelMagnitude')} ${d.magnitude}<br/>
+                ${getText('labelDateTime')} ${formatDate(d.time)}
             `)
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 28) + 'px');
@@ -671,6 +807,9 @@ function showEarthquakeDetails(earthquake) {
     const detailsContent = document.getElementById('detailsContent');
     const noSelection = document.querySelector('.no-selection');
     
+    // Store data for language switching
+    detailsContent.__earthquakeData = earthquake;
+    
     // Hide "no selection" message and show details
     noSelection.style.display = 'none';
     detailsContent.style.display = 'block';
@@ -700,5 +839,5 @@ function updateLastUpdateTime() {
         .setZone('Asia/Bangkok')
         .toFormat('dd MMM yyyy HH:mm:ss');
         
-    document.getElementById('lastUpdate').textContent = `Last update: ${formattedDate}`;
+    document.getElementById('lastUpdate').textContent = `${getText('lastUpdate')} ${formattedDate}`;
 } 

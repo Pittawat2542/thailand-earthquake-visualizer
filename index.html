@@ -11,7 +11,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>Thailand Earthquake Timeline</h1>
+            <div class="header-top">
+                <h1 id="pageTitle">Thailand Earthquake Timeline</h1>
+                <div class="language-switcher">
+                    <button id="langTh" class="lang-btn">ไทย</button>
+                    <button id="langEn" class="lang-btn active">English</button>
+                </div>
+            </div>
             <div class="last-update" id="lastUpdate">Last update: Loading...</div>
         </header>
         
@@ -20,21 +26,21 @@
         </div>
         
         <div class="earthquake-details" id="earthquakeDetails">
-            <h2>Earthquake Information</h2>
-            <div class="no-selection">Select an earthquake point to view details</div>
+            <h2 id="detailsTitle">Earthquake Information</h2>
+            <div class="no-selection" id="noSelection">Select an earthquake point to view details</div>
             <div class="details-content" id="detailsContent" style="display: none;">
-                <div class="detail-item"><strong>Location:</strong> <span id="location"></span></div>
-                <div class="detail-item"><strong>Date & Time:</strong> <span id="datetime"></span></div>
-                <div class="detail-item"><strong>Magnitude:</strong> <span id="magnitude"></span></div>
-                <div class="detail-item"><strong>Depth:</strong> <span id="depth"></span> km</div>
-                <div class="detail-item"><strong>Coordinates:</strong> <span id="coordinates"></span></div>
-                <div class="detail-item"><strong>Description:</strong> <span id="description"></span></div>
+                <div class="detail-item"><strong id="labelLocation">Location:</strong> <span id="location"></span></div>
+                <div class="detail-item"><strong id="labelDateTime">Date & Time:</strong> <span id="datetime"></span></div>
+                <div class="detail-item"><strong id="labelMagnitude">Magnitude:</strong> <span id="magnitude"></span></div>
+                <div class="detail-item"><strong id="labelDepth">Depth:</strong> <span id="depth"></span> <span id="labelKm">km</span></div>
+                <div class="detail-item"><strong id="labelCoordinates">Coordinates:</strong> <span id="coordinates"></span></div>
+                <div class="detail-item"><strong id="labelDescription">Description:</strong> <span id="description"></span></div>
             </div>
         </div>
     </div>
     
     <footer>
-        <p>Data source: <a href="https://earthquake.tmd.go.th/feed/rss_tmd.xml" target="_blank" rel="noopener">Thailand Meteorological Department</a></p>
+        <p><span id="dataSourceText">Data source:</span> <a href="https://earthquake.tmd.go.th/feed/rss_tmd.xml" target="_blank" rel="noopener">Thailand Meteorological Department</a></p>
     </footer>
     
     <script src="script.js"></script>
