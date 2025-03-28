@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Earthquake Timeline Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thailand Earthquake Timeline</h1>
+            <div class="last-update" id="lastUpdate">Last update: Loading...</div>
+        </header>
+        
+        <div class="chart-container">
+            <div id="timeline"></div>
+        </div>
+        
+        <div class="earthquake-details" id="earthquakeDetails">
+            <h2>Earthquake Information</h2>
+            <div class="no-selection">Select an earthquake point to view details</div>
+            <div class="details-content" id="detailsContent" style="display: none;">
+                <div class="detail-item"><strong>Location:</strong> <span id="location"></span></div>
+                <div class="detail-item"><strong>Date & Time:</strong> <span id="datetime"></span></div>
+                <div class="detail-item"><strong>Magnitude:</strong> <span id="magnitude"></span></div>
+                <div class="detail-item"><strong>Depth:</strong> <span id="depth"></span> km</div>
+                <div class="detail-item"><strong>Coordinates:</strong> <span id="coordinates"></span></div>
+                <div class="detail-item"><strong>Description:</strong> <span id="description"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Data source: <a href="https://earthquake.tmd.go.th/feed/rss_tmd.xml" target="_blank" rel="noopener">Thailand Meteorological Department</a></p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
