@@ -2,28 +2,6 @@
 
 An interactive visualization tool for earthquake data from Thailand and surrounding regions. This application displays earthquake information from the Thai Meteorological Department's website in an easy-to-understand timeline format.
 
-## Features
-
-- Interactive timeline visualization of earthquake data
-- Zoomable timeline with pan and zoom controls
-- Visual zoom hint to guide users on timeline interaction
-- Data scraping directly from the Thai Meteorological Department's website
-- Visual representation of earthquake magnitude using dot size
-- Color-coding of earthquakes based on magnitude
-- Time range filtering (recent events or all historical events)
-- Detailed information display when selecting an earthquake
-- Responsive design for various screen sizes
-- Language switching between English and Thai
-- Data persistence using local storage for language preference and filter settings
-
-## Technology Stack
-
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- D3.js (for data visualization and interactive zooming)
-- Luxon (for date/time handling)
-
 ## How to Use
 
 1. Open `index.html` in a web browser
@@ -45,38 +23,7 @@ The earthquake data is now sourced directly from the Thai Meteorological Departm
 
 This page provides a more comprehensive and up-to-date list of earthquakes than the previously used RSS feed.
 
-## Interactivity
 
-### Timeline Navigation
-- **Zoom**: Use mouse wheel/touchpad to zoom in and out of the timeline
-- **Pan**: Click and drag horizontally to move through the timeline when zoomed in
-- **Reset**: Click the "Reset Zoom" button (appears when zoomed in) to return to the default view
-- **Zoom Hint**: A subtle visual cue helps new users discover the zoom functionality
-
-### Data Filtering
-
-- **Recent Events**: By default, only shows earthquakes that occurred after March 28, 2025
-- **All Events**: Option to view the complete historical dataset
-- The filter preference is saved in localStorage for persistence between sessions
-
-## Data Fetching Approach
-
-The application uses a robust approach to ensure reliable data fetching:
-
-1. Direct HTML scraping: Parses the HTML table from the TMD website
-2. CORS proxy fallback: Uses a proxy service if direct access fails
-3. Intelligent table detection: Automatically identifies the earthquake data table
-4. Data extraction: Extracts and formats data from table cells
-5. Comprehensive error handling: Detailed logging and validation at all stages
-6. Sample data fallback: Provides demonstration data if live data cannot be accessed
-
-## Example Data Structure
-
-The application extracts data from an HTML table with the following structure:
-
-| Date/Time | Magnitude | Latitude | Longitude | Depth | Phases | Region |
-|-----------|-----------|----------|-----------|-------|--------|--------|
-| 2025-03-29 05:38:57<br>2025-03-28 22:38:57 UTC | 4.0 | 21.708°N | 96.5°E | 10 | 19 | ประเทศเมียนมา<br>Myanmar |
 
 ## Local Development
 
@@ -97,33 +44,17 @@ Then visit `http://localhost:8000` in your browser.
 
 This project is open source and available under the MIT License.
 
-## Repository
+## Contributing
 
-The source code is available on GitHub:
-[https://github.com/Pittawat2542/thailand-earthquake-visualizer](https://github.com/Pittawat2542/thailand-earthquake-visualizer)
+Contributions to this project are welcome and appreciated! If you'd like to contribute, here are some ways you can help:
 
-## Notes
-
-- The application detects when running on GitHub Pages and automatically uses CORS proxies to handle cross-origin restrictions
-- The application uses multiple proxy fallbacks for reliable data fetching in different environments
-- Earthquake times are displayed in Thailand's time zone (Asia/Bangkok)
-- The visualization works with data scraped directly from the Thai Meteorological Department's website
-- Language switching and filter preferences persist between sessions using browser local storage
-
-## GitHub Pages Deployment
-
-The application is deployed on GitHub Pages and can be accessed at:
-[https://pittawat2542.github.io/thailand-earthquake-visualizer/](https://pittawat2542.github.io/thailand-earthquake-visualizer/)
-
-### CORS Handling
-
-When deployed on GitHub Pages, the application automatically detects its hosting environment and uses CORS proxies to fetch data from the Thai Meteorological Department website. This is necessary because:
-
-1. The TMD website does not have CORS headers that allow cross-origin requests from GitHub Pages
-2. GitHub Pages is served over HTTPS and cannot load resources from non-HTTPS sources
-3. Direct API/data access is blocked by default for security reasons
-
-The application implements a multi-layered approach for data fetching:
-- Primary proxy: corsproxy.io
-- Backup proxy: allorigins.win
-- Fallback: Sample data for demonstration when all proxy attempts fail 
+- **Bug Reports**: If you find a bug, please create an issue with detailed steps to reproduce it.
+- **Feature Requests**: Have ideas for new features? Open an issue to suggest them.
+- **Code Contributions**: Feel free to fork the repository and submit pull requests.
+  - Improve the visualization
+  - Add new data filters
+  - Enhance mobile experience
+  - Optimize performance
+  - Add new features
+- **Documentation**: Help improve or translate the documentation.
+- **Translations**: Contribute additional language translations.
