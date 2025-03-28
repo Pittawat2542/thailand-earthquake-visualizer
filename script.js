@@ -19,7 +19,7 @@ const translations = {
         noData: 'No earthquake data available.',
         loadingError: 'Failed to load earthquake data. Please try again later.',
         timeFilterLabel: 'Time range:',
-        timeFilterRecent: 'Recent events (after Mar 28)',
+        timeFilterRecent: 'Recent events (after Mar 28, 2025 12:00:00Z)',
         timeFilterAll: 'All events',
         eventsShown: 'Showing {count} events',
         resetZoom: 'Reset Zoom',
@@ -44,7 +44,7 @@ const translations = {
         noData: 'ไม่พบข้อมูลแผ่นดินไหว',
         loadingError: 'ไม่สามารถโหลดข้อมูลแผ่นดินไหวได้ กรุณาลองใหม่อีกครั้ง',
         timeFilterLabel: 'ช่วงเวลา:',
-        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค.)',
+        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค. 2568 12:00:00Z)',
         timeFilterAll: 'เหตุการณ์ทั้งหมด',
         eventsShown: 'กำลังแสดง {count} เหตุการณ์',
         resetZoom: 'รีเซ็ตการซูม',
@@ -59,7 +59,7 @@ let currentLang = localStorage.getItem('earthquakeAppLang') || 'en';
 let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'recent';
 
 // Cut-off date for recent events (March 28, 2025)
-const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
+const RECENT_DATE_CUTOFF = new Date('2025-03-28T12:00:00Z');
 
 // Store all earthquake data
 let allEarthquakeData = [];
@@ -350,256 +350,42 @@ async function fetchEarthquakeData() {
 }
 
 // Function to parse the HTML table and extract earthquake data
-function parseHtmlTableData(htmlText) {
-    try {
-        // Create a DOM parser
-        const parser = new DOMParser();
-        const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+function parseHtmlTableData(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const table = doc.querySelector('table');
+    const rows = Array.from(table.querySelectorAll('tr')).slice(1); // Skip header row
+
+    return rows.map(row => {
+        const cells = row.querySelectorAll('td');
+        const dateStr = cells[0].textContent.trim();
+        const timeStr = cells[1].textContent.trim();
+        const latitude = parseFloat(cells[2].textContent.trim());
+        const longitude = parseFloat(cells[3].textContent.trim());
+        const depth = parseFloat(cells[4].textContent.trim());
+        const magnitude = parseFloat(cells[5].textContent.trim());
+        const location = cells[6].textContent.trim();
+
+        // Parse date and time
+        const [day, month, year] = dateStr.split('/').map(Number);
+        const [hour, minute, second] = timeStr.split(':').map(Number);
         
-        // Find the main table containing earthquake data
-        let tables = htmlDoc.querySelectorAll('table');
-        console.log(`Found ${tables.length} tables in the HTML`);
+        // Create UTC date
+        const utcDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
         
-        if (!tables || tables.length === 0) {
-            console.warn('No tables found in the HTML, trying to parse the body directly');
-            
-            // Some proxies might change the structure, try to find tables in body
-            const bodyContent = htmlDoc.querySelector('body');
-            if (bodyContent) {
-                // Create a temporary div to parse the potential HTML within the response
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = bodyContent.innerHTML;
-                tables = tempDiv.querySelectorAll('table');
-                console.log(`Found ${tables.length} tables after body parsing`);
-            }
-            
-            if (!tables || tables.length === 0) {
-                return [];
-            }
-        }
-        
-        // From the example, we know the table structure has columns like:
-        // Date/Time | Magnitude | Latitude | Longitude | Depth | Phases | Region
-        
-        // Look for the largest table with earthquake data
-        let dataTable = null;
-        let mostRows = 0;
-        
-        for (const table of tables) {
-            const rows = table.querySelectorAll('tr');
-            if (rows.length > mostRows) {
-                // Check if this looks like our earthquake table by sampling some cell content
-                const sampleCells = rows.length > 1 ? rows[1].querySelectorAll('td') : [];
-                
-                // Look for signs of earthquake data in cells (coordinates, magnitude values)
-                if (sampleCells.length >= 5) {
-                    const cellTexts = Array.from(sampleCells).map(cell => cell.textContent);
-                    const hasCoordinates = cellTexts.some(text => 
-                        text.includes('°N') || text.includes('°E') || 
-                        text.includes('N') || text.includes('E') ||
-                        /\d+\.\d+/.test(text)
-                    );
-                    const hasMagnitude = cellTexts.some(text => /^\s*\d+\.\d+\s*$/.test(text));
-                    
-                    if (hasCoordinates || hasMagnitude) {
-                        dataTable = table;
-                        mostRows = rows.length;
-                    }
-                }
-            }
-        }
-        
-        if (!dataTable) {
-            console.warn('Could not identify the earthquake data table, trying the largest table');
-            
-            // Fallback to the largest table
-            for (const table of tables) {
-                const rows = table.querySelectorAll('tr');
-                if (rows.length > mostRows) {
-                    dataTable = table;
-                    mostRows = rows.length;
-                }
-            }
-            
-            if (!dataTable) {
-                console.error('No suitable table found');
-                return [];
-            }
-        }
-        
-        // Extract rows from the data table
-        const rows = dataTable.querySelectorAll('tr');
-        console.log(`Found ${rows.length} rows in the earthquake table`);
-        
-        // First find the header row to determine column indices
-        let headerRow = rows[0];
-        const headerCells = headerRow.querySelectorAll('th');
-        
-        // Map column indices based on header text
-        const columnMap = {
-            dateTime: -1,
-            magnitude: -1,
-            latitude: -1,
-            longitude: -1,
-            depth: -1,
-            phases: -1,
-            region: -1
+        // Convert to Thai time (UTC+7)
+        const thaiDate = new Date(utcDate.getTime() + (7 * 60 * 60 * 1000));
+
+        return {
+            date: thaiDate,
+            latitude,
+            longitude,
+            depth,
+            magnitude,
+            location,
+            utcDate // Keep original UTC date for reference
         };
-        
-        // Extract column indices from header
-        for (let i = 0; i < headerCells.length; i++) {
-            const headerText = headerCells[i].textContent.toLowerCase();
-            
-            if (headerText.includes('วัน') || headerText.includes('origin time') || headerText.includes('date')) {
-                columnMap.dateTime = i;
-            } else if (headerText.includes('magnitude') || headerText.includes('ขนาด')) {
-                columnMap.magnitude = i;
-            } else if (headerText.includes('latitude')) {
-                columnMap.latitude = i;
-            } else if (headerText.includes('longitude')) {
-                columnMap.longitude = i;
-            } else if (headerText.includes('depth') || headerText.includes('ลึก')) {
-                columnMap.depth = i;
-            } else if (headerText.includes('phases')) {
-                columnMap.phases = i;
-            } else if (headerText.includes('region') || headerText.includes('บริเวณ') || headerText.includes('ศูนย์กลาง')) {
-                columnMap.region = i;
-            }
-        }
-        
-        // If we couldn't identify columns by header, use default indices based on TMD website structure
-        if (columnMap.dateTime === -1) columnMap.dateTime = 0;
-        if (columnMap.magnitude === -1) columnMap.magnitude = 1;
-        if (columnMap.latitude === -1) columnMap.latitude = 2;
-        if (columnMap.longitude === -1) columnMap.longitude = 3;
-        if (columnMap.depth === -1) columnMap.depth = 4;
-        if (columnMap.phases === -1) columnMap.phases = 5;
-        if (columnMap.region === -1) columnMap.region = 6;
-        
-        console.log('Column mapping:', columnMap);
-        
-        const earthquakes = [];
-        
-        // Process each row (skip header row)
-        for (let i = 1; i < rows.length; i++) {
-            try {
-                const row = rows[i];
-                const cells = row.querySelectorAll('td');
-                
-                if (cells.length < 5) continue; // Skip rows with insufficient cells
-                
-                // Extract cell data using our column mapping
-                const dateTimeCell = columnMap.dateTime >= 0 && cells[columnMap.dateTime] ? 
-                    cells[columnMap.dateTime].textContent.trim() : '';
-                    
-                const magnitudeCell = columnMap.magnitude >= 0 && cells[columnMap.magnitude] ? 
-                    cells[columnMap.magnitude].textContent.trim() : '';
-                    
-                const latitudeCell = columnMap.latitude >= 0 && cells[columnMap.latitude] ? 
-                    cells[columnMap.latitude].textContent.trim() : '';
-                    
-                const longitudeCell = columnMap.longitude >= 0 && cells[columnMap.longitude] ? 
-                    cells[columnMap.longitude].textContent.trim() : '';
-                    
-                const depthCell = columnMap.depth >= 0 && cells[columnMap.depth] ? 
-                    cells[columnMap.depth].textContent.trim() : '';
-                    
-                const locationCell = columnMap.region >= 0 && cells[columnMap.region] ? 
-                    cells[columnMap.region].textContent.trim() : '';
-                
-                // Process the dateTime field (which has Thai and UTC times)
-                // Format is typically: 2025-03-29 05:38:57 2025-03-28 22:38:57 UTC
-                const dateTimeParts = dateTimeCell.split(/UTC|GMT|\+0700/);
-                let thaiDateTime = '';
-                
-                if (dateTimeParts.length >= 2) {
-                    thaiDateTime = dateTimeParts[0].trim();
-                } else {
-                    thaiDateTime = dateTimeCell;
-                }
-                
-                // If the date format contains two dates (thai/utc), take the first one
-                if (thaiDateTime.match(/\d{4}-\d{2}-\d{2}.*\d{4}-\d{2}-\d{2}/)) {
-                    thaiDateTime = thaiDateTime.split(/\s+\d{4}-\d{2}-\d{2}/)[0].trim();
-                }
-                
-                // Parse magnitude (look for bold tags or just extract any number)
-                let magnitude = NaN;
-                const boldMagnitude = magnitudeCell.match(/<strong>([\d.]+)<\/strong>/);
-                if (boldMagnitude) {
-                    magnitude = parseFloat(boldMagnitude[1]);
-                } else {
-                    // Extract any number from the text
-                    const magMatch = magnitudeCell.match(/(\d+\.\d+)/);
-                    magnitude = magMatch ? parseFloat(magMatch[1]) : parseFloat(magnitudeCell.replace(/[^\d.]/g, ''));
-                }
-                
-                // Parse coordinates
-                const latitudeMatch = latitudeCell.match(/([\d.]+)°?N?/);
-                const latitude = latitudeMatch ? parseFloat(latitudeMatch[1]) : NaN;
-                
-                const longitudeMatch = longitudeCell.match(/([\d.]+)°?E?/);
-                const longitude = longitudeMatch ? parseFloat(longitudeMatch[1]) : NaN;
-                
-                // Parse depth
-                const depthMatch = depthCell.match(/(\d+(?:\.\d+)?)/);
-                const depth = depthMatch ? parseFloat(depthMatch[1]) : NaN;
-                
-                // Get earthquake link if available
-                let link = '';
-                const linkElement = row.querySelector('a');
-                if (linkElement && linkElement.href) {
-                    link = linkElement.href;
-                    // Fix relative URLs
-                    if (link.startsWith('./') || link.startsWith('/')) {
-                        link = 'https://earthquake.tmd.go.th' + (link.startsWith('/') ? link : link.substring(1));
-                    }
-                }
-                
-                // Process time
-                const timeObj = parseTimeString(thaiDateTime);
-                
-                // Log for debugging
-                console.log(`Processing: ${thaiDateTime} - Mag: ${magnitude} - Loc: ${locationCell}`);
-                
-                // Create earthquake object if we have valid critical data
-                if (!isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
-                    const earthquake = {
-                        title: locationCell,
-                        link: link,
-                        latitude: latitude,
-                        longitude: longitude,
-                        depth: depth,
-                        magnitude: magnitude,
-                        time: timeObj,
-                        comments: '',
-                        pubDate: new Date(),
-                        description: locationCell
-                    };
-                    earthquakes.push(earthquake);
-                } else {
-                    console.warn('Skipping earthquake with invalid data:', {
-                        dateTime: thaiDateTime,
-                        magnitude: magnitude,
-                        latitude: latitude,
-                        longitude: longitude
-                    });
-                }
-            } catch (rowError) {
-                console.error('Error parsing table row:', rowError);
-            }
-        }
-        
-        console.log(`Successfully extracted ${earthquakes.length} earthquakes`);
-        
-        // Sort by time (newest first) and handle invalid dates
-        return earthquakes
-            .filter(eq => eq.time && !isNaN(eq.time.getTime()))
-            .sort((a, b) => b.time - a.time);
-    } catch (error) {
-        console.error('Error parsing HTML table:', error);
-        return [];
-    }
+    });
 }
 
 // Helper to parse time strings in various formats
@@ -778,7 +564,7 @@ function renderTimeline(earthquakeData) {
         .attr('transform', `translate(${margin.left},${margin.top})`);
     
     // Set up scales
-    const timeExtent = d3.extent(earthquakeData, d => d.time);
+    const timeExtent = d3.extent(earthquakeData, d => d.date);
     // Add a small buffer to the time domain to avoid points at the edge
     const timeRange = timeExtent[1] - timeExtent[0];
     const bufferTime = timeRange * 0.05;
@@ -880,7 +666,7 @@ function renderTimeline(earthquakeData) {
         .enter()
         .append('circle')
         .attr('class', 'timeline-point')
-        .attr('cx', d => xScale(d.time))
+        .attr('cx', d => xScale(d.date))
         .attr('cy', d => yScale(d.magnitude))
         .attr('r', d => calculatePointRadius(d.magnitude)) // Dynamic sizing function
         .attr('fill', d => getColorByMagnitude(d.magnitude))
@@ -898,9 +684,9 @@ function renderTimeline(earthquakeData) {
                 .style('opacity', 0.9);
                 
             tooltip.html(`
-                <strong>${d.title}</strong><br/>
-                ${getText('labelMagnitude')} ${d.magnitude}<br/>
-                ${getText('labelDateTime')} ${formatDate(d.time)}
+                <strong>${d.location}</strong><br/>
+                ${getText('labelMagnitude')} ${d.magnitude.toFixed(1)}<br/>
+                ${getText('labelDateTime')} ${formatDate(d.date)}
             `)
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 28) + 'px');
@@ -965,7 +751,7 @@ function renderTimeline(earthquakeData) {
         xAxisGroup.call(xAxis.scale(newXScale));
         
         // Update points position
-        points.attr('cx', d => newXScale(d.time));
+        points.attr('cx', d => newXScale(d.date));
         
         // Show reset button when zoomed
         resetButton.style('display', 'block');
@@ -1008,37 +794,47 @@ function getColorByMagnitude(magnitude) {
 
 // Function to display earthquake details
 function showEarthquakeDetails(earthquake) {
-    const detailsContent = document.getElementById('detailsContent');
-    const noSelection = document.querySelector('.no-selection');
+    const details = document.getElementById('earthquakeDetails');
+    const magnitude = earthquake.magnitude;
+    const magnitudeClass = magnitude >= 6 ? 'magnitude-high' : 
+                          magnitude >= 5 ? 'magnitude-medium' : 'magnitude-low';
     
-    // Store data for language switching
-    detailsContent.__earthquakeData = earthquake;
+    // Format dates in Thai timezone
+    const thaiDate = luxon.DateTime.fromJSDate(earthquake.date)
+        .setZone('Asia/Bangkok')
+        .toFormat('dd/MM/yyyy HH:mm:ss');
     
-    // Hide "no selection" message and show details
-    noSelection.style.display = 'none';
-    detailsContent.style.display = 'block';
-    
-    // Add fade-in animation
-    detailsContent.style.opacity = 0;
-    
-    // Populate details
-    document.getElementById('location').textContent = earthquake.title;
-    document.getElementById('datetime').textContent = formatDate(earthquake.time);
-    document.getElementById('magnitude').textContent = `${earthquake.magnitude} ML`;
-    document.getElementById('depth').textContent = earthquake.depth;
-    document.getElementById('coordinates').textContent = `${earthquake.latitude}, ${earthquake.longitude}`;
-    document.getElementById('description').textContent = earthquake.comments || earthquake.description || '-';
-    
-    // Highlight magnitude based on severity
-    const magnitudeElement = document.getElementById('magnitude');
-    magnitudeElement.style.color = getColorByMagnitude(earthquake.magnitude);
-    magnitudeElement.style.fontWeight = 'bold';
-    
-    // Fade in animation
-    setTimeout(() => {
-        detailsContent.style.transition = 'opacity 0.3s ease';
-        detailsContent.style.opacity = 1;
-    }, 50);
+    const utcDate = luxon.DateTime.fromJSDate(earthquake.utcDate)
+        .setZone('UTC')
+        .toFormat('dd/MM/yyyy HH:mm:ss');
+
+    details.innerHTML = `
+        <div class="detail-item">
+            <span class="detail-label">${translations[currentLang].date}:</span>
+            <span class="detail-value">${thaiDate} (UTC+7)</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">UTC:</span>
+            <span class="detail-value">${utcDate}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">${translations[currentLang].magnitude}:</span>
+            <span class="detail-value ${magnitudeClass}">${magnitude.toFixed(1)}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">${translations[currentLang].depth}:</span>
+            <span class="detail-value">${earthquake.depth} km</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">${translations[currentLang].location}:</span>
+            <span class="detail-value">${earthquake.location}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">${translations[currentLang].coordinates}:</span>
+            <span class="detail-value">${earthquake.latitude.toFixed(4)}°N, ${earthquake.longitude.toFixed(4)}°E</span>
+        </div>
+    `;
+    details.style.display = 'block';
 }
 
 // Helper function to format date
@@ -1052,10 +848,7 @@ function formatDate(date) {
 
 // Function to update the last update time
 function updateLastUpdateTime() {
-    const now = new Date();
-    const formattedDate = luxon.DateTime.fromJSDate(now)
-        .setZone('Asia/Bangkok')
-        .toFormat('dd MMM yyyy HH:mm:ss');
-        
-    document.getElementById('lastUpdate').textContent = `${getText('lastUpdate')} ${formattedDate}`;
+    const now = luxon.DateTime.now().setZone('Asia/Bangkok');
+    const lastUpdate = document.getElementById('lastUpdate');
+    lastUpdate.textContent = `${translations[currentLang].lastUpdate}: ${now.toFormat('dd/MM/yyyy HH:mm:ss')} (UTC+7)`;
 } 
