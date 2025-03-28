@@ -241,38 +241,90 @@ async function fetchEarthquakeData() {
         const targetUrl = 'https://earthquake.tmd.go.th/inside.html?ps=200';
         let htmlText = '';
         
-        try {
-            // Try direct fetch first
-            const response = await fetch(targetUrl, { 
-                headers: { 'Accept': 'text/html' },
-                mode: 'cors'
-            });
-            
-            if (response.ok) {
-                htmlText = await response.text();
-                console.log("Successful direct fetch of earthquake page");
-            } else {
-                throw new Error("Direct fetch failed, trying with proxy");
-            }
-        } catch (directFetchError) {
-            console.warn("Direct fetch failed:", directFetchError.message);
-            
-            // Try with a simple proxy approach
+        // Check if we're running on GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        
+        // If on GitHub Pages, always use the proxy to avoid CORS issues
+        if (isGitHubPages) {
+            console.log("Running on GitHub Pages, using CORS proxy by default");
             try {
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const proxyUrl = 'https://corsproxy.io/?';
                 const proxyResponse = await fetch(proxyUrl + encodeURIComponent(targetUrl));
                 
                 if (proxyResponse.ok) {
                     htmlText = await proxyResponse.text();
                     console.log("Successful fetch through CORS proxy");
                 } else {
-                    throw new Error("Proxy fetch failed");
+                    throw new Error("First proxy failed, trying alternative");
                 }
-            } catch (proxyError) {
-                console.warn("Proxy fetch failed:", proxyError.message);
-                // Use our sample data as a fallback
-                console.log("Using sample data as fallback");
-                return parseXmlSafely(getSampleEarthquakeData());
+            } catch (primaryProxyError) {
+                console.warn("Primary proxy failed:", primaryProxyError.message);
+                
+                // Try alternative proxy
+                try {
+                    const backupProxyUrl = 'https://api.allorigins.win/raw?url=';
+                    const backupResponse = await fetch(backupProxyUrl + encodeURIComponent(targetUrl));
+                    
+                    if (backupResponse.ok) {
+                        htmlText = await backupResponse.text();
+                        console.log("Successful fetch through backup CORS proxy");
+                    } else {
+                        throw new Error("All proxies failed");
+                    }
+                } catch (backupError) {
+                    console.error("All proxy attempts failed:", backupError.message);
+                    console.log("Using sample data as fallback");
+                    return parseHtmlTableData(getSampleEarthquakeData());
+                }
+            }
+        } else {
+            // Not on GitHub Pages, try direct fetch first
+            try {
+                const response = await fetch(targetUrl, { 
+                    headers: { 'Accept': 'text/html' },
+                    mode: 'cors'
+                });
+                
+                if (response.ok) {
+                    htmlText = await response.text();
+                    console.log("Successful direct fetch of earthquake page");
+                } else {
+                    throw new Error("Direct fetch failed, trying with proxy");
+                }
+            } catch (directFetchError) {
+                console.warn("Direct fetch failed:", directFetchError.message);
+                
+                // Try with a proxy approach
+                try {
+                    const proxyUrl = 'https://corsproxy.io/?';
+                    const proxyResponse = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+                    
+                    if (proxyResponse.ok) {
+                        htmlText = await proxyResponse.text();
+                        console.log("Successful fetch through CORS proxy");
+                    } else {
+                        throw new Error("First proxy failed, trying alternative");
+                    }
+                } catch (primaryProxyError) {
+                    console.warn("Primary proxy failed:", primaryProxyError.message);
+                    
+                    // Try alternative proxy
+                    try {
+                        const backupProxyUrl = 'https://api.allorigins.win/raw?url=';
+                        const backupResponse = await fetch(backupProxyUrl + encodeURIComponent(targetUrl));
+                        
+                        if (backupResponse.ok) {
+                            htmlText = await backupResponse.text();
+                            console.log("Successful fetch through backup CORS proxy");
+                        } else {
+                            throw new Error("All proxies failed");
+                        }
+                    } catch (backupError) {
+                        console.error("All proxy attempts failed:", backupError.message);
+                        console.log("Using sample data as fallback");
+                        return parseHtmlTableData(getSampleEarthquakeData());
+                    }
+                }
             }
         }
         
@@ -286,7 +338,7 @@ async function fetchEarthquakeData() {
         console.error('Error fetching earthquake data:', error);
         // Fallback to sample data if all fetching methods fail
         console.log("Using sample data due to fetch error");
-        return parseXmlSafely(getSampleEarthquakeData());
+        return parseHtmlTableData(getSampleEarthquakeData());
     }
 }
 
@@ -298,12 +350,25 @@ function parseHtmlTableData(htmlText) {
         const htmlDoc = parser.parseFromString(htmlText, 'text/html');
         
         // Find the main table containing earthquake data
-        const tables = htmlDoc.querySelectorAll('table');
+        let tables = htmlDoc.querySelectorAll('table');
         console.log(`Found ${tables.length} tables in the HTML`);
         
         if (!tables || tables.length === 0) {
-            console.warn('No tables found in the HTML');
-            return [];
+            console.warn('No tables found in the HTML, trying to parse the body directly');
+            
+            // Some proxies might change the structure, try to find tables in body
+            const bodyContent = htmlDoc.querySelector('body');
+            if (bodyContent) {
+                // Create a temporary div to parse the potential HTML within the response
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = bodyContent.innerHTML;
+                tables = tempDiv.querySelectorAll('table');
+                console.log(`Found ${tables.length} tables after body parsing`);
+            }
+            
+            if (!tables || tables.length === 0) {
+                return [];
+            }
         }
         
         // From the example, we know the table structure has columns like:
@@ -322,7 +387,11 @@ function parseHtmlTableData(htmlText) {
                 // Look for signs of earthquake data in cells (coordinates, magnitude values)
                 if (sampleCells.length >= 5) {
                     const cellTexts = Array.from(sampleCells).map(cell => cell.textContent);
-                    const hasCoordinates = cellTexts.some(text => text.includes('°N') || text.includes('°E'));
+                    const hasCoordinates = cellTexts.some(text => 
+                        text.includes('°N') || text.includes('°E') || 
+                        text.includes('N') || text.includes('E') ||
+                        /\d+\.\d+/.test(text)
+                    );
                     const hasMagnitude = cellTexts.some(text => /^\s*\d+\.\d+\s*$/.test(text));
                     
                     if (hasCoordinates || hasMagnitude) {
@@ -334,8 +403,21 @@ function parseHtmlTableData(htmlText) {
         }
         
         if (!dataTable) {
-            console.warn('Could not identify the earthquake data table');
-            return [];
+            console.warn('Could not identify the earthquake data table, trying the largest table');
+            
+            // Fallback to the largest table
+            for (const table of tables) {
+                const rows = table.querySelectorAll('tr');
+                if (rows.length > mostRows) {
+                    dataTable = table;
+                    mostRows = rows.length;
+                }
+            }
+            
+            if (!dataTable) {
+                console.error('No suitable table found');
+                return [];
+            }
         }
         
         // Extract rows from the data table
@@ -440,7 +522,9 @@ function parseHtmlTableData(htmlText) {
                 if (boldMagnitude) {
                     magnitude = parseFloat(boldMagnitude[1]);
                 } else {
-                    magnitude = parseFloat(magnitudeCell.replace(/[^\d.]/g, ''));
+                    // Extract any number from the text
+                    const magMatch = magnitudeCell.match(/(\d+\.\d+)/);
+                    magnitude = magMatch ? parseFloat(magMatch[1]) : parseFloat(magnitudeCell.replace(/[^\d.]/g, ''));
                 }
                 
                 // Parse coordinates
@@ -451,7 +535,8 @@ function parseHtmlTableData(htmlText) {
                 const longitude = longitudeMatch ? parseFloat(longitudeMatch[1]) : NaN;
                 
                 // Parse depth
-                const depth = parseFloat(depthCell);
+                const depthMatch = depthCell.match(/(\d+(?:\.\d+)?)/);
+                const depth = depthMatch ? parseFloat(depthMatch[1]) : NaN;
                 
                 // Get earthquake link if available
                 let link = '';
@@ -510,335 +595,6 @@ function parseHtmlTableData(htmlText) {
     }
 }
 
-// Safe XML parsing with multiple fallback strategies
-function parseXmlSafely(xmlText) {
-    try {
-        // First try using the native DOMParser
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        
-        // Check for parsing errors
-        const parserError = xmlDoc.querySelector('parsererror');
-        if (parserError) {
-            console.warn('Native XML parsing error:', parserError.textContent);
-            
-            // Try an alternative approach - manual extraction
-            return extractEarthquakeDataManually(xmlText);
-        }
-        
-        return extractEarthquakeData(xmlDoc);
-    } catch (error) {
-        console.error('XML parsing error:', error);
-        // Fallback to manual extraction if parsing fails
-        return extractEarthquakeDataManually(xmlText);
-    }
-}
-
-// Extract earthquake data from parsed XML document
-function extractEarthquakeData(xmlDoc) {
-    try {
-        // Get all items
-        const items = xmlDoc.querySelectorAll('item');
-        console.log(`Found ${items.length} earthquake entries`);
-        
-        if (items.length === 0) {
-            console.warn('No items found in the XML');
-            return [];
-        }
-        
-        const earthquakes = [];
-        
-        // Process each item
-        for (const item of items) {
-            try {
-                // Extract basic elements using safe methods
-                const title = getElementTextSafely(item, 'title');
-                const link = getElementTextSafely(item, 'link');
-                const comments = getElementTextSafely(item, 'comments');
-                const description = getElementTextSafely(item, 'description');
-                const pubDateStr = getElementTextSafely(item, 'pubDate');
-                
-                // Extract coordinates and earthquake details
-                const latitude = getCoordinateValue(item, 'lat');
-                const longitude = getCoordinateValue(item, 'long');
-                const depth = getNumericValue(item, 'depth');
-                const magnitude = getNumericValue(item, 'magnitude');
-                const timeStr = getTimeValue(item);
-                
-                // Process the time
-                const timeObj = parseTimeString(timeStr);
-                const pubDate = pubDateStr ? new Date(pubDateStr) : null;
-                
-                // Log the extracted data for debugging
-                console.log(`Earthquake - Title: ${title}, Mag: ${magnitude}, Time: ${timeStr}`);
-                
-                // Create earthquake object only if we have valid critical data
-                if (title && !isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
-                    const earthquake = {
-                        title: title,
-                        link: link,
-                        latitude: latitude,
-                        longitude: longitude,
-                        depth: depth,
-                        magnitude: magnitude,
-                        time: timeObj,
-                        comments: comments,
-                        pubDate: pubDate,
-                        description: cleanDescription(description)
-                    };
-                    earthquakes.push(earthquake);
-                } else {
-                    console.warn('Skipping earthquake with invalid data:', { title, latitude, longitude, magnitude });
-                }
-            } catch (itemError) {
-                console.error('Error parsing earthquake item:', itemError);
-            }
-        }
-        
-        // Sort by time (newest first) and handle invalid dates
-        return earthquakes
-            .filter(eq => eq.time && !isNaN(eq.time.getTime()))
-            .sort((a, b) => b.time - a.time);
-    } catch (error) {
-        console.error('Error extracting earthquake data:', error);
-        return [];
-    }
-}
-
-// Manual extraction for fallback when XML parsing fails
-function extractEarthquakeDataManually(xmlText) {
-    console.log("Attempting manual extraction from XML text");
-    const earthquakes = [];
-    
-    try {
-        // Use regex to find all item blocks
-        const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
-        let match;
-        
-        while ((match = itemRegex.exec(xmlText)) !== null) {
-            const itemContent = match[1];
-            
-            try {
-                // Extract the required fields using regex
-                const title = extractField(itemContent, 'title');
-                const link = extractField(itemContent, 'link');
-                const latitude = parseFloat(extractField(itemContent, 'geo:lat', 'lat'));
-                const longitude = parseFloat(extractField(itemContent, 'geo:long', 'long'));
-                const depth = parseFloat(extractField(itemContent, 'tmd:depth', 'depth'));
-                const magnitude = parseFloat(extractField(itemContent, 'tmd:magnitude', 'magnitude'));
-                const timeStr = extractField(itemContent, 'tmd:time', 'time');
-                const comments = extractField(itemContent, 'comments');
-                const pubDateStr = extractField(itemContent, 'pubDate');
-                const description = extractField(itemContent, 'description');
-                
-                // Process time
-                const timeObj = parseTimeString(timeStr);
-                const pubDate = pubDateStr ? new Date(pubDateStr) : null;
-                
-                // Log extraction
-                console.log(`Manual extraction - Title: ${title}, Mag: ${magnitude}`);
-                
-                // Validate and create earthquake object
-                if (title && !isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
-                    earthquakes.push({
-                        title: title,
-                        link: link,
-                        latitude: latitude,
-                        longitude: longitude,
-                        depth: depth,
-                        magnitude: magnitude,
-                        time: timeObj,
-                        comments: comments,
-                        pubDate: pubDate,
-                        description: cleanDescription(description)
-                    });
-                }
-            } catch (itemError) {
-                console.error("Error extracting item manually:", itemError);
-            }
-        }
-        
-        return earthquakes
-            .filter(eq => eq.time && !isNaN(eq.time.getTime()))
-            .sort((a, b) => b.time - a.time);
-    } catch (error) {
-        console.error("Manual extraction failed:", error);
-        return [];
-    }
-}
-
-// Helper function to extract field using regex
-function extractField(text, ...fieldNames) {
-    for (const fieldName of fieldNames) {
-        const regex = new RegExp(`<${fieldName}[^>]*>([\\s\\S]*?)<\/${fieldName}>`, 'i');
-        const match = text.match(regex);
-        if (match && match[1]) {
-            return match[1].trim();
-        }
-    }
-    return '';
-}
-
-// Helper to safely get element text content
-function getElementTextSafely(parent, tagName) {
-    try {
-        const element = parent.querySelector(tagName);
-        return element ? element.textContent.trim() : '';
-    } catch (e) {
-        return '';
-    }
-}
-
-// Helper to extract coordinate values
-function getCoordinateValue(item, coordType) {
-    try {
-        // Try all possible ways to get the coordinate
-        const methods = [
-            // Direct namespace lookup
-            () => {
-                const nsElement = item.getElementsByTagNameNS("http://www.w3.org/2003/01/geo/", coordType)[0];
-                return nsElement ? parseFloat(nsElement.textContent) : NaN;
-            },
-            // Escaped namespace selector
-            () => {
-                const element = item.querySelector(`geo\\:${coordType}`);
-                return element ? parseFloat(element.textContent) : NaN;
-            },
-            // Simple tag name
-            () => {
-                const element = item.querySelector(coordType);
-                return element ? parseFloat(element.textContent) : NaN;
-            },
-            // Check all element names for matching text
-            () => {
-                for (const el of item.querySelectorAll('*')) {
-                    if (el.nodeName.toLowerCase().includes(coordType)) {
-                        return parseFloat(el.textContent);
-                    }
-                }
-                return NaN;
-            }
-        ];
-        
-        // Try each method until we get a valid value
-        for (const method of methods) {
-            const value = method();
-            if (!isNaN(value)) {
-                return value;
-            }
-        }
-        
-        return NaN;
-    } catch (e) {
-        console.warn(`Error extracting ${coordType}:`, e);
-        return NaN;
-    }
-}
-
-// Helper to extract numeric values
-function getNumericValue(item, valueName) {
-    try {
-        // Try all possible ways to get the value
-        const methods = [
-            // Direct namespace lookup
-            () => {
-                const nsElement = item.getElementsByTagNameNS("http://www.earthquake.tmd.go.th", valueName)[0];
-                return nsElement ? parseFloat(nsElement.textContent) : NaN;
-            },
-            // Escaped namespace selector
-            () => {
-                const element = item.querySelector(`tmd\\:${valueName}`);
-                return element ? parseFloat(element.textContent) : NaN;
-            },
-            // Simple tag name
-            () => {
-                const element = item.querySelector(valueName);
-                return element ? parseFloat(element.textContent) : NaN;
-            },
-            // Check all element names for matching text
-            () => {
-                for (const el of item.querySelectorAll('*')) {
-                    if (el.nodeName.toLowerCase().includes(valueName)) {
-                        return parseFloat(el.textContent);
-                    }
-                }
-                return NaN;
-            }
-        ];
-        
-        // Try each method until we get a valid value
-        for (const method of methods) {
-            const value = method();
-            if (!isNaN(value)) {
-                return value;
-            }
-        }
-        
-        return NaN;
-    } catch (e) {
-        console.warn(`Error extracting ${valueName}:`, e);
-        return NaN;
-    }
-}
-
-// Helper to extract time value
-function getTimeValue(item) {
-    try {
-        // Try various methods to get the time
-        const methods = [
-            // Direct namespace lookup
-            () => {
-                const timeElement = item.getElementsByTagNameNS("http://www.earthquake.tmd.go.th", 'time')[0];
-                return timeElement ? timeElement.textContent.trim() : '';
-            },
-            // Escaped namespace selector
-            () => {
-                const timeElement = item.querySelector('tmd\\:time');
-                return timeElement ? timeElement.textContent.trim() : '';
-            },
-            // Simple tag selector
-            () => {
-                const timeElement = item.querySelector('time');
-                return timeElement ? timeElement.textContent.trim() : '';
-            },
-            // Look for any element with "time" in its name (excluding pubDate)
-            () => {
-                for (const el of item.querySelectorAll('*')) {
-                    const nodeName = el.nodeName.toLowerCase();
-                    if (nodeName.includes('time') && !nodeName.includes('pubdate')) {
-                        return el.textContent.trim();
-                    }
-                }
-                return '';
-            }
-        ];
-        
-        // Try each method until we get a valid value
-        for (const method of methods) {
-            const value = method();
-            if (value) {
-                return value;
-            }
-        }
-        
-        // If all else fails, try to extract from description
-        const description = getElementTextSafely(item, 'description');
-        if (description) {
-            // Look for date patterns in the description
-            const datePattern = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/;
-            const match = description.match(datePattern);
-            if (match) {
-                return match[0];
-            }
-        }
-        
-        return '';
-    } catch (e) {
-        console.warn('Error extracting time:', e);
-        return '';
-    }
-}
-
 // Helper to parse time strings in various formats
 function parseTimeString(timeStr) {
     if (!timeStr) return null;
@@ -890,39 +646,41 @@ function cleanDescription(description) {
 
 // Provide sample data for fallback
 function getSampleEarthquakeData() {
-    return `<?xml version="1.0" encoding="utf-8" ?>
-<rss version="2.0" xmlns:geo="http://www.w3.org/2003/01/geo/" xmlns:tmd="http://www.earthquake.tmd.go.th">
-<channel>
-<title>แผ่นดินไหว</title>
-<link>https://earthquake.tmd.go.th</link>
-<description>กองเฝ้าระวังแผ่นดินไหว</description>
-
-<item>
-    <title>ต.ขุนยวม อ.ขุนยวม จ.แม่ฮ่องสอน (Tambon Khun Yuam, Amphoe KhunYuam, MaeHongSon)</title>
-    <link>https://earthquake.tmd.go.th/inside-info.html?earthquake=13019</link>
-    <geo:lat>18.856</geo:lat>
-    <geo:long>97.984</geo:long>
-    <tmd:depth>2</tmd:depth>
-    <tmd:magnitude>1.5</tmd:magnitude>
-    <tmd:time>2025-03-28 22:20:38 UTC</tmd:time>
-    <comments></comments>
-    <pubDate>Sat, 29 Mar 2025 05:36:46 +0700</pubDate>
-    <description><![CDATA[ แผ่นดินไหว ต.ขุนยวม อ.ขุนยวม จ.แม่ฮ่องสอน <br>2025-03-29 05:20:38 น.<br>Lat. 18.856 , Long. 97.984<br>ขนาด 1.5 <br><br> ]]></description>
-</item>
-<item>
-    <title>ประเทศเมียนมา (Myanmar)</title>
-    <link>https://earthquake.tmd.go.th/inside-info.html?earthquake=13017</link>
-    <geo:lat>18.340</geo:lat>
-    <geo:long>96.458</geo:long>
-    <tmd:depth>10</tmd:depth>
-    <tmd:magnitude>3.1</tmd:magnitude>
-    <tmd:time>2025-03-28 22:15:02 UTC</tmd:time>
-    <comments>ทางทิศตะวันตกเฉียงเหนือของ อ.แม่สะเรียง จ.แม่ฮ่องสอน ประมาณ 157 กม. </comments>
-    <pubDate>Sat, 29 Mar 2025 05:23:18 +0700</pubDate>
-    <description><![CDATA[ แผ่นดินไหว ประเทศเมียนมา <br>2025-03-29 05:15:02 น.<br>Lat. 18.340 , Long. 96.458<br>ขนาด 3.1 <br><br> ]]></description>
-</item>
-</channel>
-</rss>`;
+    // Create a simple HTML table that matches our expected format
+    return `
+    <html>
+    <body>
+        <table>
+            <tr>
+                <th>Origin Time</th>
+                <th>Magnitude</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Depth</th>
+                <th>Phases</th>
+                <th>Region</th>
+            </tr>
+            <tr>
+                <td>2025-03-29 05:20:38 2025-03-28 22:20:38 UTC</td>
+                <td>1.5</td>
+                <td>18.856°N</td>
+                <td>97.984°E</td>
+                <td>2</td>
+                <td>8</td>
+                <td>ต.ขุนยวม อ.ขุนยวม จ.แม่ฮ่องสอน (Tambon Khun Yuam, Amphoe KhunYuam, MaeHongSon)</td>
+            </tr>
+            <tr>
+                <td>2025-03-29 05:15:02 2025-03-28 22:15:02 UTC</td>
+                <td>3.1</td>
+                <td>18.340°N</td>
+                <td>96.458°E</td>
+                <td>10</td>
+                <td>12</td>
+                <td>ประเทศเมียนมา (Myanmar)</td>
+            </tr>
+        </table>
+    </body>
+    </html>`;
 }
 
 // Function to render the D3 timeline visualization

@@ -104,7 +104,26 @@ The source code is available on GitHub:
 
 ## Notes
 
-- The application handles CORS issues through a reliable proxy service
+- The application detects when running on GitHub Pages and automatically uses CORS proxies to handle cross-origin restrictions
+- The application uses multiple proxy fallbacks for reliable data fetching in different environments
 - Earthquake times are displayed in Thailand's time zone (Asia/Bangkok)
 - The visualization works with data scraped directly from the Thai Meteorological Department's website
-- Language switching and filter preferences persist between sessions using browser local storage 
+- Language switching and filter preferences persist between sessions using browser local storage
+
+## GitHub Pages Deployment
+
+The application is deployed on GitHub Pages and can be accessed at:
+[https://pittawat2542.github.io/thailand-earthquake-visualizer/](https://pittawat2542.github.io/thailand-earthquake-visualizer/)
+
+### CORS Handling
+
+When deployed on GitHub Pages, the application automatically detects its hosting environment and uses CORS proxies to fetch data from the Thai Meteorological Department website. This is necessary because:
+
+1. The TMD website does not have CORS headers that allow cross-origin requests from GitHub Pages
+2. GitHub Pages is served over HTTPS and cannot load resources from non-HTTPS sources
+3. Direct API/data access is blocked by default for security reasons
+
+The application implements a multi-layered approach for data fetching:
+- Primary proxy: corsproxy.io
+- Backup proxy: allorigins.win
+- Fallback: Sample data for demonstration when all proxy attempts fail 
