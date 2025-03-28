@@ -5,6 +5,8 @@ An interactive visualization tool for earthquake data from Thailand and surround
 ## Features
 
 - Interactive timeline visualization of earthquake data
+- Zoomable timeline with pan and zoom controls
+- Visual zoom hint to guide users on timeline interaction
 - Data scraping directly from the Thai Meteorological Department's website
 - Visual representation of earthquake magnitude using dot size
 - Color-coding of earthquakes based on magnitude
@@ -19,7 +21,7 @@ An interactive visualization tool for earthquake data from Thailand and surround
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- D3.js (for data visualization)
+- D3.js (for data visualization and interactive zooming)
 - Luxon (for date/time handling)
 
 ## How to Use
@@ -30,8 +32,11 @@ An interactive visualization tool for earthquake data from Thailand and surround
 4. Use the time range filter to switch between recent events and all events
 5. Hover over dots on the timeline to see basic information
 6. Click on a dot to view detailed information about that specific earthquake
-7. The last update time is displayed at the top of the page
-8. Switch between English and Thai using the language selector buttons
+7. Use mouse wheel or touchpad to zoom in/out of the timeline
+8. Click and drag to pan the timeline when zoomed in
+9. Use the "Reset Zoom" button to return to the original view
+10. The last update time is displayed at the top of the page
+11. Switch between English and Thai using the language selector buttons
 
 ## Data Source
 
@@ -39,6 +44,20 @@ The earthquake data is now sourced directly from the Thai Meteorological Departm
 [https://earthquake.tmd.go.th/inside.html?ps=200](https://earthquake.tmd.go.th/inside.html?ps=200)
 
 This page provides a more comprehensive and up-to-date list of earthquakes than the previously used RSS feed.
+
+## Interactivity
+
+### Timeline Navigation
+- **Zoom**: Use mouse wheel/touchpad to zoom in and out of the timeline
+- **Pan**: Click and drag horizontally to move through the timeline when zoomed in
+- **Reset**: Click the "Reset Zoom" button (appears when zoomed in) to return to the default view
+- **Zoom Hint**: A subtle visual cue helps new users discover the zoom functionality
+
+### Data Filtering
+
+- **Recent Events**: By default, only shows earthquakes that occurred after March 28, 2025
+- **All Events**: Option to view the complete historical dataset
+- The filter preference is saved in localStorage for persistence between sessions
 
 ## Data Fetching Approach
 
@@ -59,12 +78,6 @@ The application extracts data from an HTML table with the following structure:
 |-----------|-----------|----------|-----------|-------|--------|--------|
 | 2025-03-29 05:38:57<br>2025-03-28 22:38:57 UTC | 4.0 | 21.708°N | 96.5°E | 10 | 19 | ประเทศเมียนมา<br>Myanmar |
 
-## Data Filtering
-
-- **Recent Events**: By default, only shows earthquakes that occurred after March 28, 2025
-- **All Events**: Option to view the complete historical dataset
-- The filter preference is saved in localStorage for persistence between sessions
-
 ## Local Development
 
 To run this project locally:
@@ -83,6 +96,11 @@ Then visit `http://localhost:8000` in your browser.
 ## License
 
 This project is open source and available under the MIT License.
+
+## Repository
+
+The source code is available on GitHub:
+[https://github.com/Pittawat2542/thailand-earthquake-visualizer](https://github.com/Pittawat2542/thailand-earthquake-visualizer)
 
 ## Notes
 

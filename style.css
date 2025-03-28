@@ -128,6 +128,7 @@ h1 {
 #timeline {
     width: 100%;
     height: 300px;
+    position: relative;
 }
 
 .earthquake-details {
@@ -162,9 +163,16 @@ footer {
     font-size: 0.9rem;
 }
 
+.github-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
 footer a {
     color: #007bff;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
 }
 
 footer a:hover {
@@ -232,4 +240,50 @@ footer a:hover {
     margin-bottom: 10px;
     text-align: right;
     padding-right: 10px;
+}
+
+.reset-zoom-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #495057;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.reset-zoom-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.zoom-hint {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    pointer-events: none; /* Allow clicks to pass through */
+    transition: opacity 0.5s ease;
+}
+
+.zoom-hint svg {
+    margin-right: 5px;
+}
+
+.zoom-hint.fade-out {
+    opacity: 0;
 } 

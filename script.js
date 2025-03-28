@@ -13,6 +13,7 @@ const translations = {
         labelCoordinates: 'Coordinates:',
         labelDescription: 'Description:',
         dataSourceText: 'Data source:',
+        sourceCodeText: 'Source code:',
         xAxisLabel: 'Date & Time',
         yAxisLabel: 'Magnitude',
         noData: 'No earthquake data available.',
@@ -20,7 +21,9 @@ const translations = {
         timeFilterLabel: 'Time range:',
         timeFilterRecent: 'Recent events (after Mar 28)',
         timeFilterAll: 'All events',
-        eventsShown: 'Showing {count} events'
+        eventsShown: 'Showing {count} events',
+        resetZoom: 'Reset Zoom',
+        zoomHint: 'Scroll to zoom, drag to pan'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -35,6 +38,7 @@ const translations = {
         labelCoordinates: 'พิกัด:',
         labelDescription: 'รายละเอียด:',
         dataSourceText: 'แหล่งข้อมูล:',
+        sourceCodeText: 'ซอร์สโค้ด:',
         xAxisLabel: 'วันที่และเวลา',
         yAxisLabel: 'ขนาด',
         noData: 'ไม่พบข้อมูลแผ่นดินไหว',
@@ -42,7 +46,9 @@ const translations = {
         timeFilterLabel: 'ช่วงเวลา:',
         timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค.)',
         timeFilterAll: 'เหตุการณ์ทั้งหมด',
-        eventsShown: 'กำลังแสดง {count} เหตุการณ์'
+        eventsShown: 'กำลังแสดง {count} เหตุการณ์',
+        resetZoom: 'รีเซ็ตการซูม',
+        zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน'
     }
 };
 
@@ -83,6 +89,7 @@ function initializeLanguageSwitcher() {
         labelCoordinates: document.getElementById('labelCoordinates'),
         labelDescription: document.getElementById('labelDescription'),
         dataSourceText: document.getElementById('dataSourceText'),
+        sourceCodeText: document.getElementById('sourceCodeText'),
         timeFilterLabel: document.getElementById('timeFilterLabel'),
     };
     
@@ -946,28 +953,85 @@ function renderTimeline(earthquakeData) {
     const svg = d3.select('#timeline')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .append('g')
+        .attr('height', height + margin.top + margin.bottom);
+    
+    // Add zoom hint with icon
+    const zoomHint = d3.select('#timeline')
+        .append('div')
+        .attr('class', 'zoom-hint')
+        .html(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            ${getText('zoomHint')}
+        `);
+    
+    // Fade out the zoom hint after 5 seconds
+    setTimeout(() => {
+        zoomHint.classed('fade-out', true);
+    }, 5000);
+    
+    // Add reset zoom button
+    const resetButton = d3.select('#timeline')
+        .append('button')
+        .attr('class', 'reset-zoom-btn')
+        .text(getText('resetZoom'))
+        .style('display', 'none')
+        .on('click', resetZoom);
+    
+    // Add a clip path to ensure points stay within the chart area during zoom
+    svg.append('defs').append('clipPath')
+        .attr('id', 'clip')
+        .append('rect')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('x', 0)
+        .attr('y', 0);
+    
+    // Create main group for chart elements and apply margin transform
+    const mainGroup = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
     
     // Set up scales
     const timeExtent = d3.extent(earthquakeData, d => d.time);
+    // Add a small buffer to the time domain to avoid points at the edge
+    const timeRange = timeExtent[1] - timeExtent[0];
+    const bufferTime = timeRange * 0.05;
     const xScale = d3.scaleTime()
-        .domain(timeExtent)
+        .domain([
+            new Date(timeExtent[0].getTime() - bufferTime),
+            new Date(timeExtent[1].getTime() + bufferTime)
+        ])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(earthquakeData, d => d.magnitude) + 1])
         .range([height, 0]);
     
+    // Store the original scales for reset
+    const xScaleOriginal = xScale.copy();
+    const yScaleOriginal = yScale.copy();
+    
+    // Create axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale);
+    
+    // Create a group for zoom
+    const zoomGroup = mainGroup.append('g')
+        .attr('class', 'zoom-group')
+        .attr('clip-path', 'url(#clip)');
+    
     // Add X axis
-    svg.append('g')
-        .attr('class', 'timeline-axis')
+    const xAxisGroup = mainGroup.append('g')
+        .attr('class', 'timeline-axis x-axis')
         .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(xScale));
+        .call(xAxis);
     
     // Add X axis label
-    svg.append('text')
+    mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
         .attr('y', height + margin.bottom - 10)
@@ -975,12 +1039,12 @@ function renderTimeline(earthquakeData) {
         .attr('fill', '#666');
     
     // Add Y axis
-    svg.append('g')
-        .attr('class', 'timeline-axis')
-        .call(d3.axisLeft(yScale));
+    const yAxisGroup = mainGroup.append('g')
+        .attr('class', 'timeline-axis y-axis')
+        .call(yAxis);
     
     // Add Y axis label
-    svg.append('text')
+    mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
         .attr('y', -margin.left + 15)
@@ -994,8 +1058,8 @@ function renderTimeline(earthquakeData) {
         .attr('class', 'tooltip')
         .style('opacity', 0);
     
-    // Add the earthquake points
-    svg.selectAll('.timeline-point')
+    // Add the earthquake points to the zoomable group
+    const points = zoomGroup.selectAll('.timeline-point')
         .data(earthquakeData)
         .enter()
         .append('circle')
@@ -1048,6 +1112,51 @@ function renderTimeline(earthquakeData) {
                 .attr('stroke', '#000')
                 .attr('stroke-width', 2);
         });
+    
+    // Define zoom behavior
+    const zoom = d3.zoom()
+        .scaleExtent([1, 20])  // Limit zoom scale from 1x to 20x
+        .extent([[0, 0], [width, height]])
+        .on('zoom', zoomed)
+        .on('end', zoomEnded);
+    
+    // Apply zoom behavior to SVG
+    svg.call(zoom);
+    
+    // Function to handle zoom events
+    function zoomed(event) {
+        // Get the new transform
+        const transform = event.transform;
+        
+        // Calculate new scales
+        const newXScale = transform.rescaleX(xScale);
+        
+        // Update axes with new scales
+        xAxisGroup.call(xAxis.scale(newXScale));
+        
+        // Update points position
+        points.attr('cx', d => newXScale(d.time));
+        
+        // Show reset button when zoomed
+        resetButton.style('display', 'block');
+    }
+    
+    // Function triggered when zoom ends
+    function zoomEnded(event) {
+        // We can add additional behavior on zoom end if needed
+        if (event.transform.k === 1) {
+            resetButton.style('display', 'none');
+        }
+    }
+    
+    // Function to reset zoom
+    function resetZoom() {
+        svg.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity);
+        
+        resetButton.style('display', 'none');
+    }
 }
 
 // Function to determine color based on magnitude
