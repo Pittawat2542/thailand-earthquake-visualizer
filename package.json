@@ -21,6 +21,6 @@
   "dependencies": {
     "jsdom": "^26.0.0",
     "luxon": "^3.6.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.7.0"
   }
 } 
