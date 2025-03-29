@@ -30,12 +30,12 @@
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
     --font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing: 16px;
-    --spacing-md: 24px;
-    --spacing-lg: 32px;
-    --spacing-xl: 48px;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
 }
 
 body {
@@ -122,6 +122,7 @@ h1 {
     padding: 15px;
     background: #f8f9fa;
     border-radius: 8px;
+    width: 100%;
 }
 
 .filter-group {
@@ -1017,12 +1018,12 @@ a:focus {
     
     .header-content {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: var(--spacing);
     }
     
     .language-switcher {
-        align-self: flex-start;
+        align-self: center;
     }
     
     .filter-item {
@@ -1052,6 +1053,259 @@ a:focus {
     }
     
     .timeline-container {
-        min-height: 340px; /* Slightly smaller on mobile, but still enough for labels */
+        min-height: 340px;
+    }
+}
+
+/* Mobile-specific enhancements */
+@media (max-width: 767px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Responsive touch-friendly buttons and controls */
+    .lang-btn {
+        min-width: 60px;
+        min-height: 36px;
+        padding: 8px 12px;
+    }
+    
+    /* Optimize filter controls for mobile */
+    .filter-item {
+        width: 100%;
+        max-width: 300px; /* Limit width on mobile for better appearance */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    select {
+        min-height: 44px;
+        font-size: 16px; /* Prevent iOS zoom on focus */
+        padding: 10px 12px;
+    }
+    
+    /* Improve chart experience on mobile */
+    .timeline-container {
+        min-height: 320px;
+        margin-bottom: 10px;
+    }
+    
+    /* More touch-friendly timeline points */
+    .timeline-point {
+        r: 8;
+    }
+    
+    /* Better tooltips for mobile */
+    .tooltip {
+        max-width: 80vw;
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    /* Optimize detail cards for mobile display */
+    .detail-item {
+        padding: 16px;
+    }
+    
+    /* Make external links more touch-friendly */
+    .detail-link {
+        min-height: 48px; 
+        padding: 14px;
+    }
+    
+    .footer-content a {
+        padding: 8px;
+    }
+    
+    /* Responsive typography */
+    .site-title {
+        font-size: 1.4rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .last-update {
+        font-size: 0.8rem;
+    }
+    
+    /* Better spacing for mobile UX */
+    .container {
+        padding: 0 12px;
+    }
+    
+    /* Overlay controls for timeline */
+    .event-count-info, 
+    .timezone-info {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    /* Improved zoom controls */
+    .zoom-hint {
+        max-width: 170px;
+        font-size: 0.7rem;
+    }
+    
+    .reset-zoom-btn {
+        min-height: 40px;
+        min-width: 80px;
+    }
+    
+    /* Center the language switcher container in the header */
+    .site-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .last-update-wrapper {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* Mobile UI enhancements */
+.mobile-back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.mobile-back-button:hover,
+.mobile-back-button:focus {
+    background-color: rgba(225, 239, 254, 0.8);
+    outline: none;
+}
+
+.mobile-back-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mobile-spacer {
+    height: 20px;
+}
+
+/* Touch feedback styling */
+.touch-feedback {
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+/* Improved timeline point accessibility */
+.timeline-point:focus {
+    outline: none;
+    filter: drop-shadow(0 0 5px rgba(26, 86, 219, 0.6));
+}
+
+/* Additional mobile enhancements */
+@media (max-width: 767px) {
+    .card {
+        border-radius: var(--radius);
+    }
+    
+    /* Ensure filter section doesn't scroll under other elements */
+    .filter-section {
+        z-index: 20;
+    }
+    
+    /* Improve touch interactions */
+    .detail-item {
+        padding: 14px;
+        margin-bottom: 4px;
+    }
+    
+    /* Make the details title more prominent */
+    .section-title {
+        text-align: center;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--primary-light);
+    }
+    
+    /* Stack filter items vertically on small screens and center them */
+    .filter-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .filter-item label {
+        align-self: center;
+    }
+    
+    .select-wrapper {
+        width: 100%;
+    }
+    
+    /* Animation for mobile card transitions */
+    .details-content {
+        animation: card-slide-up 0.3s ease;
+    }
+    
+    @keyframes card-slide-up {
+        from {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+/* Mobile-specific filter enhancements */
+@media (max-width: 767px) {
+    .filter-controls {
+        padding: 15px 10px;
+        text-align: center;
+    }
+    
+    .filter-item {
+        margin-bottom: 16px;
+    }
+    
+    .filter-item label {
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: var(--text-dark);
+    }
+    
+    .select-wrapper {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    select {
+        height: 44px;
+        font-size: 16px;
+        width: 100%;
+        text-align-last: center; /* Center the text in the dropdown */
+        padding-left: 20px; /* Compensate for the arrow icon */
+    }
+    
+    /* Center the arrow icon */
+    .select-arrow {
+        right: 10px;
     }
 } 

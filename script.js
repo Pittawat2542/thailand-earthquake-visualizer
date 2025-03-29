@@ -861,6 +861,13 @@ function getSampleEarthquakeData() {
     </html>`;
 }
 
+// Detect if using a touch device
+const isTouchDevice = () => {
+    return ('ontouchstart' in window) || 
+        (navigator.maxTouchPoints > 0) || 
+        (navigator.msMaxTouchPoints > 0);
+};
+
 // Function to render the D3 timeline visualization
 function renderTimeline(earthquakeData) {
     if (!earthquakeData || earthquakeData.length === 0) {
@@ -888,31 +895,36 @@ function renderTimeline(earthquakeData) {
     timezoneInfo.textContent = getText('timezoneNote');
     document.getElementById('timeline').appendChild(timezoneInfo);
     
-    // Set up dimensions
+    // Set up dimensions with better mobile sizing
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };
+    const isMobile = window.innerWidth < 768;
+    
     // Make margins responsive for mobile
-    if (window.innerWidth < 768) {
-        margin.left = 40;
-        margin.right = 20;
+    if (isMobile) {
+        margin.left = 45;
+        margin.right = 15;
+        margin.bottom = 45;
     }
     
     const width = document.getElementById('timeline').clientWidth - margin.left - margin.right;
-    const height = window.innerWidth < 768 ? 250 - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
+    const height = isMobile ? 260 - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     
     // Create SVG
     const svg = d3.select('#timeline')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom);
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('aria-labelledby', 'chart-heading')
+        .style('touch-action', 'none'); // Prevent default touch actions for better zooming
     
-    // Add zoom hint with appropriate icon for device type
-    const isMobile = window.innerWidth < 768;
+    // Add appropriate message for device type
+    const isTouch = isTouchDevice();
     
     const zoomHint = d3.select('#timeline')
         .append('div')
         .attr('class', 'zoom-hint')
         .html(`
-            ${isMobile ? `
+            ${isTouch ? `
                 <svg class="touch-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v7.5"></path>
                     <path d="M13 15.5v-3.24"></path>
@@ -939,6 +951,7 @@ function renderTimeline(earthquakeData) {
     const resetButton = d3.select('#timeline')
         .append('button')
         .attr('class', 'reset-zoom-btn')
+        .attr('aria-label', getText('resetZoom'))
         .text(getText('resetZoom'))
         .style('display', 'none')
         .on('click', resetZoom);
@@ -977,15 +990,17 @@ function renderTimeline(earthquakeData) {
     const yScaleOriginal = yScale.copy();
     
     // Create axes with responsive font size
-    const fontSize = window.innerWidth < 768 ? 9 : 10;
+    const fontSize = isMobile ? 9 : 10;
     
     const xAxis = d3.axisBottom(xScale)
         .tickFormat(d => {
             const date = luxon.DateTime.fromJSDate(d);
-            return date.toFormat('dd/MM/yyyy HH:mm');
-        });
+            return date.toFormat(isMobile ? 'dd/MM HH:mm' : 'dd/MM/yyyy HH:mm');
+        })
+        .ticks(isMobile ? 4 : 6); // Fewer ticks on mobile
     
-    const yAxis = d3.axisLeft(yScale);
+    const yAxis = d3.axisLeft(yScale)
+        .ticks(isMobile ? 5 : 8); // Fewer ticks on mobile
     
     // Create a group for zoom
     const zoomGroup = mainGroup.append('g')
@@ -1000,17 +1015,19 @@ function renderTimeline(earthquakeData) {
     
     xAxisGroup.selectAll("text")
         .style("font-size", `${fontSize}px`)
-        .attr("transform", window.innerWidth < 768 ? "rotate(-45)" : "")
-        .style("text-anchor", window.innerWidth < 768 ? "end" : "middle");
+        .attr("transform", isMobile ? "rotate(-45)" : "")
+        .style("text-anchor", isMobile ? "end" : "middle")
+        .attr("dx", isMobile ? "-0.5em" : "0")
+        .attr("dy", isMobile ? "0.5em" : "0.7em");
     
     // Add X axis label
     mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
-        .attr('y', height + (window.innerWidth < 768 ? 50 : margin.bottom - 10))
+        .attr('y', height + (isMobile ? 40 : margin.bottom - 10))
         .text(getText('xAxisLabel'))
         .attr('fill', '#666')
-        .style('font-size', window.innerWidth < 768 ? '11px' : '12px');
+        .style('font-size', isMobile ? '10px' : '12px');
     
     // Add Y axis
     const yAxisGroup = mainGroup.append('g')
@@ -1024,11 +1041,11 @@ function renderTimeline(earthquakeData) {
     mainGroup.append('text')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
-        .attr('y', -margin.left + (window.innerWidth < 768 ? 10 : 15))
+        .attr('y', -margin.left + (isMobile ? 15 : 15))
         .attr('x', -height / 2)
         .text(getText('yAxisLabel'))
         .attr('fill', '#666')
-        .style('font-size', window.innerWidth < 768 ? '11px' : '12px');
+        .style('font-size', isMobile ? '10px' : '12px');
     
     // Create a tooltip div
     const tooltip = d3.select('body')
@@ -1039,12 +1056,14 @@ function renderTimeline(earthquakeData) {
     // Function to calculate point radius based on magnitude and screen size
     function calculatePointRadius(magnitude) {
         // Base radius calculation
-        let radius = 3 + magnitude * 2;
+        let radius = 3 + magnitude * 1.8;
         
-        // Adjust for mobile screens
-        if (window.innerWidth < 768) {
-            // Make points slightly larger on mobile for better touch targets
-            radius = 4 + magnitude * 2.2;
+        // Adjust for mobile screens - larger touch targets
+        if (isMobile) {
+            radius = 4 + magnitude * 2;
+            
+            // Ensure minimum size for touch
+            if (radius < 6) radius = 6;
         }
         
         return radius;
@@ -1058,10 +1077,13 @@ function renderTimeline(earthquakeData) {
         .attr('class', 'timeline-point')
         .attr('cx', d => xScale(d.time))
         .attr('cy', d => yScale(d.magnitude))
-        .attr('r', d => calculatePointRadius(d.magnitude)) // Dynamic sizing function
+        .attr('r', d => calculatePointRadius(d.magnitude))
         .attr('fill', d => getColorByMagnitude(d.magnitude))
         .attr('stroke', '#fff')
         .attr('stroke-width', 1)
+        .attr('role', 'button')
+        .attr('tabindex', 0) // Make focusable
+        .attr('aria-label', d => `${d.title}, magnitude ${d.magnitude}, ${formatDate(d.time)}`)
         .on('mouseover', function(event, d) {
             d3.select(this)
                 .transition()
@@ -1108,26 +1130,37 @@ function renderTimeline(earthquakeData) {
                 .attr('stroke-width', 2)
                 .classed('selected', true);
                 
-            // Scroll to the details on mobile
-            if (window.innerWidth < 768) {
-                const detailsElement = document.querySelector('.earthquake-details');
+            // Mobile-specific: scroll to details card
+            if (isMobile) {
+                const detailsElement = document.querySelector('.details-card');
                 if (detailsElement) {
                     setTimeout(() => {
-                        detailsElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                        detailsElement.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start'
+                        });
+                    }, 300);
                 }
+            }
+        })
+        // Make keyboard accessible
+        .on('keydown', function(event, d) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                d3.select(this).dispatch('click');
             }
         });
     
-    // Define zoom behavior with different limits for mobile
+    // Define zoom behavior with touch-friendly settings
     const zoom = d3.zoom()
-        .scaleExtent([1, window.innerWidth < 768 ? 10 : 20])  // Less zoom on mobile to prevent getting lost
+        .scaleExtent([1, isMobile ? 8 : 20])  // Less zoom on mobile to prevent getting lost
         .extent([[0, 0], [width, height]])
         .on('zoom', zoomed)
         .on('end', zoomEnded);
     
     // Apply zoom behavior to SVG
-    svg.call(zoom);
+    svg.call(zoom)
+        .on("dblclick.zoom", null); // Disable double-click zoom for better mobile experience
     
     // Function to handle zoom events
     function zoomed(event) {
@@ -1149,7 +1182,6 @@ function renderTimeline(earthquakeData) {
     
     // Function triggered when zoom ends
     function zoomEnded(event) {
-        // We can add additional behavior on zoom end if needed
         if (event.transform.k === 1) {
             resetButton.style('display', 'none');
         }
@@ -1171,6 +1203,33 @@ function renderTimeline(earthquakeData) {
         .delay((d, i) => i * 10)
         .duration(500)
         .attr('opacity', 1);
+        
+    // Add touch feedback for mobile devices
+    if (isTouch) {
+        // Create a touch feedback marker
+        const touchFeedback = mainGroup.append('circle')
+            .attr('class', 'touch-feedback')
+            .attr('r', 20)
+            .attr('fill', 'rgba(26, 86, 219, 0.2)')
+            .attr('stroke', 'rgba(26, 86, 219, 0.5)')
+            .attr('stroke-width', 2)
+            .style('opacity', 0)
+            .style('pointer-events', 'none');
+            
+        // Add touch start event to show feedback
+        svg.on('touchstart', function(event) {
+            const touch = event.touches[0];
+            const coords = d3.pointer(touch, mainGroup.node());
+            
+            touchFeedback
+                .attr('cx', coords[0])
+                .attr('cy', coords[1])
+                .style('opacity', 0.8)
+                .transition()
+                .duration(500)
+                .style('opacity', 0);
+        });
+    }
 }
 
 // Function to determine color based on magnitude
@@ -1186,6 +1245,7 @@ function getColorByMagnitude(magnitude) {
 function showEarthquakeDetails(earthquake) {
     const detailsContent = document.getElementById('detailsContent');
     const noSelection = document.querySelector('.no-selection');
+    const isMobile = window.innerWidth < 768;
     
     // Store data for language switching
     detailsContent.__earthquakeData = earthquake;
@@ -1253,6 +1313,37 @@ function showEarthquakeDetails(earthquake) {
             </a>
         `;
         detailsContent.appendChild(linkContainer);
+    }
+    
+    // Mobile-specific UI enhancement
+    if (isMobile) {
+        // Add a "back to map" button for mobile users
+        const backButton = document.createElement('button');
+        backButton.className = 'mobile-back-button';
+        backButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Back to timeline
+        `;
+        backButton.addEventListener('click', function() {
+            // Scroll back to the visualization
+            const vizElement = document.querySelector('.visualization-card');
+            if (vizElement) {
+                vizElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start'
+                });
+            }
+        });
+        
+        // Insert back button at the top
+        detailsContent.insertBefore(backButton, detailsContent.firstChild);
+        
+        // Add some spacing for better mobile layout
+        const mobileSpacer = document.createElement('div');
+        mobileSpacer.className = 'mobile-spacer';
+        detailsContent.appendChild(mobileSpacer);
     }
     
     // Fade in animation for the entire details section
