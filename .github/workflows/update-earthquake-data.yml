@@ -2,8 +2,8 @@ name: Update Earthquake Data
 
 on:
   schedule:
-    # Run every 1 hours
-    - cron: '0 */1 * * *'
+    # Run every 3 hours
+    - cron: '0 */3 * * *'
   # Allow manual triggering
   workflow_dispatch:
   # Run on push to main branch (for testing and initial setup)
@@ -12,6 +12,7 @@ on:
       - main
     paths:
       - 'scripts/fetch-earthquake-data.js'
+      - 'package.json'
 
 jobs:
   update-data:
@@ -29,11 +30,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm install node-fetch@2 jsdom luxon
+        run: npm ci || npm install
+        # First try to install from package-lock.json if it exists
+        # If it fails (e.g. first run), fallback to regular install
 
       - name: Create data directory if it doesn't exist
         run: mkdir -p data

@@ -1,0 +1,26 @@
+{
+  "name": "thai-earthquake-visualizer",
+  "version": "1.0.0",
+  "description": "Interactive visualization of earthquake data from Thailand",
+  "main": "script.js",
+  "scripts": {
+    "fetch-data": "node scripts/fetch-earthquake-data.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pittawat2542/thailand-earthquake-visualizer.git"
+  },
+  "keywords": [
+    "earthquake",
+    "visualization",
+    "thailand",
+    "data"
+  ],
+  "author": "Pittawat Taveekitworachai",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^26.0.0",
+    "luxon": "^3.6.0",
+    "node-fetch": "^3.3.2"
+  }
+} 
