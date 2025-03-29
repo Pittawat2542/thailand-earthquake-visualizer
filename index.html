@@ -22,12 +22,17 @@
     <meta property="twitter:description" content="Interactive timeline visualization of earthquake data from Thailand and surrounding regions. Real-time earthquake information from the Thai Meteorological Department.">
     <meta property="twitter:image" content="https://pittawat2542.github.io/thailand-earthquake-visualizer/og-image.png">
 
+    <!-- Google Fonts - Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#007bff">
+    <meta name="theme-color" content="#1a56db">
     
     <title>Thailand Earthquake Timeline Visualization</title>
     <link rel="stylesheet" href="style.css">
@@ -62,72 +67,104 @@
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.6.0/build/global/luxon.min.js"></script>
 </head>
 <body>
+    <div class="stripe-gradient"></div>
     <div class="container">
-        <header>
-            <div class="header-top">
-                <h1 id="pageTitle">Thailand Earthquake Timeline</h1>
+        <header class="site-header">
+            <div class="header-content">
+                <h1 id="pageTitle" class="site-title">Thailand Earthquake Timeline</h1>
                 <div class="language-switcher" role="toolbar" aria-label="Language selection">
                     <button id="langTh" class="lang-btn" aria-pressed="false">ไทย</button>
                     <button id="langEn" class="lang-btn active" aria-pressed="true">English</button>
                 </div>
             </div>
-            <div class="last-update" id="lastUpdate" aria-live="polite">Last update: Loading...</div>
+            <div class="last-update-wrapper">
+                <div class="last-update" id="lastUpdate" aria-live="polite">Last update: Loading...</div>
+            </div>
         </header>
         
         <main>
-            <section class="filter-controls" aria-label="Filter controls">
-                <div class="filter-group">
-                    <div class="time-filter">
-                        <label id="timeFilterLabel" for="timeRangeFilter">Time range:</label>
-                        <select id="timeRangeFilter" aria-label="Select time range">
-                            <option value="recent">Recent events (after Mar 28, 2025)</option>
-                            <option value="all">All events</option>
-                        </select>
-                    </div>
-                    <div class="location-filter">
-                        <label id="locationFilterLabel" for="locationFilter">Location:</label>
-                        <select id="locationFilter" aria-label="Select location">
-                            <option value="myanmar">Myanmar only</option>
-                            <option value="all">All locations</option>
-                        </select>
+            <section class="filter-section">
+                <div class="card filter-card">
+                    <div class="filter-controls" aria-label="Filter controls">
+                        <div class="filter-group">
+                            <div class="filter-item time-filter">
+                                <label id="timeFilterLabel" for="timeRangeFilter">Time range:</label>
+                                <div class="select-wrapper">
+                                    <select id="timeRangeFilter" aria-label="Select time range">
+                                        <option value="recent">Recent events (after Mar 28, 2025)</option>
+                                        <option value="all">All events</option>
+                                    </select>
+                                    <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="filter-item location-filter">
+                                <label id="locationFilterLabel" for="locationFilter">Location:</label>
+                                <div class="select-wrapper">
+                                    <select id="locationFilter" aria-label="Select location">
+                                        <option value="myanmar">Myanmar only</option>
+                                        <option value="all">All locations</option>
+                                    </select>
+                                    <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="filter-item magnitude-filter">
+                                <label id="magnitudeFilterLabel" for="magnitudeFilter">Minimum magnitude:</label>
+                                <div class="select-wrapper">
+                                    <select id="magnitudeFilter" aria-label="Select minimum magnitude">
+                                        <option value="0">All magnitudes</option>
+                                        <option value="3">≥ 3.0</option>
+                                        <option value="4">≥ 4.0</option>
+                                        <option value="5">≥ 5.0</option>
+                                        <option value="6">≥ 6.0</option>
+                                    </select>
+                                    <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             
-            <section class="chart-container" aria-labelledby="chart-heading">
-                <h2 id="chart-heading" class="visually-hidden">Earthquake Timeline</h2>
-                <div id="timeline" aria-live="polite"></div>
+            <section class="visualization-section">
+                <div class="card visualization-card">
+                    <h2 id="chart-heading" class="visually-hidden">Earthquake Timeline</h2>
+                    <div id="timeline" class="timeline-container" aria-live="polite"></div>
+                </div>
             </section>
             
-            <section class="earthquake-details" id="earthquakeDetails" aria-labelledby="detailsTitle">
-                <h2 id="detailsTitle">Earthquake Information</h2>
-                <p class="no-selection" id="noSelection">Select an earthquake point to view details</p>
-                <div class="details-content" id="detailsContent" style="display: none;">
-                    <div class="detail-item"><strong id="labelLocation">Location:</strong> <span id="location"></span></div>
-                    <div class="detail-item"><strong id="labelDateTime">Date & Time:</strong> <span id="datetime"></span></div>
-                    <div class="detail-item"><strong id="labelMagnitude">Magnitude:</strong> <span id="magnitude"></span></div>
-                    <div class="detail-item"><strong id="labelDepth">Depth:</strong> <span id="depth"></span> <span id="labelKm">km</span></div>
-                    <div class="detail-item"><strong id="labelCoordinates">Coordinates:</strong> <span id="coordinates"></span></div>
-                    <div class="detail-item"><strong id="labelDescription">Description:</strong> <span id="description"></span></div>
+            <section class="details-section">
+                <div class="card details-card">
+                    <h2 id="detailsTitle" class="section-title">Earthquake Information</h2>
+                    <p class="no-selection" id="noSelection">Select an earthquake point to view details</p>
+                    <div class="details-content" id="detailsContent" style="display: none;">
+                        <div class="detail-item"><strong id="labelLocation">Location:</strong> <span id="location"></span></div>
+                        <div class="detail-item"><strong id="labelDateTime">Date & Time:</strong> <span id="datetime"></span></div>
+                        <div class="detail-item"><strong id="labelMagnitude">Magnitude:</strong> <span id="magnitude"></span></div>
+                        <div class="detail-item"><strong id="labelDepth">Depth:</strong> <span id="depth"></span> <span id="labelKm">km</span></div>
+                        <div class="detail-item"><strong id="labelCoordinates">Coordinates:</strong> <span id="coordinates"></span></div>
+                        <div class="detail-item"><strong id="labelDescription">Description:</strong> <span id="description"></span></div>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
     
-    <footer>
+    <footer class="site-footer">
         <div class="container">
-            <p>
-                <span id="dataSourceText">Data source:</span> 
-                <a href="https://earthquake.tmd.go.th/inside.html?ps=200" target="_blank" rel="noopener">Thailand Meteorological Department</a>
-                &nbsp;|&nbsp;
-                <span id="sourceCodeText">Source code:</span>
-                <a href="https://github.com/Pittawat2542/thailand-earthquake-visualizer" target="_blank" rel="noopener">
-                    <svg class="github-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                    GitHub
-                </a>
-            </p>
+            <div class="footer-content">
+                <p>
+                    <span id="dataSourceText">Data source:</span> 
+                    <a href="https://earthquake.tmd.go.th/inside.html?ps=200" target="_blank" rel="noopener">Thailand Meteorological Department</a>
+                    &nbsp;|&nbsp;
+                    <span id="sourceCodeText">Source code:</span>
+                    <a href="https://github.com/Pittawat2542/thailand-earthquake-visualizer" target="_blank" rel="noopener">
+                        <svg class="github-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        GitHub
+                    </a>
+                </p>
+            </div>
         </div>
     </footer>
     

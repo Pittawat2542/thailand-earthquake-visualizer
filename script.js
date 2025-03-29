@@ -19,7 +19,7 @@ const translations = {
         noData: 'No earthquake data available.',
         loadingError: 'Failed to load earthquake data. Please try again later.',
         timeFilterLabel: 'Time range:',
-        timeFilterRecent: 'Recent events (from Mar 28, 2025)',
+        timeFilterRecent: 'Recent events (after Mar 28, 2025)',
         timeFilterAll: 'All events',
         eventsShown: 'Showing {count} events',
         resetZoom: 'Reset Zoom',
@@ -28,7 +28,16 @@ const translations = {
         viewDetails: 'View detailed information',
         locationFilterLabel: 'Location:',
         locationFilterMyanmar: 'Myanmar only',
-        locationFilterAll: 'All locations'
+        locationFilterAll: 'All locations',
+        magnitudeFilterLabel: 'Minimum magnitude:',
+        magnitudeFilterAll: 'All magnitudes',
+        magnitudeFilter3: '≥ 3.0',
+        magnitudeFilter4: '≥ 4.0',
+        magnitudeFilter5: '≥ 5.0',
+        magnitudeFilter6: '≥ 6.0',
+        magnitudeSeverityHigh: 'High',
+        magnitudeSeverityMedium: 'Medium',
+        magnitudeSeverityLow: 'Low'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -49,7 +58,7 @@ const translations = {
         noData: 'ไม่พบข้อมูลแผ่นดินไหว',
         loadingError: 'ไม่สามารถโหลดข้อมูลแผ่นดินไหวได้ กรุณาลองใหม่อีกครั้ง',
         timeFilterLabel: 'ช่วงเวลา:',
-        timeFilterRecent: 'เหตุการณ์ล่าสุด (ตั้งแต่วันที่ 28 มี.ค. 2568)',
+        timeFilterRecent: 'เหตุการณ์ล่าสุด (หลังวันที่ 28 มี.ค. 2568)',
         timeFilterAll: 'เหตุการณ์ทั้งหมด',
         eventsShown: 'กำลังแสดง {count} เหตุการณ์',
         resetZoom: 'รีเซ็ตการซูม',
@@ -58,7 +67,16 @@ const translations = {
         viewDetails: 'ดูรายละเอียดเพิ่มเติม',
         locationFilterLabel: 'ตำแหน่ง:',
         locationFilterMyanmar: 'เฉพาะประเทศเมียนมา',
-        locationFilterAll: 'ทุกตำแหน่ง'
+        locationFilterAll: 'ทุกตำแหน่ง',
+        magnitudeFilterLabel: 'ขนาดขั้นต่ำ:',
+        magnitudeFilterAll: 'ทุกขนาด',
+        magnitudeFilter3: '≥ 3.0',
+        magnitudeFilter4: '≥ 4.0',
+        magnitudeFilter5: '≥ 5.0',
+        magnitudeFilter6: '≥ 6.0',
+        magnitudeSeverityHigh: 'สูง',
+        magnitudeSeverityMedium: 'ปานกลาง',
+        magnitudeSeverityLow: 'ต่ำ'
     }
 };
 
@@ -70,6 +88,9 @@ let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'rece
 
 // Current location filter setting
 let currentLocationFilter = localStorage.getItem('earthquakeAppLocationFilter') || 'myanmar';
+
+// Current magnitude filter setting
+let currentMagnitudeFilter = localStorage.getItem('earthquakeAppMagnitudeFilter') || '0';
 
 // Cut-off date for recent events (March 28, 2025)
 const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
@@ -88,10 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize language switcher
 function initializeLanguageSwitcher() {
-    // Define elements that need text updates for language change
-    langElements = {
+    const langElements = {
         pageTitle: document.getElementById('pageTitle'),
         lastUpdate: document.getElementById('lastUpdate'),
+        timeFilterLabel: document.getElementById('timeFilterLabel'),
+        locationFilterLabel: document.getElementById('locationFilterLabel'),
+        magnitudeFilterLabel: document.getElementById('magnitudeFilterLabel'),
         detailsTitle: document.getElementById('detailsTitle'),
         noSelection: document.getElementById('noSelection'),
         labelLocation: document.getElementById('labelLocation'),
@@ -102,14 +125,10 @@ function initializeLanguageSwitcher() {
         labelCoordinates: document.getElementById('labelCoordinates'),
         labelDescription: document.getElementById('labelDescription'),
         dataSourceText: document.getElementById('dataSourceText'),
-        sourceCodeText: document.getElementById('sourceCodeText'),
-        timeFilterLabel: document.getElementById('timeFilterLabel'),
+        sourceCodeText: document.getElementById('sourceCodeText')
     };
-    
-    // Set initial language
-    applyLanguage(currentLang);
-    
-    // Add event listeners to language buttons
+
+    // Set up language buttons
     document.getElementById('langEn').addEventListener('click', () => {
         setLanguage('en');
     });
@@ -118,8 +137,53 @@ function initializeLanguageSwitcher() {
         setLanguage('th');
     });
     
-    // Update button active state
-    updateLanguageButtons();
+    // Set initial language
+    const savedLang = localStorage.getItem('earthquakeAppLang') || 'en';
+    setLanguage(savedLang);
+    
+    // Helper to set language
+    function setLanguage(lang) {
+        if (currentLang === lang) return;
+        
+        currentLang = lang;
+        localStorage.setItem('earthquakeAppLang', lang);
+        
+        // Apply translations to all elements
+        for (const [key, element] of Object.entries(langElements)) {
+            if (element) {
+                element.textContent = translations[lang][key] || element.textContent;
+            }
+        }
+        
+        // Update filter options
+        updateFilterOptions();
+        
+        // Update UI state
+        updateLanguageButtons();
+        
+        // Re-render timeline with new language and current filters
+        if (allEarthquakeData.length > 0) {
+            renderTimeline(getFilteredEarthquakeData());
+        }
+        
+        // Update earthquake details if showing
+        const detailsContent = document.getElementById('detailsContent');
+        if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
+            showEarthquakeDetails(detailsContent.__earthquakeData);
+        }
+        
+        // Update last update time with new language
+        updateLastUpdateTime();
+    }
+    
+    // Update language button states
+    function updateLanguageButtons() {
+        document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
+        document.getElementById('langEn').setAttribute('aria-pressed', currentLang === 'en');
+        
+        document.getElementById('langTh').classList.toggle('active', currentLang === 'th');
+        document.getElementById('langTh').setAttribute('aria-pressed', currentLang === 'th');
+    }
 }
 
 // Initialize filters
@@ -127,9 +191,11 @@ function initializeFilters() {
     // Set the filter dropdowns to the saved values
     const timeFilterSelect = document.getElementById('timeRangeFilter');
     const locationFilterSelect = document.getElementById('locationFilter');
+    const magnitudeFilterSelect = document.getElementById('magnitudeFilter');
     
     timeFilterSelect.value = currentTimeFilter;
     locationFilterSelect.value = currentLocationFilter;
+    magnitudeFilterSelect.value = currentMagnitudeFilter;
     
     // Add event listeners for filter changes
     timeFilterSelect.addEventListener('change', (event) => {
@@ -144,6 +210,12 @@ function initializeFilters() {
         updateTimeline();
     });
     
+    magnitudeFilterSelect.addEventListener('change', (event) => {
+        currentMagnitudeFilter = event.target.value;
+        localStorage.setItem('earthquakeAppMagnitudeFilter', currentMagnitudeFilter);
+        updateTimeline();
+    });
+    
     // Update filter options text based on language
     updateFilterOptions();
 }
@@ -152,59 +224,19 @@ function initializeFilters() {
 function updateFilterOptions() {
     const timeFilterSelect = document.getElementById('timeRangeFilter');
     const locationFilterSelect = document.getElementById('locationFilter');
+    const magnitudeFilterSelect = document.getElementById('magnitudeFilter');
     
     timeFilterSelect.options[0].text = getText('timeFilterRecent');
     timeFilterSelect.options[1].text = getText('timeFilterAll');
     
     locationFilterSelect.options[0].text = getText('locationFilterMyanmar');
     locationFilterSelect.options[1].text = getText('locationFilterAll');
-}
-
-// Set language and save preference
-function setLanguage(lang) {
-    if (currentLang === lang) return;
     
-    currentLang = lang;
-    localStorage.setItem('earthquakeAppLang', lang);
-    
-    applyLanguage(lang);
-    updateLanguageButtons();
-    updateFilterOptions();
-    
-    // Re-render timeline with new language and current filters
-    if (allEarthquakeData.length > 0) {
-        renderTimeline(getFilteredEarthquakeData());
-    }
-    
-    // Update earthquake details if showing
-    const detailsContent = document.getElementById('detailsContent');
-    if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
-        showEarthquakeDetails(detailsContent.__earthquakeData);
-    }
-}
-
-// Apply translations to DOM elements
-function applyLanguage(lang) {
-    const texts = translations[lang];
-    
-    // Update text for all language elements
-    for (const [key, element] of Object.entries(langElements)) {
-        if (element && texts[key]) {
-            // Special case for lastUpdate that contains dynamic content
-            if (key === 'lastUpdate') {
-                const timeText = element.textContent.split(': ')[1] || '';
-                element.textContent = `${texts[key]} ${timeText}`;
-            } else {
-                element.textContent = texts[key];
-            }
-        }
-    }
-}
-
-// Update language button active states
-function updateLanguageButtons() {
-    document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
-    document.getElementById('langTh').classList.toggle('active', currentLang === 'th');
+    magnitudeFilterSelect.options[0].text = getText('magnitudeFilterAll');
+    magnitudeFilterSelect.options[1].text = getText('magnitudeFilter3');
+    magnitudeFilterSelect.options[2].text = getText('magnitudeFilter4');
+    magnitudeFilterSelect.options[3].text = getText('magnitudeFilter5');
+    magnitudeFilterSelect.options[4].text = getText('magnitudeFilter6');
 }
 
 // Get translated text
@@ -233,6 +265,12 @@ function getFilteredEarthquakeData() {
         filteredData = filteredData.filter(eq => 
             eq.title.includes('ประเทศเมียนมา') || eq.title.includes('Myanmar')
         );
+    }
+    
+    // Apply magnitude filter
+    const minMagnitude = parseFloat(currentMagnitudeFilter);
+    if (minMagnitude > 0) {
+        filteredData = filteredData.filter(eq => eq.magnitude >= minMagnitude);
     }
     
     return filteredData;
@@ -1060,39 +1098,93 @@ function showEarthquakeDetails(earthquake) {
     
     // Hide "no selection" message and show details
     noSelection.style.display = 'none';
-    detailsContent.style.display = 'block';
+    detailsContent.style.display = 'grid';
     
-    // Add fade-in animation
-    detailsContent.style.opacity = 0;
+    // Clear previous content
+    detailsContent.innerHTML = '';
     
-    // Populate details
-    document.getElementById('location').textContent = earthquake.title;
-    document.getElementById('datetime').textContent = formatDate(earthquake.time);
-    document.getElementById('magnitude').textContent = `${earthquake.magnitude} ML`;
-    document.getElementById('depth').textContent = earthquake.depth;
-    document.getElementById('coordinates').textContent = `${earthquake.latitude}, ${earthquake.longitude}`;
-    document.getElementById('description').textContent = earthquake.comments || earthquake.description || '-';
+    // Create detail items
+    const locationItem = createDetailItem('labelLocation', earthquake.title);
+    const datetimeItem = createDetailItem('labelDateTime', formatDate(earthquake.time));
+    
+    // Magnitude with appropriate class
+    const magnitudeValue = `${earthquake.magnitude.toFixed(1)} ML`;
+    const magnitudeItem = createDetailItem('labelMagnitude', magnitudeValue);
+    const magnitudeSpan = magnitudeItem.querySelector('span');
+    
+    let severityClass, severityLabel;
+    if (earthquake.magnitude >= 6) {
+        severityClass = 'magnitude-high';
+        severityLabel = getText('magnitudeSeverityHigh');
+    } else if (earthquake.magnitude >= 5) {
+        severityClass = 'magnitude-medium';
+        severityLabel = getText('magnitudeSeverityMedium');
+    } else {
+        severityClass = 'magnitude-low';
+        severityLabel = getText('magnitudeSeverityLow');
+    }
+    
+    magnitudeSpan.className = severityClass;
+    
+    // Add severity label span
+    const severitySpan = document.createElement('span');
+    severitySpan.className = 'severity-label';
+    severitySpan.textContent = severityLabel;
+    magnitudeSpan.appendChild(severitySpan);
+    
+    const depthItem = createDetailItem('labelDepth', `${earthquake.depth} ${getText('labelKm')}`);
+    const coordinatesItem = createDetailItem('labelCoordinates', `${earthquake.latitude.toFixed(4)}°N, ${earthquake.longitude.toFixed(4)}°E`);
+    const descriptionItem = createDetailItem('labelDescription', earthquake.comments || earthquake.description || '-');
+    
+    // Add all items to the details content
+    detailsContent.appendChild(locationItem);
+    detailsContent.appendChild(datetimeItem);
+    detailsContent.appendChild(magnitudeItem);
+    detailsContent.appendChild(depthItem);
+    detailsContent.appendChild(coordinatesItem);
+    detailsContent.appendChild(descriptionItem);
     
     // Add link to detailed information if available
-    const linkContainer = document.createElement('div');
-    linkContainer.className = 'detail-item';
-    linkContainer.innerHTML = `
-        <a href="${earthquake.link}" target="_blank" rel="noopener noreferrer" class="detail-link">
-            ${getText('viewDetails')} →
-        </a>
-    `;
-    detailsContent.appendChild(linkContainer);
+    if (earthquake.link) {
+        const linkContainer = document.createElement('div');
+        linkContainer.className = 'detail-link-container';
+        linkContainer.innerHTML = `
+            <a href="${earthquake.link}" target="_blank" rel="noopener noreferrer" class="detail-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                ${getText('viewDetails')}
+            </a>
+        `;
+        detailsContent.appendChild(linkContainer);
+    }
     
-    // Highlight magnitude based on severity
-    const magnitudeElement = document.getElementById('magnitude');
-    magnitudeElement.style.color = getColorByMagnitude(earthquake.magnitude);
-    magnitudeElement.style.fontWeight = 'bold';
-    
-    // Fade in animation
+    // Fade in animation for the entire details section
+    detailsContent.style.opacity = 0;
     setTimeout(() => {
         detailsContent.style.transition = 'opacity 0.3s ease';
         detailsContent.style.opacity = 1;
     }, 50);
+}
+
+// Helper function to create detail items
+function createDetailItem(labelKey, value) {
+    const item = document.createElement('div');
+    item.className = 'detail-item';
+    
+    const label = document.createElement('strong');
+    label.id = labelKey;
+    label.textContent = getText(labelKey);
+    
+    const valueSpan = document.createElement('span');
+    valueSpan.textContent = value;
+    
+    item.appendChild(label);
+    item.appendChild(valueSpan);
+    
+    return item;
 }
 
 // Helper function to format date
