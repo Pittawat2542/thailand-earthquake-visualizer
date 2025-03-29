@@ -4,7 +4,8 @@
   "description": "Interactive visualization of earthquake data from Thailand",
   "main": "script.js",
   "scripts": {
-    "fetch-data": "node scripts/fetch-earthquake-data.js"
+    "fetch-data": "node scripts/fetch-earthquake-data.js",
+    "start": "http-server -p 8080"
   },
   "repository": {
     "type": "git",

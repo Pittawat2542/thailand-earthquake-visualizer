@@ -1,0 +1,10 @@
+This file should be a 512x512 pixel PNG designed specifically as a maskable icon.
+
+Key features:
+- Blue gradient background (#1a56db to #3b82f6) that extends to the full square
+- The main earthquake design elements should be contained within the "safe zone" (centered 80% of the image)
+- Seismic wave circles and epicenter centered in the image
+- Earthquake zigzag line in the center
+- No important visual elements in the outer 10% of each edge
+
+This icon is specifically optimized for Android devices that use adaptive icons, which may crop the image into different shapes (circle, square, rounded square, etc.). 

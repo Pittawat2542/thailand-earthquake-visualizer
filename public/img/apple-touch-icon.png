@@ -1,0 +1,9 @@
+This file should be a 180x180 pixel PNG version of the favicon.svg, optimized for Apple devices.
+
+The image should maintain the same design as the SVG favicon:
+- Blue gradient background (#1a56db to #3b82f6)
+- Circular design with white epicenter
+- Concentric seismic wave circles
+- Earthquake zigzag line in the center
+
+This image will be used as the home screen icon when users add the website to their home screen on iOS devices. 

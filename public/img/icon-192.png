@@ -1,0 +1,8 @@
+This file should be a 192x192 pixel PNG version of the favicon.svg.
+
+- Blue gradient background (#1a56db to #3b82f6)
+- White center with seismic wave circles
+- Earthquake zigzag line in the center
+- Optimized for Android home screen icons and PWA support
+
+This image is primarily used for Android devices when adding the website to the home screen. 

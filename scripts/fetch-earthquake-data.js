@@ -59,6 +59,66 @@ function parseTimeString(timeStr) {
     }
 }
 
+// Function to generate a more informative description for each earthquake
+function generateEnhancedDescription(earthquake) {
+    // Classify magnitude severity
+    let magnitudeSeverity;
+    let safetyRecommendationsEN;
+    let safetyRecommendationsTH;
+    
+    if (earthquake.magnitude >= 7.0) {
+        magnitudeSeverity = 'Major';
+        safetyRecommendationsEN = "SEEK SHELTER IMMEDIATELY: Drop, Cover, Hold On. Stay away from windows and exterior walls. If outdoors, stay in open areas away from buildings, trees, and power lines. After shaking stops, evacuate to higher ground if near the coast due to tsunami risk. Expect aftershocks.";
+        safetyRecommendationsTH = "หาที่หลบภัยทันที: หมอบ ปกป้อง เกาะยึด อยู่ห่างจากหน้าต่างและผนังด้านนอก หากอยู่นอกอาคาร ให้อยู่ในพื้นที่โล่งห่างจากอาคาร ต้นไม้ และสายไฟ หลังการสั่นไหวหยุดลง ให้อพยพไปยังพื้นที่สูงหากอยู่ใกล้ชายฝั่งเนื่องจากมีความเสี่ยงเรื่องสึนามิ เตรียมรับมือกับแผ่นดินไหวตาม";
+    } else if (earthquake.magnitude >= 6.0) {
+        magnitudeSeverity = 'Strong';
+        safetyRecommendationsEN = "Take immediate protective action: Drop, Cover, Hold On. Stay indoors until shaking stops. Be prepared for power outages and damage to structures. Check for injuries and damage after shaking stops. Listen to authorities for emergency information.";
+        safetyRecommendationsTH = "ดำเนินการป้องกันทันที: หมอบ ปกป้อง เกาะยึด อยู่ในอาคารจนกว่าการสั่นไหวจะหยุด เตรียมพร้อมสำหรับไฟฟ้าดับและความเสียหายต่อโครงสร้าง ตรวจสอบการบาดเจ็บและความเสียหายหลังจากการสั่นไหวหยุด ฟังข้อมูลฉุกเฉินจากเจ้าหน้าที่";
+    } else if (earthquake.magnitude >= 5.0) {
+        magnitudeSeverity = 'Moderate';
+        safetyRecommendationsEN = "Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.";
+        safetyRecommendationsTH = "ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ";
+    } else if (earthquake.magnitude >= 4.0) {
+        magnitudeSeverity = 'Light';
+        safetyRecommendationsEN = "Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.";
+        safetyRecommendationsTH = "เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น";
+    } else if (earthquake.magnitude >= 3.0) {
+        magnitudeSeverity = 'Minor';
+        safetyRecommendationsEN = "No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.";
+        safetyRecommendationsTH = "ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล";
+    } else {
+        magnitudeSeverity = 'Micro';
+        safetyRecommendationsEN = "No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.";
+        safetyRecommendationsTH = "ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น";
+    }
+    
+    // Format date for reference
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Bangkok'
+    });
+    
+    const thaiDateFormatter = new Intl.DateTimeFormat('th-TH', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Bangkok'
+    });
+    
+    // Format time for English and Thai dates
+    const formattedDate = dateFormatter.format(earthquake.time);
+    const thaiFormattedDate = thaiDateFormatter.format(earthquake.time);
+    
+    // Generate safety recommendation description in both languages
+    return `[EN] ${magnitudeSeverity} Earthquake (${earthquake.magnitude.toFixed(1)} ML) - SAFETY ADVICE: ${safetyRecommendationsEN}\n\n[TH] แผ่นดินไหวระดับ${magnitudeSeverity} (${earthquake.magnitude.toFixed(1)} ML) - คำแนะนำความปลอดภัย: ${safetyRecommendationsTH}`;
+}
+
 // Parse HTML table data to extract earthquake information
 function parseHtmlTableData(htmlText) {
     try {
@@ -268,15 +328,19 @@ function parseHtmlTableData(htmlText) {
                 // Create earthquake object if we have valid critical data
                 if (!isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
                     const earthquake = {
-                        title: locationCell,
+                        title: addSpaceBetweenLanguages(locationCell),
                         link: link,
                         latitude: latitude,
                         longitude: longitude,
                         depth: depth,
                         magnitude: magnitude,
                         time: timeObj,
-                        description: locationCell
+                        description: addSpaceBetweenLanguages(locationCell) // Default description is the location
                     };
+                    
+                    // Update with enhanced description
+                    earthquake.description = generateEnhancedDescription(earthquake);
+                    
                     earthquakes.push(earthquake);
                 } else {
                     console.warn('Skipping earthquake with invalid data:', {
@@ -317,6 +381,7 @@ function convertToCSV(earthquakes) {
         'depth',
         'magnitude',
         'time',
+        'timezone',
         'description'
     ];
     
@@ -325,6 +390,8 @@ function convertToCSV(earthquakes) {
     
     // Add each earthquake as a row
     earthquakes.forEach(quake => {
+        // Store the original time in ISO format but add timezone information
+        // We need to preserve that this is Bangkok time (GMT+7)
         const formattedTime = quake.time.toISOString();
         
         // Escape any commas or quotes in string fields
@@ -339,6 +406,7 @@ function convertToCSV(earthquakes) {
             quake.depth,
             quake.magnitude,
             formattedTime,
+            'Asia/Bangkok', // Add timezone information
             escapedDescription
         ];
         
@@ -360,7 +428,7 @@ async function fetchAndSaveEarthquakeData() {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (compatible; EarthquakeDataFetcher/1.0; +https://github.com/pittawat)'
             },
-            timeout: 30000 // 30 second timeout
+            timeout: 60000 // 60 second timeout
         });
         
         if (!response.ok) {
@@ -396,7 +464,16 @@ async function fetchAndSaveEarthquakeData() {
         
         // Also create a JSON file for easy loading
         const jsonFilePath = path.join(dataDir, 'earthquakes.json');
-        fs.writeFileSync(jsonFilePath, JSON.stringify(earthquakes, null, 2));
+        
+        // Add timezone information to each earthquake object before saving
+        const earthquakesWithTimezone = earthquakes.map(quake => ({
+            ...quake,
+            timezone: 'Asia/Bangkok', // Add timezone information
+            // We need to keep the time as ISO string for proper JSON serialization
+            time: quake.time.toISOString()
+        }));
+        
+        fs.writeFileSync(jsonFilePath, JSON.stringify(earthquakesWithTimezone, null, 2));
         
         console.log(`Earthquake data saved to ${csvFilePath} and ${jsonFilePath}`);
         
@@ -414,6 +491,11 @@ async function fetchAndSaveEarthquakeData() {
         console.error('Error fetching and saving earthquake data:', error);
         process.exit(1);
     }
+}
+
+function addSpaceBetweenLanguages(text) {
+    return text.replace(/([ก-๙])([A-Za-z])/g, '$1 $2')
+               .replace(/([A-Za-z])([ก-๙])/g, '$1 $2');
 }
 
 // Run the main function

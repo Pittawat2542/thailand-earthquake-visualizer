@@ -26,6 +26,7 @@ const translations = {
         zoomHint: 'Scroll to zoom, drag to pan',
         timezoneNote: 'All times shown are in GMT+7 (Thai time)',
         viewDetails: 'View detailed information',
+        viewOriginalLink: 'View detailed information',
         locationFilterLabel: 'Location:',
         locationFilterMyanmar: 'Myanmar only',
         locationFilterAll: 'All locations',
@@ -38,7 +39,15 @@ const translations = {
         magnitudeSeverityHigh: 'High',
         magnitudeSeverityMedium: 'Medium',
         magnitudeSeverityLow: 'Low',
-        chartHeading: 'Earthquake Timeline'
+        chartHeading: 'Earthquake Timeline',
+        safetyRecommendationTitle: 'Safety Recommendation',
+        severityMajor: 'Major',
+        severityStrong: 'Strong',
+        severityModerate: 'Moderate',
+        severityLight: 'Light',
+        severityMinor: 'Minor',
+        severityMicro: 'Micro',
+        backToTimeline: 'Back to timeline'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -66,6 +75,7 @@ const translations = {
         zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน',
         timezoneNote: 'เวลาทั้งหมดแสดงในรูปแบบ GMT+7 (เวลาประเทศไทย)',
         viewDetails: 'ดูรายละเอียดเพิ่มเติม',
+        viewOriginalLink: 'ดูรายละเอียดเพิ่มเติม',
         locationFilterLabel: 'ตำแหน่ง:',
         locationFilterMyanmar: 'เฉพาะประเทศเมียนมา',
         locationFilterAll: 'ทุกตำแหน่ง',
@@ -78,7 +88,15 @@ const translations = {
         magnitudeSeverityHigh: 'สูง',
         magnitudeSeverityMedium: 'ปานกลาง',
         magnitudeSeverityLow: 'ต่ำ',
-        chartHeading: 'ไทม์ไลน์แผ่นดินไหว'
+        chartHeading: 'ไทม์ไลน์แผ่นดินไหว',
+        safetyRecommendationTitle: 'คำแนะนำความปลอดภัย',
+        severityMajor: 'รุนแรงมาก',
+        severityStrong: 'รุนแรง',
+        severityModerate: 'ส่งผลกระทบ',
+        severityLight: 'ปานกลาง',
+        severityMinor: 'เล็กน้อย',
+        severityMicro: 'ไม่ส่งผลกระทบ',
+        backToTimeline: 'กลับไปยังไทม์ไลน์'
     }
 };
 
@@ -221,6 +239,7 @@ function setLanguage(lang, force = false) {
     // Update earthquake details if showing
     const detailsContent = document.getElementById('detailsContent');
     if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
+        // Re-render the current earthquake details with the new language
         showEarthquakeDetails(detailsContent.__earthquakeData);
     }
     
@@ -414,9 +433,34 @@ async function fetchEarthquakeData() {
                 const earthquakeData = await response.json();
                 console.log(`Successfully loaded ${earthquakeData.length} earthquakes from local data`);
                 
-                // Convert the time strings back to Date objects
+                // Convert the time strings back to Date objects with proper timezone handling
                 earthquakeData.forEach(quake => {
-                    quake.time = new Date(quake.time);
+                    // Check if the timezone field exists (for backward compatibility)
+                    if (quake.timezone && quake.timezone === 'Asia/Bangkok') {
+                        // Parse the time string and adjust for Bangkok timezone (GMT+7)
+                        const utcTime = new Date(quake.time);
+                        
+                        // Option 1: Use luxon for proper timezone handling if available
+                        if (luxon && luxon.DateTime) {
+                            // Create a DateTime object in the Bangkok timezone
+                            const bangkokTime = luxon.DateTime.fromISO(quake.time, { zone: 'Asia/Bangkok' });
+                            quake.time = bangkokTime.toJSDate();
+                            console.log(`Converted time with Luxon: ${bangkokTime.toString()}`);
+                        } 
+                        // Option 2: Fallback to manual adjustment if luxon is not available
+                        else {
+                            // Get the original ISO string's hours and add the 7-hour offset
+                            // This preserves the correct Bangkok time in the date object
+                            const isoString = quake.time;
+                            // Force the time to be interpreted as Bangkok time
+                            const localTimeString = isoString.replace('Z', '+07:00');
+                            quake.time = new Date(localTimeString);
+                            console.log(`Manually adjusted time: ${quake.time}`);
+                        }
+                    } else {
+                        // Fallback for data without timezone information
+                        quake.time = new Date(quake.time);
+                    }
                 });
                 
                 // Check the last update time to ensure data is not too old
@@ -779,7 +823,7 @@ function parseHtmlTableData(htmlText) {
                 // Create earthquake object if we have valid critical data
                 if (!isNaN(latitude) && !isNaN(longitude) && !isNaN(magnitude) && timeObj) {
                     const earthquake = {
-                        title: locationCell,
+                        title: addSpaceBetweenLanguages(locationCell),
                         link: link,
                         latitude: latitude,
                         longitude: longitude,
@@ -788,8 +832,9 @@ function parseHtmlTableData(htmlText) {
                         time: timeObj,
                         comments: '',
                         pubDate: new Date(),
-                        description: locationCell
+                        description: addSpaceBetweenLanguages(locationCell)
                     };
+                    
                     earthquakes.push(earthquake);
                 } else {
                     console.warn('Skipping earthquake with invalid data:', {
@@ -1260,13 +1305,13 @@ function getColorByMagnitude(magnitude) {
 function showEarthquakeDetails(earthquake) {
     const detailsContent = document.getElementById('detailsContent');
     const noSelection = document.querySelector('.no-selection');
-    const isMobile = window.innerWidth < 768;
     
     // Store data for language switching
+    currentEarthquake = earthquake;
     detailsContent.__earthquakeData = earthquake;
     
     // Hide "no selection" message and show details
-    noSelection.style.display = 'none';
+    if (noSelection) noSelection.style.display = 'none';
     detailsContent.style.display = 'grid';
     
     // Clear previous content
@@ -1277,33 +1322,200 @@ function showEarthquakeDetails(earthquake) {
     const datetimeItem = createDetailItem('labelDateTime', formatDate(earthquake.time));
     
     // Magnitude with appropriate class
-    const magnitudeValue = `${earthquake.magnitude.toFixed(1)} ML`;
-    const magnitudeItem = createDetailItem('labelMagnitude', magnitudeValue);
+    const magnitudeItem = createDetailItem('labelMagnitude', earthquake.magnitude);
     const magnitudeSpan = magnitudeItem.querySelector('span');
     
-    let severityClass, severityLabel;
-    if (earthquake.magnitude >= 6) {
+    let severityClass;
+    let severityText;
+    
+    if (parseFloat(earthquake.magnitude) >= 7.0) {
         severityClass = 'magnitude-high';
-        severityLabel = getText('magnitudeSeverityHigh');
-    } else if (earthquake.magnitude >= 5) {
+        severityText = getText('magnitudeSeverityHigh');
+    } else if (parseFloat(earthquake.magnitude) >= 5.0) {
         severityClass = 'magnitude-medium';
-        severityLabel = getText('magnitudeSeverityMedium');
+        severityText = getText('magnitudeSeverityMedium');
     } else {
         severityClass = 'magnitude-low';
-        severityLabel = getText('magnitudeSeverityLow');
+        severityText = getText('magnitudeSeverityLow');
     }
     
     magnitudeSpan.className = severityClass;
     
-    // Add severity label span
-    const severitySpan = document.createElement('span');
-    severitySpan.className = 'severity-label';
-    severitySpan.textContent = severityLabel;
-    magnitudeSpan.appendChild(severitySpan);
+    // Add severity label
+    const severityLabel = document.createElement('span');
+    severityLabel.className = 'severity-label';
+    severityLabel.textContent = severityText;
+    magnitudeSpan.appendChild(severityLabel);
     
     const depthItem = createDetailItem('labelDepth', `${earthquake.depth} ${getText('labelKm')}`);
     const coordinatesItem = createDetailItem('labelCoordinates', `${earthquake.latitude.toFixed(4)}°N, ${earthquake.longitude.toFixed(4)}°E`);
-    const descriptionItem = createDetailItem('labelDescription', earthquake.comments || earthquake.description || '-');
+    
+    // Process the description (which contains safety recommendations)
+    const descriptionText = earthquake.description || '';
+    
+    // Create description item wrapper
+    const descriptionItem = document.createElement('div');
+    descriptionItem.className = 'detail-item safety-recommendations';
+    
+    const descriptionLabel = document.createElement('strong');
+    descriptionLabel.id = 'labelDescription';
+    descriptionLabel.textContent = getText('labelDescription');
+    descriptionItem.appendChild(descriptionLabel);
+    
+    // Check if the description has safety recommendations format with [EN] and [TH] tags
+    if (descriptionText.includes('[EN]') && descriptionText.includes('[TH]')) {
+        // Split the text to get English and Thai parts
+        const englishMatch = descriptionText.match(/\[EN\](.*?)(?=\[TH\]|\s*$)/s);
+        const thaiMatch = descriptionText.match(/\[TH\](.*?)(?=\s*$)/s);
+        
+        if (englishMatch && thaiMatch) {
+            const englishPart = englishMatch[1].trim();
+            const thaiPart = thaiMatch[1].trim();
+            
+            // Get the appropriate content based on current language
+            const content = currentLang === 'en' ? englishPart : thaiPart;
+            
+            // Extract earthquake type and severity level
+            let severityLevel = null;
+            let severityTranslationKey = null;
+            
+            // First determine severity based on magnitude
+            const magnitudeValue = parseFloat(earthquake.magnitude);
+            if (magnitudeValue >= 7.0) {
+                severityLevel = "Major";
+                severityTranslationKey = "severityMajor";
+            } else if (magnitudeValue >= 6.0) {
+                severityLevel = "Strong";
+                severityTranslationKey = "severityStrong";
+            } else if (magnitudeValue >= 5.0) {
+                severityLevel = "Moderate";
+                severityTranslationKey = "severityModerate";
+            } else if (magnitudeValue >= 4.0) {
+                severityLevel = "Light";
+                severityTranslationKey = "severityLight";
+            } else if (magnitudeValue >= 3.0) {
+                severityLevel = "Minor";
+                severityTranslationKey = "severityMinor";
+            } else {
+                severityLevel = "Micro";
+                severityTranslationKey = "severityMicro";
+            }
+            
+            // Instead of overriding magnitude-based classification, we'll only use the text-based
+            // classification if it's consistent with the magnitude range
+            let textBasedSeverity = "";
+            let textBasedSeverityKey = "";
+            
+            if (content.includes("Major") || content.includes("รุนแรงมาก")) {
+                textBasedSeverity = "Major";
+                textBasedSeverityKey = "severityMajor";
+            } else if (content.includes("Strong") || content.includes("รุนแรง")) {
+                textBasedSeverity = "Strong";
+                textBasedSeverityKey = "severityStrong";
+            } else if (content.includes("Moderate") || content.includes("ส่งผลกระทบ")) {
+                textBasedSeverity = "Moderate";
+                textBasedSeverityKey = "severityModerate";
+            } else if (content.includes("Light") || content.includes("ปานกลาง")) {
+                textBasedSeverity = "Light";
+                textBasedSeverityKey = "severityLight";
+            } else if (content.includes("Minor") || content.includes("เล็กน้อย")) {
+                textBasedSeverity = "Minor";
+                textBasedSeverityKey = "severityMinor";
+            } else if (content.includes("Micro") || content.includes("ไม่ส่งผลกระทบ")) {
+                textBasedSeverity = "Micro";
+                textBasedSeverityKey = "severityMicro";
+            }
+            
+            // Only use text-based classification if it's reasonable for the magnitude
+            // For debugging
+            console.log(`Magnitude: ${magnitudeValue}, Magnitude-based: ${severityLevel}, Text-based: ${textBasedSeverity}`);
+            
+            // Some special handling to avoid misclassification
+            if (textBasedSeverity === "Light" && magnitudeValue >= 5.0) {
+                // Don't downgrade higher magnitudes to Light based on text
+                console.log("Preventing downgrade of magnitude >= 5.0 to Light");
+            } else if (textBasedSeverity === "Strong" && magnitudeValue < 4.5) {
+                // Don't upgrade lower magnitudes to Strong based on text
+                console.log("Preventing upgrade of magnitude < 4.5 to Strong");
+            } else if (textBasedSeverity) {
+                // In other cases where the text-based classification seems reasonable, use it
+                severityLevel = textBasedSeverity;
+                severityTranslationKey = textBasedSeverityKey;
+            }
+            
+            // Create recommendation container
+            const recommendationContainer = document.createElement('div');
+            recommendationContainer.className = 'safety-recommendation';
+            recommendationContainer.setAttribute('data-severity', severityLevel);
+
+            // Create the title with icon
+            const titleElement = document.createElement('div');
+            titleElement.className = 'safety-recommendation-title';
+            titleElement.textContent = getText('safetyRecommendationTitle');
+            recommendationContainer.appendChild(titleElement);
+            
+            // Add severity badge with translated text
+            const severityBadge = document.createElement('div');
+            severityBadge.className = 'safety-badge';
+            severityBadge.textContent = getText(severityTranslationKey);
+            recommendationContainer.appendChild(severityBadge);
+            
+            // Format the content for better readability
+            const contentElement = document.createElement('div');
+            contentElement.className = 'safety-recommendation-content';
+            
+            // Process content to make it more readable
+            // First, try to extract the actual safety advice part
+            let cleanContent = content;
+            
+            // Look for patterns like "SAFETY ADVICE:" or "คำแนะนำความปลอดภัย:" and extract what follows
+            const adviceMatch = content.match(/(?:SAFETY ADVICE:|คำแนะนำความปลอดภัย:)\s*(.*)/s);
+            if (adviceMatch && adviceMatch[1]) {
+                cleanContent = adviceMatch[1].trim();
+            }
+            
+            // Split by semicolons, colons, or periods for better formatting
+            const sentences = cleanContent.split(/[.:;]\s+/);
+            
+            if (sentences.length > 1) {
+                // Format as paragraphs for better readability
+                for (const sentence of sentences) {
+                    if (sentence.trim().length > 0) {
+                        const paragraph = document.createElement('p');
+                        paragraph.textContent = sentence.trim() + '.';
+                        contentElement.appendChild(paragraph);
+                    }
+                }
+            } else {
+                // Single sentence, just add as paragraph
+                const paragraph = document.createElement('p');
+                paragraph.textContent = cleanContent;
+                contentElement.appendChild(paragraph);
+            }
+            
+            recommendationContainer.appendChild(contentElement);
+            
+            // Add the recommendation to the description item
+            descriptionItem.appendChild(recommendationContainer);
+        } else {
+            // Fallback if the format is unexpected
+            const valueSpan = document.createElement('span');
+            // Only show content in current language if possible
+            if (currentLang === 'en' && englishMatch) {
+                valueSpan.textContent = englishMatch[1].trim();
+            } else if (currentLang === 'th' && thaiMatch) {
+                valueSpan.textContent = thaiMatch[1].trim();
+            } else {
+                valueSpan.textContent = descriptionText;
+            }
+            descriptionItem.appendChild(valueSpan);
+        }
+    } else {
+        // For backwards compatibility with older description format
+        const valueSpan = document.createElement('span');
+        valueSpan.textContent = descriptionText || '-';
+        descriptionItem.appendChild(valueSpan);
+    }
     
     // Add all items to the details content
     detailsContent.appendChild(locationItem);
@@ -1319,18 +1531,19 @@ function showEarthquakeDetails(earthquake) {
         linkContainer.className = 'detail-link-container';
         linkContainer.innerHTML = `
             <a href="${earthquake.link}" target="_blank" rel="noopener noreferrer" class="detail-link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
                     <line x1="10" y1="14" x2="21" y2="3"></line>
                 </svg>
-                ${getText('viewDetails')}
+                ${getText('viewOriginalLink')}
             </a>
         `;
         detailsContent.appendChild(linkContainer);
     }
     
     // Mobile-specific UI enhancement
+    const isMobile = window.innerWidth < 768;
     if (isMobile) {
         // Add a "back to map" button for mobile users
         const backButton = document.createElement('button');
@@ -1339,7 +1552,7 @@ function showEarthquakeDetails(earthquake) {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
-            Back to timeline
+            ${getText('backToTimeline')}
         `;
         backButton.addEventListener('click', function() {
             // Scroll back to the visualization
@@ -1441,3 +1654,8 @@ function updateDynamicElements() {
         resetButton.textContent = getText('resetZoom');
     }
 } 
+
+function addSpaceBetweenLanguages(text) {
+    return text.replace(/([ก-๙])([A-Za-z])/g, '$1 $2')
+               .replace(/([A-Za-z])([ก-๙])/g, '$1 $2');
+}

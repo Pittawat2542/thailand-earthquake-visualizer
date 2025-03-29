@@ -1,0 +1,9 @@
+This file should be a 512x512 pixel PNG version of the favicon.svg.
+
+Features:
+- Blue gradient background (#1a56db to #3b82f6)
+- White center with seismic wave circles
+- Earthquake zigzag line in the center
+- High resolution for various PWA and app icon uses
+
+This larger version is used for higher resolution displays and when larger icons are needed in various contexts. 
