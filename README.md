@@ -21,10 +21,6 @@ An interactive visualization tool for earthquake data from Thailand and surround
 The earthquake data is now sourced directly from the Thai Meteorological Department's website:
 [https://earthquake.tmd.go.th/inside.html?ps=200](https://earthquake.tmd.go.th/inside.html?ps=200)
 
-This page provides a more comprehensive and up-to-date list of earthquakes than the previously used RSS feed.
-
-
-
 ## Local Development
 
 To run this project locally:

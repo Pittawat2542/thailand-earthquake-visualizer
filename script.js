@@ -404,6 +404,53 @@ async function initializeTimeline() {
 // Function to fetch and parse earthquake data
 async function fetchEarthquakeData() {
     try {
+        console.log("Attempting to load local earthquake data first...");
+        
+        // Try to load the data from the local JSON file first
+        try {
+            const response = await fetch('./data/earthquakes.json');
+            
+            if (response.ok) {
+                const earthquakeData = await response.json();
+                console.log(`Successfully loaded ${earthquakeData.length} earthquakes from local data`);
+                
+                // Convert the time strings back to Date objects
+                earthquakeData.forEach(quake => {
+                    quake.time = new Date(quake.time);
+                });
+                
+                // Check the last update time to ensure data is not too old
+                try {
+                    const lastUpdateResponse = await fetch('./data/last-update.json');
+                    if (lastUpdateResponse.ok) {
+                        const lastUpdate = await lastUpdateResponse.json();
+                        const lastUpdateTime = new Date(lastUpdate.lastUpdated);
+                        const currentTime = new Date();
+                        const hoursSinceUpdate = (currentTime - lastUpdateTime) / (1000 * 60 * 60);
+                        
+                        console.log(`Data last updated ${hoursSinceUpdate.toFixed(1)} hours ago`);
+                        
+                        // If data is less than 24 hours old, use it
+                        if (hoursSinceUpdate < 24) {
+                            return earthquakeData;
+                        } else {
+                            console.log("Local data is more than 24 hours old, fetching fresh data...");
+                        }
+                    }
+                } catch (updateCheckError) {
+                    console.warn('Error checking last update time:', updateCheckError);
+                    // If we can't check last update time but have data, use it anyway
+                    return earthquakeData;
+                }
+            }
+        } catch (localDataError) {
+            console.warn('Could not load local earthquake data:', localDataError.message);
+        }
+        
+        // If we get here, either the local data doesn't exist, is too old, or there was an error
+        // Fallback to fetching from the TMD website directly
+        console.log("Fetching earthquake data directly from source...");
+        
         // URL for the earthquake data webpage
         const targetUrl = 'https://earthquake.tmd.go.th/inside.html?ps=200';
         let htmlText = '';
@@ -440,8 +487,7 @@ async function fetchEarthquakeData() {
                     }
                 } catch (backupError) {
                     console.error("All proxy attempts failed:", backupError.message);
-                    console.log("Using sample data as fallback");
-                    return parseHtmlTableData(getSampleEarthquakeData());
+                    throw new Error("Failed to fetch earthquake data from any source");
                 }
             }
         } else {
@@ -488,8 +534,7 @@ async function fetchEarthquakeData() {
                         }
                     } catch (backupError) {
                         console.error("All proxy attempts failed:", backupError.message);
-                        console.log("Using sample data as fallback");
-                        return parseHtmlTableData(getSampleEarthquakeData());
+                        throw new Error("Failed to fetch earthquake data from any source");
                     }
                 }
             }
@@ -503,9 +548,18 @@ async function fetchEarthquakeData() {
         return parseHtmlTableData(htmlText);
     } catch (error) {
         console.error('Error fetching earthquake data:', error);
-        // Fallback to sample data if all fetching methods fail
-        console.log("Using sample data due to fetch error");
-        return parseHtmlTableData(getSampleEarthquakeData());
+        
+        // Display an error to the user instead of using sample data
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `
+            <p>${getText('loadingError')}</p>
+            <p>Error: ${error.message}</p>
+        `;
+        document.getElementById('timeline').innerHTML = '';
+        document.getElementById('timeline').appendChild(errorDiv);
+        
+        return [];
     }
 }
 
@@ -820,45 +874,6 @@ function cleanDescription(description) {
         .replace(/<!\[CDATA\[|\]\]>/g, '')
         .replace(/<br>/g, ' ')
         .trim();
-}
-
-// Provide sample data for fallback
-function getSampleEarthquakeData() {
-    // Create a simple HTML table that matches our expected format
-    return `
-    <html>
-    <body>
-        <table>
-            <tr>
-                <th>Origin Time</th>
-                <th>Magnitude</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Depth</th>
-                <th>Phases</th>
-                <th>Region</th>
-            </tr>
-            <tr>
-                <td>2025-03-29 05:20:38 2025-03-28 22:20:38 UTC</td>
-                <td>1.5</td>
-                <td>18.856°N</td>
-                <td>97.984°E</td>
-                <td>2</td>
-                <td>8</td>
-                <td>ต.ขุนยวม อ.ขุนยวม จ.แม่ฮ่องสอน (Tambon Khun Yuam, Amphoe KhunYuam, MaeHongSon)</td>
-            </tr>
-            <tr>
-                <td>2025-03-29 05:15:02 2025-03-28 22:15:02 UTC</td>
-                <td>3.1</td>
-                <td>18.340°N</td>
-                <td>96.458°E</td>
-                <td>10</td>
-                <td>12</td>
-                <td>ประเทศเมียนมา (Myanmar)</td>
-            </tr>
-        </table>
-    </body>
-    </html>`;
 }
 
 // Detect if using a touch device
