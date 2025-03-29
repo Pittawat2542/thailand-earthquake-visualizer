@@ -9,46 +9,53 @@ const { JSDOM } = jsdom;
 // URL for the earthquake data webpage
 const targetUrl = 'https://earthquake.tmd.go.th/inside.html?ps=200';
 
-// Function to parse a time string to a Date object
+// Helper to parse time strings in various formats
 function parseTimeString(timeStr) {
+    if (!timeStr) return null;
+    
     try {
-        // Clean up the string and handle various formats
-        const cleanedStr = timeStr.replace(/\s+/g, ' ').trim();
-        
-        // Extract the datetime part
-        let dateTimePart = cleanedStr;
-        if (cleanedStr.includes('UTC') || cleanedStr.includes('GMT')) {
-            dateTimePart = cleanedStr.split(/UTC|GMT/)[0].trim();
+        // Handle the case where we have both Thai time and UTC time without separator
+        // Format: "2025-03-05 18:33:062025-03-05 11:33:06"
+        const match = timeStr.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/);
+        if (match) {
+            // The first match is Thai time (GMT+7)
+            const thaiDate = new Date(match[1]);
+            if (!isNaN(thaiDate.getTime())) {
+                return thaiDate;
+            }
         }
         
-        // Formats we might encounter:
-        // 1. "2025-03-29 05:38:57" (standard ISO-like format)
-        // 2. "29/03/2025 05:38:57" (European style date)
-        
-        let date;
-        
-        // Check for ISO-like format (YYYY-MM-DD)
-        if (/\d{4}-\d{2}-\d{2}/.test(dateTimePart)) {
-            date = DateTime.fromFormat(dateTimePart, 'yyyy-MM-dd HH:mm:ss', { zone: 'Asia/Bangkok' }).toJSDate();
-        } 
-        // Check for European style (DD/MM/YYYY)
-        else if (/\d{2}\/\d{2}\/\d{4}/.test(dateTimePart)) {
-            date = DateTime.fromFormat(dateTimePart, 'dd/MM/yyyy HH:mm:ss', { zone: 'Asia/Bangkok' }).toJSDate();
-        }
-        // If we still can't parse, try as a JavaScript date directly (fallback)
-        else {
-            date = new Date(dateTimePart);
+        // Try direct Date parsing as fallback
+        const date = new Date(timeStr);
+        if (!isNaN(date.getTime())) {
+            return date;
         }
         
-        if (isNaN(date.getTime())) {
-            console.warn(`Failed to parse date: ${timeStr}`);
-            return null;
+        // Try various date formats
+        const formats = [
+            // ISO format
+            /(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}:\d{2})/,
+            // Thai format
+            /(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/
+        ];
+        
+        for (const format of formats) {
+            const match = timeStr.match(format);
+            if (match) {
+                const dateTimeStr = `${match[1]}T${match[2]}Z`;
+                const parsedDate = new Date(dateTimeStr);
+                if (!isNaN(parsedDate.getTime())) {
+                    return parsedDate;
+                }
+            }
         }
         
-        return date;
-    } catch (error) {
-        console.error(`Error parsing time string "${timeStr}":`, error);
-        return null;
+        // If all else fails, return current date as fallback
+        console.warn('Could not parse time string:', timeStr);
+        return new Date();
+    } catch (e) {
+        console.warn('Error parsing time string:', e);
+        return new Date();
     }
 }
 
