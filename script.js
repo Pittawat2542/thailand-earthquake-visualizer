@@ -24,7 +24,8 @@ const translations = {
         eventsShown: 'Showing {count} events',
         resetZoom: 'Reset Zoom',
         zoomHint: 'Scroll to zoom, drag to pan',
-        timezoneNote: 'All times shown are in GMT+7 (Thai time)'
+        timezoneNote: 'All times shown are in GMT+7 (Thai time)',
+        viewDetails: 'View detailed information'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -50,7 +51,8 @@ const translations = {
         eventsShown: 'กำลังแสดง {count} เหตุการณ์',
         resetZoom: 'รีเซ็ตการซูม',
         zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน',
-        timezoneNote: 'เวลาทั้งหมดแสดงในรูปแบบ GMT+7 (เวลาประเทศไทย)'
+        timezoneNote: 'เวลาทั้งหมดแสดงในรูปแบบ GMT+7 (เวลาประเทศไทย)',
+        viewDetails: 'ดูรายละเอียดเพิ่มเติม'
     }
 };
 
@@ -547,14 +549,14 @@ function parseHtmlTableData(htmlText) {
                 const depthMatch = depthCell.match(/(\d+(?:\.\d+)?)/);
                 const depth = depthMatch ? parseFloat(depthMatch[1]) : NaN;
                 
-                // Get earthquake link if available
+                // Get earthquake link from the row's onclick attribute
                 let link = '';
-                const linkElement = row.querySelector('a');
-                if (linkElement && linkElement.href) {
-                    link = linkElement.href;
-                    // Fix relative URLs
-                    if (link.startsWith('./') || link.startsWith('/')) {
-                        link = 'https://earthquake.tmd.go.th' + (link.startsWith('/') ? link : link.substring(1));
+                const onclickAttr = row.getAttribute('onclick');
+                if (onclickAttr) {
+                    // Extract the URL from onclick="window.open('inside-info.html?earthquake=13023')"
+                    const match = onclickAttr.match(/window\.open\('([^']+)'\)/);
+                    if (match) {
+                        link = 'https://earthquake.tmd.go.th/' + match[1];
                     }
                 }
                 
@@ -1044,6 +1046,16 @@ function showEarthquakeDetails(earthquake) {
     document.getElementById('depth').textContent = earthquake.depth;
     document.getElementById('coordinates').textContent = `${earthquake.latitude}, ${earthquake.longitude}`;
     document.getElementById('description').textContent = earthquake.comments || earthquake.description || '-';
+    
+    // Add link to detailed information if available
+    const linkContainer = document.createElement('div');
+    linkContainer.className = 'detail-item';
+    linkContainer.innerHTML = `
+        <a href="${earthquake.link}" target="_blank" rel="noopener noreferrer" class="detail-link">
+            ${getText('viewDetails')} →
+        </a>
+    `;
+    detailsContent.appendChild(linkContainer);
     
     // Highlight magnitude based on severity
     const magnitudeElement = document.getElementById('magnitude');

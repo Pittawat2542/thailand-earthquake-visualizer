@@ -189,15 +189,28 @@ h1 {
 }
 
 .detail-item {
-    margin-bottom: 12px;
-    display: flex;
-    flex-wrap: wrap;
+    margin-bottom: 10px;
+    line-height: 1.5;
 }
 
 .detail-item strong {
     min-width: 100px;
     display: inline-block;
     margin-right: 8px;
+}
+
+.detail-link {
+    display: inline-block;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 5px;
+    transition: color 0.2s ease;
+}
+
+.detail-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
 footer {
