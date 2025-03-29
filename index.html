@@ -75,14 +75,22 @@
         </header>
         
         <main>
-            <section class="filter-controls" aria-labelledby="filter-heading">
-                <h2 id="filter-heading" class="visually-hidden">Filter Controls</h2>
-                <div class="time-filter">
-                    <label id="timeFilterLabel" for="timeRangeFilter">Time range:</label>
-                    <select id="timeRangeFilter" aria-labelledby="timeFilterLabel">
-                        <option value="recent" selected>Recent events (after Mar 28)</option>
-                        <option value="all">All events</option>
-                    </select>
+            <section class="filter-controls" aria-label="Filter controls">
+                <div class="filter-group">
+                    <div class="time-filter">
+                        <label id="timeFilterLabel" for="timeRangeFilter">Time range:</label>
+                        <select id="timeRangeFilter" aria-label="Select time range">
+                            <option value="recent">Recent events (after Mar 28, 2025)</option>
+                            <option value="all">All events</option>
+                        </select>
+                    </div>
+                    <div class="location-filter">
+                        <label id="locationFilterLabel" for="locationFilter">Location:</label>
+                        <select id="locationFilter" aria-label="Select location">
+                            <option value="myanmar">Myanmar only</option>
+                            <option value="all">All locations</option>
+                        </select>
+                    </div>
                 </div>
             </section>
             

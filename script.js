@@ -25,7 +25,10 @@ const translations = {
         resetZoom: 'Reset Zoom',
         zoomHint: 'Scroll to zoom, drag to pan',
         timezoneNote: 'All times shown are in GMT+7 (Thai time)',
-        viewDetails: 'View detailed information'
+        viewDetails: 'View detailed information',
+        locationFilterLabel: 'Location:',
+        locationFilterMyanmar: 'Myanmar only',
+        locationFilterAll: 'All locations'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -52,7 +55,10 @@ const translations = {
         resetZoom: 'รีเซ็ตการซูม',
         zoomHint: 'เลื่อนเพื่อซูม, ลากเพื่อเลื่อน',
         timezoneNote: 'เวลาทั้งหมดแสดงในรูปแบบ GMT+7 (เวลาประเทศไทย)',
-        viewDetails: 'ดูรายละเอียดเพิ่มเติม'
+        viewDetails: 'ดูรายละเอียดเพิ่มเติม',
+        locationFilterLabel: 'ตำแหน่ง:',
+        locationFilterMyanmar: 'เฉพาะประเทศเมียนมา',
+        locationFilterAll: 'ทุกตำแหน่ง'
     }
 };
 
@@ -61,6 +67,9 @@ let currentLang = localStorage.getItem('earthquakeAppLang') || 'en';
 
 // Current time filter setting
 let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'recent';
+
+// Current location filter setting
+let currentLocationFilter = localStorage.getItem('earthquakeAppLocationFilter') || 'myanmar';
 
 // Cut-off date for recent events (March 28, 2025)
 const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
@@ -73,7 +82,7 @@ let langElements;
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeLanguageSwitcher();
-    initializeTimeFilter();
+    initializeFilters();
     initializeTimeline();
 });
 
@@ -113,34 +122,42 @@ function initializeLanguageSwitcher() {
     updateLanguageButtons();
 }
 
-// Initialize time filter
-function initializeTimeFilter() {
-    // Set the filter dropdown to the saved value
+// Initialize filters
+function initializeFilters() {
+    // Set the filter dropdowns to the saved values
     const timeFilterSelect = document.getElementById('timeRangeFilter');
-    timeFilterSelect.value = currentTimeFilter;
+    const locationFilterSelect = document.getElementById('locationFilter');
     
-    // Add event listener for filter changes
+    timeFilterSelect.value = currentTimeFilter;
+    locationFilterSelect.value = currentLocationFilter;
+    
+    // Add event listeners for filter changes
     timeFilterSelect.addEventListener('change', (event) => {
         currentTimeFilter = event.target.value;
         localStorage.setItem('earthquakeAppTimeFilter', currentTimeFilter);
-        
-        // Re-render the timeline with the filtered data
-        if (allEarthquakeData.length > 0) {
-            renderTimeline(getFilteredEarthquakeData());
-        }
+        updateTimeline();
     });
     
-    // Update time filter options text based on language
-    updateTimeFilterOptions();
+    locationFilterSelect.addEventListener('change', (event) => {
+        currentLocationFilter = event.target.value;
+        localStorage.setItem('earthquakeAppLocationFilter', currentLocationFilter);
+        updateTimeline();
+    });
+    
+    // Update filter options text based on language
+    updateFilterOptions();
 }
 
-// Update time filter dropdown options based on selected language
-function updateTimeFilterOptions() {
+// Update filter dropdown options based on selected language
+function updateFilterOptions() {
     const timeFilterSelect = document.getElementById('timeRangeFilter');
-    const options = timeFilterSelect.options;
+    const locationFilterSelect = document.getElementById('locationFilter');
     
-    options[0].text = getText('timeFilterRecent');
-    options[1].text = getText('timeFilterAll');
+    timeFilterSelect.options[0].text = getText('timeFilterRecent');
+    timeFilterSelect.options[1].text = getText('timeFilterAll');
+    
+    locationFilterSelect.options[0].text = getText('locationFilterMyanmar');
+    locationFilterSelect.options[1].text = getText('locationFilterAll');
 }
 
 // Set language and save preference
@@ -152,9 +169,9 @@ function setLanguage(lang) {
     
     applyLanguage(lang);
     updateLanguageButtons();
-    updateTimeFilterOptions();
+    updateFilterOptions();
     
-    // Re-render timeline with new language
+    // Re-render timeline with new language and current filters
     if (allEarthquakeData.length > 0) {
         renderTimeline(getFilteredEarthquakeData());
     }
@@ -204,12 +221,21 @@ function getText(key, params = {}) {
 
 // Get filtered earthquake data based on current filter settings
 function getFilteredEarthquakeData() {
-    if (currentTimeFilter === 'all' || !allEarthquakeData || allEarthquakeData.length === 0) {
-        return allEarthquakeData;
+    let filteredData = allEarthquakeData;
+    
+    // Apply time filter
+    if (currentTimeFilter === 'recent') {
+        filteredData = filteredData.filter(eq => eq.time > RECENT_DATE_CUTOFF);
     }
     
-    // Filter for recent events (after March 28)
-    return allEarthquakeData.filter(eq => eq.time > RECENT_DATE_CUTOFF);
+    // Apply location filter
+    if (currentLocationFilter === 'myanmar') {
+        filteredData = filteredData.filter(eq => 
+            eq.title.includes('ประเทศเมียนมา') || eq.title.includes('Myanmar')
+        );
+    }
+    
+    return filteredData;
 }
 
 // Main function to initialize the timeline
@@ -1084,4 +1110,11 @@ function updateLastUpdateTime() {
         .toFormat('dd MMM yyyy HH:mm:ss');
         
     document.getElementById('lastUpdate').textContent = `${getText('lastUpdate')} ${formattedDate}`;
+}
+
+// Update timeline with current filters
+function updateTimeline() {
+    if (allEarthquakeData && allEarthquakeData.length > 0) {
+        renderTimeline(getFilteredEarthquakeData());
+    }
 } 
