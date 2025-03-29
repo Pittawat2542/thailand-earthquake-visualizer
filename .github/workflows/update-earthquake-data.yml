@@ -14,6 +14,9 @@ on:
       - 'scripts/fetch-earthquake-data.js'
       - 'package.json'
 
+permissions:
+  contents: write
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -75,4 +78,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Update earthquake data [skip ci]" -a
-          git push 
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Pittawat2542/thailand-earthquake-visualizer.git
