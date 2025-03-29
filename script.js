@@ -821,11 +821,8 @@ function renderTimeline(earthquakeData) {
     
     const xAxis = d3.axisBottom(xScale)
         .tickFormat(d => {
-            // Format dates for better mobile reading
-            if (window.innerWidth < 768) {
-                return d3.timeFormat('%d/%m')(d);
-            }
-            return d3.timeFormat('%d %b')(d);
+            const date = luxon.DateTime.fromJSDate(d);
+            return date.toFormat('dd/MM/yyyy HH:mm');
         });
     
     const yAxis = d3.axisLeft(yScale);
@@ -1062,10 +1059,9 @@ function showEarthquakeDetails(earthquake) {
 
 // Helper function to format date
 function formatDate(date) {
-    if (!date) return 'Unknown';
-    
     return luxon.DateTime.fromJSDate(date)
-        .toFormat('dd MMM yyyy HH:mm:ss');
+        .setZone('Asia/Bangkok')
+        .toFormat('dd/MM/yyyy HH:mm');
 }
 
 // Function to update the last update time
