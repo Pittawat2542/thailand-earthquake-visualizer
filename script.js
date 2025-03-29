@@ -37,7 +37,8 @@ const translations = {
         magnitudeFilter6: '≥ 6.0',
         magnitudeSeverityHigh: 'High',
         magnitudeSeverityMedium: 'Medium',
-        magnitudeSeverityLow: 'Low'
+        magnitudeSeverityLow: 'Low',
+        chartHeading: 'Earthquake Timeline'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -76,12 +77,13 @@ const translations = {
         magnitudeFilter6: '≥ 6.0',
         magnitudeSeverityHigh: 'สูง',
         magnitudeSeverityMedium: 'ปานกลาง',
-        magnitudeSeverityLow: 'ต่ำ'
+        magnitudeSeverityLow: 'ต่ำ',
+        chartHeading: 'ไทม์ไลน์แผ่นดินไหว'
     }
 };
 
 // Current language
-let currentLang = localStorage.getItem('earthquakeAppLang') || 'en';
+let currentLang = localStorage.getItem('earthquakeAppLang') || 'th';
 
 // Current time filter setting
 let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'recent';
@@ -98,18 +100,36 @@ const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
 // Store all earthquake data
 let allEarthquakeData = [];
 
-// DOM Elements for language switching
-let langElements;
+// Store all language elements
+let langElements = {};
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeLanguageSwitcher();
-    initializeFilters();
-    initializeTimeline();
+    console.log('DOM content loaded, initializing application');
+    
+    try {
+        // Get saved language or default to 'en'
+        const savedLang = localStorage.getItem('earthquakeAppLang');
+        console.log('Initial language from localStorage:', savedLang || 'en (default)');
+        
+        // Initialize language system first
+        initializeLanguageSwitcher();
+        
+        // Initialize other components
+        initializeFilters();
+        initializeTimeline();
+        
+        console.log('Application initialization complete');
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
 });
 
 // Initialize language switcher
 function initializeLanguageSwitcher() {
-    const langElements = {
+    console.log('Initializing language switcher');
+    
+    // Define elements that need text updates for language change
+    langElements = {
         pageTitle: document.getElementById('pageTitle'),
         lastUpdate: document.getElementById('lastUpdate'),
         timeFilterLabel: document.getElementById('timeFilterLabel'),
@@ -125,65 +145,149 @@ function initializeLanguageSwitcher() {
         labelCoordinates: document.getElementById('labelCoordinates'),
         labelDescription: document.getElementById('labelDescription'),
         dataSourceText: document.getElementById('dataSourceText'),
-        sourceCodeText: document.getElementById('sourceCodeText')
+        sourceCodeText: document.getElementById('sourceCodeText'),
+        chartHeading: document.getElementById('chart-heading')
     };
 
     // Set up language buttons
-    document.getElementById('langEn').addEventListener('click', () => {
+    const langEn = document.getElementById('langEn');
+    const langTh = document.getElementById('langTh');
+    
+    if (!langEn || !langTh) {
+        console.error('Language buttons not found in DOM');
+        return;
+    }
+    
+    langEn.addEventListener('click', () => {
+        console.log('English language button clicked');
         setLanguage('en');
     });
     
-    document.getElementById('langTh').addEventListener('click', () => {
+    langTh.addEventListener('click', () => {
+        console.log('Thai language button clicked');
         setLanguage('th');
     });
     
-    // Set initial language
-    const savedLang = localStorage.getItem('earthquakeAppLang') || 'en';
-    setLanguage(savedLang);
+    // Retrieve the saved language with fallback
+    const savedLang = localStorage.getItem('earthquakeAppLang');
+    console.log('Language from localStorage:', savedLang);
     
-    // Helper to set language
-    function setLanguage(lang) {
-        if (currentLang === lang) return;
-        
-        currentLang = lang;
-        localStorage.setItem('earthquakeAppLang', lang);
-        
-        // Apply translations to all elements
-        for (const [key, element] of Object.entries(langElements)) {
-            if (element) {
-                element.textContent = translations[lang][key] || element.textContent;
-            }
-        }
-        
-        // Update filter options
-        updateFilterOptions();
-        
-        // Update UI state
-        updateLanguageButtons();
-        
-        // Re-render timeline with new language and current filters
-        if (allEarthquakeData.length > 0) {
-            renderTimeline(getFilteredEarthquakeData());
-        }
-        
-        // Update earthquake details if showing
-        const detailsContent = document.getElementById('detailsContent');
-        if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
-            showEarthquakeDetails(detailsContent.__earthquakeData);
-        }
-        
-        // Update last update time with new language
-        updateLastUpdateTime();
+    // Set initial language (default to 'th' if none saved)
+    const initialLang = savedLang === 'en' ? 'en' : 'th';
+    console.log('Setting initial language to:', initialLang);
+    
+    // Set the language without checking if it's already set
+    currentLang = initialLang; // Force set to ensure consistency
+    setLanguage(initialLang, true);
+}
+
+// Set language and update all UI elements
+function setLanguage(lang, force = false) {
+    if (currentLang === lang && !force) {
+        console.log(`Language is already set to ${lang}, no change needed`);
+        return;
     }
     
-    // Update language button states
-    function updateLanguageButtons() {
-        document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
-        document.getElementById('langEn').setAttribute('aria-pressed', currentLang === 'en');
-        
-        document.getElementById('langTh').classList.toggle('active', currentLang === 'th');
-        document.getElementById('langTh').setAttribute('aria-pressed', currentLang === 'th');
+    console.log(`Switching language from ${currentLang} to ${lang}`);
+    currentLang = lang;
+    localStorage.setItem('earthquakeAppLang', lang);
+    
+    // Apply translations to all static elements
+    for (const [key, element] of Object.entries(langElements)) {
+        if (element && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+            console.log(`Updated ${key} to: ${translations[lang][key]}`);
+        } else if (element) {
+            console.warn(`Missing translation for ${key} in ${lang}`);
+        } else {
+            console.warn(`Element not found for ${key}`);
+        }
     }
+    
+    // Update filter options
+    updateFilterOptions();
+    
+    // Update UI state
+    updateLanguageButtons();
+    
+    // Update dynamic elements that may have been created after initialization
+    updateDynamicElements();
+    
+    // Re-render timeline with new language
+    if (allEarthquakeData && allEarthquakeData.length > 0) {
+        renderTimeline(getFilteredEarthquakeData());
+    }
+    
+    // Update earthquake details if showing
+    const detailsContent = document.getElementById('detailsContent');
+    if (detailsContent && detailsContent.style.display !== 'none' && detailsContent.__earthquakeData) {
+        showEarthquakeDetails(detailsContent.__earthquakeData);
+    }
+    
+    // Update last update time
+    updateLastUpdateTime();
+}
+
+// Update language button states
+function updateLanguageButtons() {
+    const enButton = document.getElementById('langEn');
+    const thButton = document.getElementById('langTh');
+    
+    if (enButton && thButton) {
+        // Remove active class from all language buttons
+        enButton.classList.remove('active');
+        thButton.classList.remove('active');
+        
+        // Set aria-pressed to false for all buttons
+        enButton.setAttribute('aria-pressed', 'false');
+        thButton.setAttribute('aria-pressed', 'false');
+        
+        // Add active class and set aria-pressed for the current language
+        if (currentLang === 'en') {
+            enButton.classList.add('active');
+            enButton.setAttribute('aria-pressed', 'true');
+        } else if (currentLang === 'th') {
+            thButton.classList.add('active');
+            thButton.setAttribute('aria-pressed', 'true');
+        }
+        
+        console.log(`Updated language buttons: EN=${enButton.classList.contains('active')}, TH=${thButton.classList.contains('active')}`);
+    } else {
+        console.warn('Language buttons not found');
+    }
+}
+
+// Get translated text with fallback
+function getText(key, params = {}) {
+    // Make sure we have valid language data
+    if (!translations[currentLang]) {
+        console.warn(`Missing language: ${currentLang}, falling back to English`);
+        currentLang = 'en'; // Reset to English if missing
+    }
+    
+    // Get the text from the current language or fall back to English
+    let text = translations[currentLang][key];
+    
+    // If not found in current language, try English
+    if (!text && currentLang !== 'en') {
+        console.warn(`Missing translation for key "${key}" in language "${currentLang}", using English`);
+        text = translations['en'][key];
+    }
+    
+    // If still not found, use the key itself
+    if (!text) {
+        console.warn(`Missing translation for key "${key}" in all languages`);
+        return key;
+    }
+    
+    // Replace parameter placeholders
+    if (params && Object.keys(params).length > 0) {
+        for (const [param, value] of Object.entries(params)) {
+            text = text.replace(`{${param}}`, value);
+        }
+    }
+    
+    return text;
 }
 
 // Initialize filters
@@ -237,18 +341,6 @@ function updateFilterOptions() {
     magnitudeFilterSelect.options[2].text = getText('magnitudeFilter4');
     magnitudeFilterSelect.options[3].text = getText('magnitudeFilter5');
     magnitudeFilterSelect.options[4].text = getText('magnitudeFilter6');
-}
-
-// Get translated text
-function getText(key, params = {}) {
-    let text = translations[currentLang][key] || translations['en'][key] || key;
-    
-    // Replace parameter placeholders
-    for (const [param, value] of Object.entries(params)) {
-        text = text.replace(`{${param}}`, value);
-    }
-    
-    return text;
 }
 
 // Get filtered earthquake data based on current filter settings
@@ -785,12 +877,14 @@ function renderTimeline(earthquakeData) {
     // Add event count information
     const countInfo = document.createElement('div');
     countInfo.className = 'event-count-info';
+    countInfo.id = 'eventCountInfo';  // Add ID for easier reference
     countInfo.textContent = getText('eventsShown', { count: earthquakeData.length });
     document.getElementById('timeline').appendChild(countInfo);
     
     // Add timezone information
     const timezoneInfo = document.createElement('div');
     timezoneInfo.className = 'timezone-info';
+    timezoneInfo.id = 'timezoneInfo';  // Add ID for easier reference
     timezoneInfo.textContent = getText('timezoneNote');
     document.getElementById('timeline').appendChild(timezoneInfo);
     
@@ -1208,5 +1302,36 @@ function updateLastUpdateTime() {
 function updateTimeline() {
     if (allEarthquakeData && allEarthquakeData.length > 0) {
         renderTimeline(getFilteredEarthquakeData());
+    }
+}
+
+// Update any dynamic elements that need translations
+function updateDynamicElements() {
+    // Update timezone info if it exists
+    const timezoneInfo = document.getElementById('timezoneInfo');
+    if (timezoneInfo) {
+        timezoneInfo.textContent = getText('timezoneNote');
+    }
+    
+    // Update event count if it exists
+    const eventCountInfo = document.getElementById('eventCountInfo');
+    if (eventCountInfo && document.getElementById('timeline').__earthquakeData) {
+        const count = document.getElementById('timeline').__earthquakeData.length;
+        eventCountInfo.textContent = getText('eventsShown', { count });
+    }
+    
+    // Update zoom hint text if it exists
+    const zoomHint = document.querySelector('.zoom-hint');
+    if (zoomHint) {
+        // Preserve the SVG icon if it exists
+        const icon = zoomHint.querySelector('svg');
+        const iconHTML = icon ? icon.outerHTML : '';
+        zoomHint.innerHTML = `${iconHTML} ${getText('zoomHint')}`;
+    }
+    
+    // Update reset zoom button if it exists
+    const resetButton = document.querySelector('.reset-zoom-btn');
+    if (resetButton) {
+        resetButton.textContent = getText('resetZoom');
     }
 } 
