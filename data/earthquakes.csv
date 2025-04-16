@@ -1,4 +1,19 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ต.ห้วยผา อ.เมืองแม่ฮ่องสอน จ.แม่ฮ่องสอน Tambon Huai Pha, Amphoe MueangMaeHongSon, MaeHongSon",https://earthquake.tmd.go.th/inside-info.html?earthquake=13837,19.387,98.099,4,2,2025-04-16T07:59:26.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13836,19.657,97.779,10,2.1,2025-04-16T05:57:25.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13835,20.161,98.13,10,2,2025-04-16T05:48:27.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13834,19.238,96.245,10,2.3,2025-04-16T04:44:13.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13833,18.598,96.397,10,2.7,2025-04-16T04:28:48.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13832,19.585,97.727,10,1.9,2025-04-16T03:48:47.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -584,18 +599,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13637,22.518,96.207,10,4,2025-04-09T15:47:21.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
 
 [TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
-"ต.แม่นาเติง อ.ปาย จ.แม่ฮ่องสอน Tambon Mae Na Toeng, Amphoe Pai, MaeHongSon",https://earthquake.tmd.go.th/inside-info.html?earthquake=13638,19.598,98.436,2,1.9,2025-04-09T15:46:52.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13635,19.334,96.488,10,2.7,2025-04-09T15:17:45.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ต.เวียงเหนือ อ.ปาย จ.แม่ฮ่องสอน Tambon Wiang Nuea, Amphoe Pai, MaeHongSon",https://earthquake.tmd.go.th/inside-info.html?earthquake=13636,19.666,98.468,1,1.9,2025-04-09T15:11:48.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=13634,22.43,96.105,10,5.2,2025-04-09T14:58:21.000Z,Asia/Bangkok,"[EN] Moderate Earthquake (5.2 ML) - SAFETY ADVICE: Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.
-
-[TH] แผ่นดินไหวระดับModerate (5.2 ML) - คำแนะนำความปลอดภัย: ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ"
-"ต.เวียงเหนือ อ.ปาย จ.แม่ฮ่องสอน Tambon Wiang Nuea, Amphoe Pai, MaeHongSon",https://earthquake.tmd.go.th/inside-info.html?earthquake=13633,19.653,98.472,1,2.3,2025-04-09T14:42:34.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
