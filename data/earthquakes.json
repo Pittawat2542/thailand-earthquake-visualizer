@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.ทุ่งยาว อ.ปาย จ.แม่ฮ่องสอน Tambon Thung Yao, Amphoe Pai, MaeHongSon",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14035",
+    "latitude": 19.284,
+    "longitude": 98.368,
+    "depth": 1,
+    "magnitude": 1.7,
+    "time": "2025-04-25T08:39:38.000Z",
+    "description": "[EN] Micro Earthquake (1.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14034",
     "latitude": 18.214,
@@ -2186,17 +2197,6 @@
     "magnitude": 2.1,
     "time": "2025-04-16T05:57:25.000Z",
     "description": "[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=13835",
-    "latitude": 20.161,
-    "longitude": 98.13,
-    "depth": 10,
-    "magnitude": 2,
-    "time": "2025-04-16T05:48:27.000Z",
-    "description": "[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
