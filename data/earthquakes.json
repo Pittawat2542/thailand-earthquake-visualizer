@@ -1,6 +1,17 @@
 [
   {
     "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14137",
+    "latitude": 19.118,
+    "longitude": 96.407,
+    "depth": 10,
+    "magnitude": 2.7,
+    "time": "2025-04-30T15:05:47.000Z",
+    "description": "[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14136",
     "latitude": 18.622,
     "longitude": 96.617,
@@ -2186,17 +2197,6 @@
     "magnitude": 2.6,
     "time": "2025-04-20T08:35:29.000Z",
     "description": "[EN] Micro Earthquake (2.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.ยั้งเมิน อ.สะเมิง จ.เชียงใหม่ Tambon Yungmern, Amphoe Samoeng, ChiangMai",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=13937",
-    "latitude": 19.006,
-    "longitude": 98.548,
-    "depth": 1,
-    "magnitude": 1.9,
-    "time": "2025-04-20T08:21:18.000Z",
-    "description": "[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
