@@ -1,4 +1,7 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=14338,21.789,96.331,10,3.5,2025-05-14T03:21:26.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.5 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
 "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",https://earthquake.tmd.go.th/inside-info.html?earthquake=14337,20.212,96.495,3,2.7,2025-05-14T01:08:07.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -596,6 +599,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=14138,19.056,96.414,10,2.9,2025-04-30T16:43:21.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=14139,18.444,96.518,10,2.7,2025-04-30T16:09:17.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
