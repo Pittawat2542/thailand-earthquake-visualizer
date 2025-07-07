@@ -1,5 +1,38 @@
 [
   {
+    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14970",
+    "latitude": 9.316,
+    "longitude": 94.274,
+    "depth": 10,
+    "magnitude": 3.8,
+    "time": "2025-07-07T17:50:28.000Z",
+    "description": "[EN] Minor Earthquake (3.8 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14969",
+    "latitude": 9.299,
+    "longitude": 94.062,
+    "depth": 10,
+    "magnitude": 4.8,
+    "time": "2025-07-07T17:16:06.000Z",
+    "description": "[EN] Light Earthquake (4.8 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.8 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14968",
+    "latitude": 9.291,
+    "longitude": 94.209,
+    "depth": 10,
+    "magnitude": 4.3,
+    "time": "2025-07-07T16:42:39.000Z",
+    "description": "[EN] Light Earthquake (4.3 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.3 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14967",
     "latitude": 18.599,
@@ -2164,39 +2197,6 @@
     "magnitude": 3.6,
     "time": "2025-06-25T00:41:15.000Z",
     "description": "[EN] Minor Earthquake (3.6 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14769",
-    "latitude": 9.386,
-    "longitude": 94.31,
-    "depth": 10,
-    "magnitude": 3.6,
-    "time": "2025-06-25T00:37:02.000Z",
-    "description": "[EN] Minor Earthquake (3.6 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14768",
-    "latitude": 9.356,
-    "longitude": 94.36,
-    "depth": 10,
-    "magnitude": 3.9,
-    "time": "2025-06-24T23:37:31.000Z",
-    "description": "[EN] Minor Earthquake (3.9 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14767",
-    "latitude": 9.335,
-    "longitude": 94.32,
-    "depth": 10,
-    "magnitude": 4,
-    "time": "2025-06-24T23:09:17.000Z",
-    "description": "[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
     "timezone": "Asia/Bangkok"
   }
 ]
