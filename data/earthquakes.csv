@@ -1,4 +1,16 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเวียดนาม Vietnam",https://earthquake.tmd.go.th/inside-info.html?earthquake=15016,14.979,107.916,10,3.6,2025-07-12T10:25:50.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.6 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15015,18.512,96.448,10,2.6,2025-07-12T10:12:46.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15014,18.669,96.64,10,3.3,2025-07-12T08:46:30.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.3 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15013,18.776,96.618,10,2.8,2025-07-12T07:48:24.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15012,20.116,97.976,10,2.8,2025-07-12T07:30:58.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -587,15 +599,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",https://earthquake.tmd.go.th/inside-info.html?earthquake=14816,9.332,94.316,10,3.7,2025-06-26T08:27:02.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.7 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
 
 [TH] แผ่นดินไหวระดับMinor (3.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
-"หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",https://earthquake.tmd.go.th/inside-info.html?earthquake=14815,9.005,94.376,10,3.8,2025-06-26T08:16:46.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.8 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=14814,21.452,96.353,10,3.1,2025-06-26T05:44:32.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.1 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=14813,20.525,98.126,10,2.3,2025-06-26T05:31:54.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",https://earthquake.tmd.go.th/inside-info.html?earthquake=14812,9.277,94.35,10,3.8,2025-06-26T04:55:27.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.8 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
