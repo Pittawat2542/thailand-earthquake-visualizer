@@ -1,13 +1,13 @@
 [
   {
-    "title": "ต.ป่าแป๋ อ.แม่แตง จ.เชียงใหม่ Tambon Pa Pae, Amphoe MaeTaeng, ChiangMai",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15048",
-    "latitude": 19.246,
-    "longitude": 98.643,
-    "depth": 1,
-    "magnitude": 2,
-    "time": "2025-07-14T08:50:44.000Z",
-    "description": "[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "title": "ต.เมืองคอง อ.เชียงดาว จ.เชียงใหม่ Tambon Mueang Khong, Amphoe ChiangDao, ChiangMai",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15049",
+    "latitude": 19.356,
+    "longitude": 98.739,
+    "depth": 2,
+    "magnitude": 2.1,
+    "time": "2025-07-14T08:50:43.000Z",
+    "description": "[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   },
   {
