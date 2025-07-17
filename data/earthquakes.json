@@ -1,5 +1,60 @@
 [
   {
+    "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15100",
+    "latitude": 18.851,
+    "longitude": 96.496,
+    "depth": 10,
+    "magnitude": 3.3,
+    "time": "2025-07-17T15:54:14.000Z",
+    "description": "[EN] Minor Earthquake (3.3 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15099",
+    "latitude": 23.251,
+    "longitude": 94.324,
+    "depth": 10,
+    "magnitude": 4.8,
+    "time": "2025-07-17T14:54:18.000Z",
+    "description": "[EN] Light Earthquake (4.8 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.8 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ต.สะลวง อ.แม่ริม จ.เชียงใหม่ Tambon Saluang, Amphoe MaeRim, ChiangMai",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15098",
+    "latitude": 19.028,
+    "longitude": 98.797,
+    "depth": 3,
+    "magnitude": 1.6,
+    "time": "2025-07-17T14:50:24.000Z",
+    "description": "[EN] Micro Earthquake (1.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15097",
+    "latitude": 9.431,
+    "longitude": 94.368,
+    "depth": 10,
+    "magnitude": 4,
+    "time": "2025-07-17T13:35:33.000Z",
+    "description": "[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ต.สะลวง อ.แม่ริม จ.เชียงใหม่ Tambon Saluang, Amphoe MaeRim, ChiangMai",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15096",
+    "latitude": 19.016,
+    "longitude": 98.81,
+    "depth": 2,
+    "magnitude": 1.9,
+    "time": "2025-07-17T13:20:19.000Z",
+    "description": "[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15095",
     "latitude": 9.118,
@@ -2142,61 +2197,6 @@
     "magnitude": 2.3,
     "time": "2025-07-01T16:03:59.000Z",
     "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14897",
-    "latitude": 20.277,
-    "longitude": 98.138,
-    "depth": 10,
-    "magnitude": 2.2,
-    "time": "2025-07-01T08:22:10.000Z",
-    "description": "[EN] Micro Earthquake (2.2 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14896",
-    "latitude": 9.456,
-    "longitude": 94.338,
-    "depth": 10,
-    "magnitude": 3.2,
-    "time": "2025-07-01T07:40:23.000Z",
-    "description": "[EN] Minor Earthquake (3.2 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14895",
-    "latitude": 9.5,
-    "longitude": 94.219,
-    "depth": 10,
-    "magnitude": 3.6,
-    "time": "2025-07-01T07:21:32.000Z",
-    "description": "[EN] Minor Earthquake (3.6 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14894",
-    "latitude": 9.25,
-    "longitude": 94.343,
-    "depth": 10,
-    "magnitude": 3.5,
-    "time": "2025-07-01T07:20:15.000Z",
-    "description": "[EN] Minor Earthquake (3.5 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=14893",
-    "latitude": 9.132,
-    "longitude": 94.348,
-    "depth": 10,
-    "magnitude": 4,
-    "time": "2025-07-01T07:07:03.000Z",
-    "description": "[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
     "timezone": "Asia/Bangkok"
   }
 ]
