@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.แม่ฮี้ อ.ปาย จ.แม่ฮ่องสอน Tambon Mae Hi, Amphoe Pai, MaeHongSon",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15173",
+    "latitude": 19.292,
+    "longitude": 98.467,
+    "depth": 1,
+    "magnitude": 1.8,
+    "time": "2025-07-26T21:01:29.000Z",
+    "description": "[EN] Micro Earthquake (1.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15172",
     "latitude": 9.303,
@@ -1086,17 +1097,6 @@
     "magnitude": 5.5,
     "time": "2025-07-16T03:57:40.000Z",
     "description": "[EN] Moderate Earthquake (5.5 ML) - SAFETY ADVICE: Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.\n\n[TH] แผ่นดินไหวระดับModerate (5.5 ML) - คำแนะนำความปลอดภัย: ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15073",
-    "latitude": 19.659,
-    "longitude": 96.272,
-    "depth": 10,
-    "magnitude": 2.1,
-    "time": "2025-07-16T02:24:13.000Z",
-    "description": "[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
