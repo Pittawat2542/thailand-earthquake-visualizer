@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.สันกลาง  อ.สันกำแพง จ.เชียงใหม่ Tambon San Klang, Amphoe SanKamphaeng, ChiangMai",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15240",
+    "latitude": 18.786,
+    "longitude": 99.053,
+    "depth": 1,
+    "magnitude": 2.4,
+    "time": "2025-08-04T23:17:11.000Z",
+    "description": "[EN] Micro Earthquake (2.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ต.บ่อหลวง อ.ฮอด จ.เชียงใหม่ Tambon ิ Bo Luang, Amphoe Hot, ChiangMai",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15239",
     "latitude": 18.168,
@@ -1086,17 +1097,6 @@
     "magnitude": 1.6,
     "time": "2025-07-23T03:36:09.000Z",
     "description": "[EN] Micro Earthquake (1.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15140",
-    "latitude": 22.052,
-    "longitude": 96.547,
-    "depth": 10,
-    "magnitude": 3,
-    "time": "2025-07-22T23:52:49.000Z",
-    "description": "[EN] Minor Earthquake (3.0 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
     "timezone": "Asia/Bangkok"
   }
 ]
