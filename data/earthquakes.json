@@ -1,5 +1,27 @@
 [
   {
+    "title": "ต.เวียงตาล อ.ห้างฉัตร จ.ลำปาง Tambon Wiang Tan, Amphoe HangChat, Lampang",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15339",
+    "latitude": 18.43,
+    "longitude": 99.274,
+    "depth": 1,
+    "magnitude": 1.4,
+    "time": "2025-08-20T21:25:57.000Z",
+    "description": "[EN] Micro Earthquake (1.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ใกล้ชายฝั่งทางตอนใต้ของประเทศเมียนมา Near South Coast of Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15338",
+    "latitude": 16.106,
+    "longitude": 96.656,
+    "depth": 10,
+    "magnitude": 5,
+    "time": "2025-08-20T19:46:24.000Z",
+    "description": "[EN] Moderate Earthquake (5.0 ML) - SAFETY ADVICE: Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.\n\n[TH] แผ่นดินไหวระดับModerate (5.0 ML) - คำแนะนำความปลอดภัย: ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15336",
     "latitude": 19.991,
@@ -1075,28 +1097,6 @@
     "magnitude": 1.5,
     "time": "2025-08-04T21:18:47.000Z",
     "description": "[EN] Micro Earthquake (1.5 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.ห้วยปูลิง อ.เมืองแม่ฮ่องสอน จ.แม่ฮ่องสอน Tambon Huai Pu Ling, Amphoe MueangMaeHongSon, MaeHongSon",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15238",
-    "latitude": 19.331,
-    "longitude": 98.06,
-    "depth": 3,
-    "magnitude": 1.5,
-    "time": "2025-08-04T20:04:48.000Z",
-    "description": "[EN] Micro Earthquake (1.5 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15237",
-    "latitude": 20.072,
-    "longitude": 97.855,
-    "depth": 10,
-    "magnitude": 2.3,
-    "time": "2025-08-04T19:58:37.000Z",
-    "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
