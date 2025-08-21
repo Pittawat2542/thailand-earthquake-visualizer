@@ -1,5 +1,27 @@
 [
   {
+    "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15344",
+    "latitude": 19.595,
+    "longitude": 96.375,
+    "depth": 10,
+    "magnitude": 3,
+    "time": "2025-08-21T10:15:27.000Z",
+    "description": "[EN] Minor Earthquake (3.0 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "นอกชายฝั่งทางตอนใต้ของประเทศเมียนมา Near South Coast of Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15343",
+    "latitude": 16.145,
+    "longitude": 96.686,
+    "depth": 10,
+    "magnitude": 5.4,
+    "time": "2025-08-21T09:58:08.000Z",
+    "description": "[EN] Moderate Earthquake (5.4 ML) - SAFETY ADVICE: Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.\n\n[TH] แผ่นดินไหวระดับModerate (5.4 ML) - คำแนะนำความปลอดภัย: ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ชายฝั่งตะวันตกทางตอนเหนือของหมู่เกาะสุมาตรา  ประเทศอินโดนีเซีย Off West Coast of Northern Sumatra, Indonesia",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15342",
     "latitude": 2.861,
@@ -1075,28 +1097,6 @@
     "magnitude": 2,
     "time": "2025-08-06T04:24:28.000Z",
     "description": "[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15243",
-    "latitude": 21.287,
-    "longitude": 98.668,
-    "depth": 10,
-    "magnitude": 2.8,
-    "time": "2025-08-06T01:18:24.000Z",
-    "description": "[EN] Micro Earthquake (2.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15241",
-    "latitude": 19.816,
-    "longitude": 98.042,
-    "depth": 10,
-    "magnitude": 2.3,
-    "time": "2025-08-05T05:31:39.000Z",
-    "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
