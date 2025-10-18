@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.เมืองยาว อ.ห้างฉัตร จ.ลำปาง Tambon Mueang Yao, Amphoe HangChat, Lampang",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15663",
+    "latitude": 18.3,
+    "longitude": 99.196,
+    "depth": 3,
+    "magnitude": 2.3,
+    "time": "2025-10-18T15:14:30.000Z",
+    "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ใกล้ชายฝั่งทางตอนใต้ของประเทศเมียนมา Near South Coast of Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15662",
     "latitude": 16.751,
@@ -1085,17 +1096,6 @@
     "depth": 2,
     "magnitude": 2.2,
     "time": "2025-10-03T00:46:52.000Z",
-    "description": "[EN] Micro Earthquake (2.2 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.สบป่อง อ.ปางมะผ้า จ.แม่ฮ่องสอน Tambon Sop Pong, Amphoe PangMapha, MaeHongSon",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15563",
-    "latitude": 19.439,
-    "longitude": 98.266,
-    "depth": 1,
-    "magnitude": 2.2,
-    "time": "2025-10-02T19:18:22.000Z",
     "description": "[EN] Micro Earthquake (2.2 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
