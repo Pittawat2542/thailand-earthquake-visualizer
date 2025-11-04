@@ -1,4 +1,10 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15740,20.31,98.123,4,2.1,2025-11-04T18:41:58.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15739,22.354,96.51,10,3.1,2025-11-04T18:12:45.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.1 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15738,18.857,96.454,10,2.5,2025-11-04T07:23:20.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.5 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -293,9 +299,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15641,22.542,96.159,10,4.6,2025-10-16T11:37:00.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.6 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
 
 [TH] แผ่นดินไหวระดับLight (4.6 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
-"ประเทศเวียดนาม Vietnam",https://earthquake.tmd.go.th/inside-info.html?earthquake=15640,15,107.911,10,4.7,2025-10-16T04:40:18.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.7 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
-
-[TH] แผ่นดินไหวระดับLight (4.7 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15639,16.083,94.873,10,3.5,2025-10-16T04:26:16.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.5 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
