@@ -1,4 +1,7 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15848,17.989,96.633,10,2,2025-11-23T03:48:37.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15847,18.185,97.626,1,2.2,2025-11-23T01:13:58.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.2 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -296,6 +299,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ต.นาบัว อ.นครไทย จ.พิษณุโลก Tambon Na Bua, Amphoe NakhonThai, Phitsanulok",https://earthquake.tmd.go.th/inside-info.html?earthquake=15749,17.273,100.93,1,2.7,2025-11-05T15:51:43.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=15748,21.744,97.449,10,3.3,2025-11-05T14:55:57.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.3 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
