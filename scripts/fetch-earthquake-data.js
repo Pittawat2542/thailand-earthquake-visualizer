@@ -19,9 +19,12 @@ function parseTimeString(timeStr) {
         const match = timeStr.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/);
         if (match) {
             // The first match is Thai time (GMT+7)
-            const thaiDate = new Date(match[1]);
-            if (!isNaN(thaiDate.getTime())) {
-                return thaiDate;
+            // Use Luxon to parse it specifically as Bangkok time
+            const thaiTimeStr = match[1].replace(' ', 'T');
+            const dt = DateTime.fromISO(thaiTimeStr, { zone: 'Asia/Bangkok' });
+            
+            if (dt.isValid) {
+                return dt.toJSDate();
             }
         }
         
@@ -42,10 +45,12 @@ function parseTimeString(timeStr) {
         for (const format of formats) {
             const match = timeStr.match(format);
             if (match) {
-                const dateTimeStr = `${match[1]}T${match[2]}Z`;
-                const parsedDate = new Date(dateTimeStr);
-                if (!isNaN(parsedDate.getTime())) {
-                    return parsedDate;
+                // Assume it's Thai time if not specified
+                const dateTimeStr = `${match[1]}T${match[2]}`;
+                const dt = DateTime.fromISO(dateTimeStr, { zone: 'Asia/Bangkok' });
+                
+                if (dt.isValid) {
+                    return dt.toJSDate();
                 }
             }
         }

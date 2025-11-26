@@ -437,26 +437,9 @@ async function fetchEarthquakeData() {
                 earthquakeData.forEach(quake => {
                     // Check if the timezone field exists (for backward compatibility)
                     if (quake.timezone && quake.timezone === 'Asia/Bangkok') {
-                        // Parse the time string and adjust for Bangkok timezone (GMT+7)
-                        const utcTime = new Date(quake.time);
-                        
-                        // Option 1: Use luxon for proper timezone handling if available
-                        if (luxon && luxon.DateTime) {
-                            // Create a DateTime object in the Bangkok timezone
-                            const bangkokTime = luxon.DateTime.fromISO(quake.time, { zone: 'Asia/Bangkok' });
-                            quake.time = bangkokTime.toJSDate();
-                            console.log(`Converted time with Luxon: ${bangkokTime.toString()}`);
-                        } 
-                        // Option 2: Fallback to manual adjustment if luxon is not available
-                        else {
-                            // Get the original ISO string's hours and add the 7-hour offset
-                            // This preserves the correct Bangkok time in the date object
-                            const isoString = quake.time;
-                            // Force the time to be interpreted as Bangkok time
-                            const localTimeString = isoString.replace('Z', '+07:00');
-                            quake.time = new Date(localTimeString);
-                            console.log(`Manually adjusted time: ${quake.time}`);
-                        }
+                        // Parse the time string
+                        // The JSON now contains the correct UTC timestamp, so we can just parse it directly
+                        quake.time = new Date(quake.time);
                     } else {
                         // Fallback for data without timezone information
                         quake.time = new Date(quake.time);
