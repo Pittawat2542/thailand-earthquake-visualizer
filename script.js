@@ -39,6 +39,7 @@ const translations = {
         magnitudeSeverityHigh: 'High',
         magnitudeSeverityMedium: 'Medium',
         magnitudeSeverityLow: 'Low',
+        mapTitle: 'Earthquake Map',
         chartHeading: 'Earthquake Timeline',
         safetyRecommendationTitle: 'Safety Recommendation',
         severityMajor: 'Major',
@@ -47,7 +48,15 @@ const translations = {
         severityLight: 'Light',
         severityMinor: 'Minor',
         severityMicro: 'Micro',
-        backToTimeline: 'Back to timeline'
+        backToTimeline: 'Back to timeline',
+        statTotalLabel: 'Total Events',
+        statMaxMagLabel: 'Max Magnitude',
+        statRecentLabel: 'Most Recent',
+        dateFilterLabel: 'Date Range:',
+        dateRangeSeparator: 'to',
+        timeAgoMin: '{min}m ago',
+        timeAgoHour: '{hour}h ago',
+        timeAgoDay: '{day}d ago'
     },
     'th': {
         pageTitle: 'ข้อมูลแผ่นดินไหวประเทศไทย',
@@ -88,6 +97,7 @@ const translations = {
         magnitudeSeverityHigh: 'สูง',
         magnitudeSeverityMedium: 'ปานกลาง',
         magnitudeSeverityLow: 'ต่ำ',
+        mapTitle: 'แผนที่แผ่นดินไหว',
         chartHeading: 'ไทม์ไลน์แผ่นดินไหว',
         safetyRecommendationTitle: 'คำแนะนำความปลอดภัย',
         severityMajor: 'รุนแรงมาก',
@@ -96,24 +106,26 @@ const translations = {
         severityLight: 'ปานกลาง',
         severityMinor: 'เล็กน้อย',
         severityMicro: 'ไม่ส่งผลกระทบ',
-        backToTimeline: 'กลับไปยังไทม์ไลน์'
+        backToTimeline: 'กลับไปยังไทม์ไลน์',
+        statTotalLabel: 'เหตุการณ์ทั้งหมด',
+        statMaxMagLabel: 'ขนาดสูงสุด',
+        statRecentLabel: 'ล่าสุดเมื่อ',
+        dateFilterLabel: 'ช่วงเวลา:',
+        dateRangeSeparator: 'ถึง',
+        timeAgoMin: '{min} นาทีที่แล้ว',
+        timeAgoHour: '{hour} ชั่วโมงที่แล้ว',
+        timeAgoDay: '{day} วันที่แล้ว'
     }
 };
 
 // Current language
 let currentLang = localStorage.getItem('earthquakeAppLang') || 'th';
 
-// Current time filter setting
-let currentTimeFilter = localStorage.getItem('earthquakeAppTimeFilter') || 'recent';
-
 // Current location filter setting
 let currentLocationFilter = localStorage.getItem('earthquakeAppLocationFilter') || 'myanmar';
 
 // Current magnitude filter setting
 let currentMagnitudeFilter = localStorage.getItem('earthquakeAppMagnitudeFilter') || '0';
-
-// Cut-off date for recent events (March 28, 2025)
-const RECENT_DATE_CUTOFF = new Date('2025-03-28T00:00:00Z');
 
 // Store all earthquake data
 let allEarthquakeData = [];
@@ -134,7 +146,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Initialize other components
         initializeFilters();
+        // Initialize other components
+        initializeFilters();
         initializeTimeline();
+        initializeMap();
+        
+        // Handle window resize for responsive visualization
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                console.log('Window resized, updating visualizations');
+                if (allEarthquakeData && allEarthquakeData.length > 0) {
+                    renderTimeline(getFilteredEarthquakeData());
+                }
+                if (map) {
+                    map.invalidateSize();
+                }
+            }, 250);
+        });
+        
+        // Auto-refresh every 5 minutes
+        setInterval(async () => {
+            console.log('Auto-refreshing data...');
+            allEarthquakeData = await fetchEarthquakeData();
+            if (allEarthquakeData && allEarthquakeData.length > 0) {
+                updateTimeline();
+                updateLastUpdateTime();
+            }
+        }, 5 * 60 * 1000);
         
         console.log('Application initialization complete');
     } catch (error) {
@@ -164,7 +204,13 @@ function initializeLanguageSwitcher() {
         labelDescription: document.getElementById('labelDescription'),
         dataSourceText: document.getElementById('dataSourceText'),
         sourceCodeText: document.getElementById('sourceCodeText'),
-        chartHeading: document.getElementById('chart-heading')
+        mapTitle: document.getElementById('mapTitle'),
+        chartHeading: document.getElementById('chart-heading'),
+        statTotalLabel: document.getElementById('statTotalLabel'),
+        statMaxMagLabel: document.getElementById('statMaxMagLabel'),
+        statRecentLabel: document.getElementById('statRecentLabel'),
+        dateFilterLabel: document.getElementById('dateFilterLabel'),
+        dateRangeSeparator: document.getElementById('dateRangeSeparator')
     };
 
     // Set up language buttons
@@ -312,20 +358,26 @@ function getText(key, params = {}) {
 // Initialize filters
 function initializeFilters() {
     // Set the filter dropdowns to the saved values
-    const timeFilterSelect = document.getElementById('timeRangeFilter');
     const locationFilterSelect = document.getElementById('locationFilter');
     const magnitudeFilterSelect = document.getElementById('magnitudeFilter');
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
     
-    timeFilterSelect.value = currentTimeFilter;
     locationFilterSelect.value = currentLocationFilter;
     magnitudeFilterSelect.value = currentMagnitudeFilter;
     
+    // Initialize date inputs
+    // Default to last 30 days if no saved range (or if we want to default to recent)
+    const today = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    
+    startDateInput.valueAsDate = thirtyDaysAgo;
+    endDateInput.valueAsDate = today;
+    
     // Add event listeners for filter changes
-    timeFilterSelect.addEventListener('change', (event) => {
-        currentTimeFilter = event.target.value;
-        localStorage.setItem('earthquakeAppTimeFilter', currentTimeFilter);
-        updateTimeline();
-    });
+    startDateInput.addEventListener('change', updateTimeline);
+    endDateInput.addEventListener('change', updateTimeline);
     
     locationFilterSelect.addEventListener('change', (event) => {
         currentLocationFilter = event.target.value;
@@ -345,30 +397,34 @@ function initializeFilters() {
 
 // Update filter dropdown options based on selected language
 function updateFilterOptions() {
-    const timeFilterSelect = document.getElementById('timeRangeFilter');
     const locationFilterSelect = document.getElementById('locationFilter');
     const magnitudeFilterSelect = document.getElementById('magnitudeFilter');
-    
-    timeFilterSelect.options[0].text = getText('timeFilterRecent');
-    timeFilterSelect.options[1].text = getText('timeFilterAll');
     
     locationFilterSelect.options[0].text = getText('locationFilterMyanmar');
     locationFilterSelect.options[1].text = getText('locationFilterAll');
     
     magnitudeFilterSelect.options[0].text = getText('magnitudeFilterAll');
-    magnitudeFilterSelect.options[1].text = getText('magnitudeFilter3');
-    magnitudeFilterSelect.options[2].text = getText('magnitudeFilter4');
-    magnitudeFilterSelect.options[3].text = getText('magnitudeFilter5');
-    magnitudeFilterSelect.options[4].text = getText('magnitudeFilter6');
+    // We can add translations for the new magnitude options if needed, but numbers are universal
 }
 
 // Get filtered earthquake data based on current filter settings
 function getFilteredEarthquakeData() {
     let filteredData = allEarthquakeData;
     
-    // Apply time filter
-    if (currentTimeFilter === 'recent') {
-        filteredData = filteredData.filter(eq => eq.time > RECENT_DATE_CUTOFF);
+    // Apply date filter
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    
+    if (startDateInput.value && endDateInput.value) {
+        const startDate = new Date(startDateInput.value);
+        startDate.setHours(0, 0, 0, 0);
+        
+        const endDate = new Date(endDateInput.value);
+        endDate.setHours(23, 59, 59, 999);
+        
+        filteredData = filteredData.filter(eq => {
+            return eq.time >= startDate && eq.time <= endDate;
+        });
     }
     
     // Apply location filter
@@ -387,6 +443,63 @@ function getFilteredEarthquakeData() {
     return filteredData;
 }
 
+// Map related variables
+let map;
+let markers = [];
+
+// Initialize Leaflet map
+function initializeMap() {
+    // Default to Thailand coordinates
+    map = L.map('map').setView([15.8700, 100.9925], 5);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+}
+
+// Update map markers based on earthquake data
+function updateMap(earthquakeData) {
+    if (!map) return;
+    
+    // Clear existing markers
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+    
+    if (!earthquakeData || earthquakeData.length === 0) return;
+    
+    // Add new markers
+    earthquakeData.forEach(eq => {
+        const marker = L.circleMarker([eq.latitude, eq.longitude], {
+            radius: calculatePointRadius(eq.magnitude),
+            fillColor: getColorByMagnitude(eq.magnitude),
+            color: "#fff",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        });
+        
+        marker.bindPopup(`
+            <strong>${eq.title}</strong><br>
+            Magnitude: ${eq.magnitude}<br>
+            Time: ${formatDate(eq.time)}<br>
+            Depth: ${eq.depth} km
+        `);
+        
+        marker.on('click', () => {
+            showEarthquakeDetails(eq);
+        });
+        
+        marker.addTo(map);
+        markers.push(marker);
+    });
+    
+    // Fit bounds to show all markers
+    if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+}
+
 // Main function to initialize the timeline
 async function initializeTimeline() {
     try {
@@ -400,7 +513,10 @@ async function initializeTimeline() {
         allEarthquakeData = await fetchEarthquakeData();
         if (allEarthquakeData && allEarthquakeData.length > 0) {
             // Render the filtered data based on current filter setting
-            renderTimeline(getFilteredEarthquakeData());
+            const filteredData = getFilteredEarthquakeData();
+            renderTimeline(filteredData);
+            updateMap(filteredData);
+            updateStatistics(filteredData);
             updateLastUpdateTime();
         } else {
             document.getElementById('timeline').innerHTML = `
@@ -425,53 +541,60 @@ async function fetchEarthquakeData() {
     try {
         console.log("Attempting to load local earthquake data first...");
         
-        // Try to load the data from the local JSON file first
-        try {
-            const response = await fetch('./data/earthquakes.json');
-            
-            if (response.ok) {
-                const earthquakeData = await response.json();
-                console.log(`Successfully loaded ${earthquakeData.length} earthquakes from local data`);
+        // Check if we are running on file protocol
+        const isFileProtocol = window.location.protocol === 'file:';
+        
+        if (!isFileProtocol) {
+            // Try to load the data from the local JSON file first
+            try {
+                const response = await fetch('./data/earthquakes.json');
                 
-                // Convert the time strings back to Date objects with proper timezone handling
-                earthquakeData.forEach(quake => {
-                    // Check if the timezone field exists (for backward compatibility)
-                    if (quake.timezone && quake.timezone === 'Asia/Bangkok') {
-                        // Parse the time string
-                        // The JSON now contains the correct UTC timestamp, so we can just parse it directly
-                        quake.time = new Date(quake.time);
-                    } else {
-                        // Fallback for data without timezone information
-                        quake.time = new Date(quake.time);
-                    }
-                });
-                
-                // Check the last update time to ensure data is not too old
-                try {
-                    const lastUpdateResponse = await fetch('./data/last-update.json');
-                    if (lastUpdateResponse.ok) {
-                        const lastUpdate = await lastUpdateResponse.json();
-                        const lastUpdateTime = new Date(lastUpdate.lastUpdated);
-                        const currentTime = new Date();
-                        const hoursSinceUpdate = (currentTime - lastUpdateTime) / (1000 * 60 * 60);
-                        
-                        console.log(`Data last updated ${hoursSinceUpdate.toFixed(1)} hours ago`);
-                        
-                        // If data is less than 24 hours old, use it
-                        if (hoursSinceUpdate < 24) {
-                            return earthquakeData;
+                if (response.ok) {
+                    const earthquakeData = await response.json();
+                    console.log(`Successfully loaded ${earthquakeData.length} earthquakes from local data`);
+                    
+                    // Convert the time strings back to Date objects with proper timezone handling
+                    earthquakeData.forEach(quake => {
+                        // Check if the timezone field exists (for backward compatibility)
+                        if (quake.timezone && quake.timezone === 'Asia/Bangkok') {
+                            // Parse the time string
+                            // The JSON now contains the correct UTC timestamp, so we can just parse it directly
+                            quake.time = new Date(quake.time);
                         } else {
-                            console.log("Local data is more than 24 hours old, fetching fresh data...");
+                            // Fallback for data without timezone information
+                            quake.time = new Date(quake.time);
                         }
+                    });
+                    
+                    // Check the last update time to ensure data is not too old
+                    try {
+                        const lastUpdateResponse = await fetch('./data/last-update.json');
+                        if (lastUpdateResponse.ok) {
+                            const lastUpdate = await lastUpdateResponse.json();
+                            const lastUpdateTime = new Date(lastUpdate.lastUpdated);
+                            const currentTime = new Date();
+                            const hoursSinceUpdate = (currentTime - lastUpdateTime) / (1000 * 60 * 60);
+                            
+                            console.log(`Data last updated ${hoursSinceUpdate.toFixed(1)} hours ago`);
+                            
+                            // If data is less than 24 hours old, use it
+                            if (hoursSinceUpdate < 24) {
+                                return earthquakeData;
+                            } else {
+                                console.log("Local data is more than 24 hours old, fetching fresh data...");
+                            }
+                        }
+                    } catch (updateCheckError) {
+                        console.warn('Error checking last update time:', updateCheckError);
+                        // If we can't check last update time but have data, use it anyway
+                        return earthquakeData;
                     }
-                } catch (updateCheckError) {
-                    console.warn('Error checking last update time:', updateCheckError);
-                    // If we can't check last update time but have data, use it anyway
-                    return earthquakeData;
                 }
+            } catch (localDataError) {
+                console.warn('Could not load local earthquake data:', localDataError.message);
             }
-        } catch (localDataError) {
-            console.warn('Could not load local earthquake data:', localDataError.message);
+        } else {
+            console.log("Running on file protocol, skipping local data load to avoid CORS errors");
         }
         
         // If we get here, either the local data doesn't exist, is too old, or there was an error
@@ -485,9 +608,9 @@ async function fetchEarthquakeData() {
         // Check if we're running on GitHub Pages
         const isGitHubPages = window.location.hostname.includes('github.io');
         
-        // If on GitHub Pages, always use the proxy to avoid CORS issues
-        if (isGitHubPages) {
-            console.log("Running on GitHub Pages, using CORS proxy by default");
+        // If on GitHub Pages or file protocol, always use the proxy to avoid CORS issues
+        if (isGitHubPages || isFileProtocol) {
+            console.log(`Running on ${isGitHubPages ? 'GitHub Pages' : 'file protocol'}, using CORS proxy by default`);
             try {
                 const proxyUrl = 'https://corsproxy.io/?';
                 const proxyResponse = await fetch(proxyUrl + encodeURIComponent(targetUrl));
@@ -1096,21 +1219,7 @@ function renderTimeline(earthquakeData) {
         .attr('class', 'tooltip')
         .style('opacity', 0);
     
-    // Function to calculate point radius based on magnitude and screen size
-    function calculatePointRadius(magnitude) {
-        // Base radius calculation
-        let radius = 3 + magnitude * 1.8;
-        
-        // Adjust for mobile screens - larger touch targets
-        if (isMobile) {
-            radius = 4 + magnitude * 2;
-            
-            // Ensure minimum size for touch
-            if (radius < 6) radius = 6;
-        }
-        
-        return radius;
-    }
+
     
     // Add the earthquake points to the zoomable group
     const points = zoomGroup.selectAll('.timeline-point')
@@ -1273,6 +1382,24 @@ function renderTimeline(earthquakeData) {
                 .style('opacity', 0);
         });
     }
+}
+
+
+// Function to calculate point radius based on magnitude and screen size
+function calculatePointRadius(magnitude) {
+    const isMobile = window.innerWidth < 768;
+    // Base radius calculation
+    let radius = 3 + magnitude * 1.8;
+    
+    // Adjust for mobile screens - larger touch targets
+    if (isMobile) {
+        radius = 4 + magnitude * 2;
+        
+        // Ensure minimum size for touch
+        if (radius < 6) radius = 6;
+    }
+    
+    return radius;
 }
 
 // Function to determine color based on magnitude
@@ -1600,10 +1727,50 @@ function updateLastUpdateTime() {
     document.getElementById('lastUpdate').textContent = `${getText('lastUpdate')} ${formattedDate}`;
 }
 
+// Update statistics cards
+function updateStatistics(earthquakeData) {
+    if (!earthquakeData || earthquakeData.length === 0) {
+        document.getElementById('statTotal').textContent = '0';
+        document.getElementById('statMaxMag').textContent = '0.0';
+        document.getElementById('statRecent').textContent = '-';
+        return;
+    }
+    
+    // Total events
+    const total = earthquakeData.length;
+    document.getElementById('statTotal').textContent = total;
+    
+    // Max magnitude
+    const maxMag = Math.max(...earthquakeData.map(eq => eq.magnitude));
+    document.getElementById('statMaxMag').textContent = maxMag.toFixed(1);
+    
+    // Most recent
+    // Data is already sorted by time (newest first)
+    const recent = earthquakeData[0];
+    const now = new Date();
+    const diffMs = now - recent.time;
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    let timeString;
+    if (diffMins < 60) {
+        timeString = getText('timeAgoMin', { min: diffMins });
+    } else if (diffHours < 24) {
+        timeString = getText('timeAgoHour', { hour: diffHours });
+    } else {
+        timeString = getText('timeAgoDay', { day: diffDays });
+    }
+    
+    document.getElementById('statRecent').textContent = timeString;
+}
+
 // Update timeline with current filters
 function updateTimeline() {
     if (allEarthquakeData && allEarthquakeData.length > 0) {
-        renderTimeline(getFilteredEarthquakeData());
+        const filteredData = getFilteredEarthquakeData();
+        renderTimeline(filteredData);
+        updateStatistics(filteredData);
     }
 }
 
