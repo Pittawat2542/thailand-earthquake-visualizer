@@ -1,4 +1,7 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเวียดนาม Vietnam",https://earthquake.tmd.go.th/inside-info.html?earthquake=15889,15.235,107.742,10,3.4,2025-12-05T10:15:16.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.4 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
 "ต.นาเกียน  อ.อมก๋อย จ.เชียงใหม่ Tambon Na Kian, Amphoe Omkoi, ChiangMai",https://earthquake.tmd.go.th/inside-info.html?earthquake=15888,17.924,98.177,1,2,2025-12-05T05:43:30.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -296,6 +299,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ต.เกาะสมุย อ.เกาะสมุย จ.สุราษฎร์ธานี Tambon Koh Samui, Amphoe KoSamui, SuratThani",https://earthquake.tmd.go.th/inside-info.html?earthquake=15789,9.55,99.956,4,2.4,2025-11-12T17:47:21.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",https://earthquake.tmd.go.th/inside-info.html?earthquake=15790,4.912,97.132,10,3.7,2025-11-12T16:55:36.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.7 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
