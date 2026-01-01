@@ -1,5 +1,16 @@
 [
   {
+    "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16013",
+    "latitude": 21.5,
+    "longitude": 96.656,
+    "depth": 10,
+    "magnitude": 3.2,
+    "time": "2026-01-01T07:41:59.000Z",
+    "description": "[EN] Minor Earthquake (3.2 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "มณฑลยูนนาน, ประเทศจีน Yunnan, China",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16012",
     "latitude": 21.367,
@@ -1086,17 +1097,6 @@
     "magnitude": 4.3,
     "time": "2025-12-10T18:48:38.000Z",
     "description": "[EN] Light Earthquake (4.3 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.3 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.ฝายกวาง อ.เชียงคำ จ.พะเยา Tambon Fai Kwang, Amphoe ChiangKham, Phayao",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=15913",
-    "latitude": 19.436,
-    "longitude": 100.211,
-    "depth": 6,
-    "magnitude": 2.8,
-    "time": "2025-12-10T14:58:33.000Z",
-    "description": "[EN] Micro Earthquake (2.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
