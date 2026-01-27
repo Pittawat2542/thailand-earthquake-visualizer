@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.ห้วยโป่ง อ.เมืองแม่ฮ่องสอน จ.แม่ฮ่องสอน Tambon Huai Pong, Amphoe MueangMaeHongSon, MaeHongSon",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16155",
+    "latitude": 19.003,
+    "longitude": 98.149,
+    "depth": 3,
+    "magnitude": 1.9,
+    "time": "2026-01-27T18:31:12.000Z",
+    "description": "[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16154",
     "latitude": 23.163,
@@ -1086,17 +1097,6 @@
     "magnitude": 2.1,
     "time": "2026-01-10T23:36:23.000Z",
     "description": "[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16056",
-    "latitude": 19.975,
-    "longitude": 97.796,
-    "depth": 4,
-    "magnitude": 1.9,
-    "time": "2026-01-10T18:52:17.000Z",
-    "description": "[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
