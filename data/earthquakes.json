@@ -1,6 +1,17 @@
 [
   {
     "title": "มณฑลยูนนาน, ประเทศจีน Yunnan, China",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16195",
+    "latitude": 24.455,
+    "longitude": 99.107,
+    "depth": 10,
+    "magnitude": 3.4,
+    "time": "2026-02-07T11:11:49.000Z",
+    "description": "[EN] Minor Earthquake (3.4 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "มณฑลยูนนาน, ประเทศจีน Yunnan, China",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16194",
     "latitude": 24.585,
     "longitude": 99.246,
@@ -1086,17 +1097,6 @@
     "magnitude": 3.1,
     "time": "2026-01-17T21:57:39.000Z",
     "description": "[EN] Minor Earthquake (3.1 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16095",
-    "latitude": 4.218,
-    "longitude": 97.582,
-    "depth": 10,
-    "magnitude": 4.4,
-    "time": "2026-01-17T20:23:41.000Z",
-    "description": "[EN] Light Earthquake (4.4 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.4 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
     "timezone": "Asia/Bangkok"
   }
 ]
