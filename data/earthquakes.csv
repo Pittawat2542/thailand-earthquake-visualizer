@@ -1,4 +1,19 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=16352,15.888,98.162,10,3.2,2026-03-08T01:28:10.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.2 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=16351,19.474,96.285,10,2.6,2026-03-08T00:20:44.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",https://earthquake.tmd.go.th/inside-info.html?earthquake=16350,9.053,98.744,2,2.4,2026-03-08T00:02:44.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (2.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศลาว Laos",https://earthquake.tmd.go.th/inside-info.html?earthquake=16349,18.552,101.59,2,1.8,2026-03-07T22:00:56.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
+
+[TH] แผ่นดินไหวระดับMicro (1.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
+"ประเทศเวียดนาม Vietnam",https://earthquake.tmd.go.th/inside-info.html?earthquake=16348,14.903,107.843,10,3.2,2026-03-07T21:00:20.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.2 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
+
+[TH] แผ่นดินไหวระดับMinor (3.2 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
 "ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=16347,18.965,96.468,10,2.5,2026-03-07T18:18:18.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.5 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (2.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -284,18 +299,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",https://earthquake.tmd.go.th/inside-info.html?earthquake=16252,4.393,97.569,6,4.1,2026-02-13T21:37:05.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.1 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
 
 [TH] แผ่นดินไหวระดับLight (4.1 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
-"ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",https://earthquake.tmd.go.th/inside-info.html?earthquake=16251,9.025,98.719,4,2,2026-02-13T15:35:12.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"มณฑลยูนนาน, ประเทศจีน Yunnan, China",https://earthquake.tmd.go.th/inside-info.html?earthquake=16250,22.379,101.554,1,3.1,2026-02-13T15:27:46.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.1 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=16249,22.007,96.791,10,3.1,2026-02-13T12:23:27.000Z,Asia/Bangkok,"[EN] Minor Earthquake (3.1 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.
-
-[TH] แผ่นดินไหวระดับMinor (3.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล"
-"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/inside-info.html?earthquake=16247,20.165,97.92,10,1.8,2026-02-13T10:17:25.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (1.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
-"ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",https://earthquake.tmd.go.th/inside-info.html?earthquake=16248,3.43,96.11,10,4,2026-02-13T08:46:01.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
-
-[TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
