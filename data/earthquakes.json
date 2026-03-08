@@ -1,5 +1,49 @@
 [
   {
+    "title": "ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16355",
+    "latitude": 2.068,
+    "longitude": 96.631,
+    "depth": 10,
+    "magnitude": 5.4,
+    "time": "2026-03-08T06:05:07.000Z",
+    "description": "[EN] Moderate Earthquake (5.4 ML) - SAFETY ADVICE: Take precautions: Stay away from objects that could fall. Expect minor damage to well-built structures. Find safe locations to shelter. Be prepared for aftershocks. Check news sources for updates and instructions.\n\n[TH] แผ่นดินไหวระดับModerate (5.4 ML) - คำแนะนำความปลอดภัย: ใช้ความระมัดระวัง: อยู่ห่างจากวัตถุที่อาจร่วงหล่น คาดการณ์ความเสียหายเล็กน้อยต่ออาคารที่สร้างอย่างดี หาที่หลบภัยที่ปลอดภัย เตรียมพร้อมสำหรับแผ่นดินไหวตาม ติดตามข่าวสารเพื่อรับการอัปเดตและคำแนะนำ",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16354",
+    "latitude": 8.996,
+    "longitude": 98.763,
+    "depth": 1,
+    "magnitude": 1.8,
+    "time": "2026-03-08T05:37:00.000Z",
+    "description": "[EN] Micro Earthquake (1.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16353",
+    "latitude": 9.014,
+    "longitude": 98.772,
+    "depth": 1,
+    "magnitude": 2.9,
+    "time": "2026-03-08T05:29:32.000Z",
+    "description": "[EN] Micro Earthquake (2.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16356",
+    "latitude": 9.02,
+    "longitude": 98.775,
+    "depth": 1,
+    "magnitude": 1.9,
+    "time": "2026-03-08T05:28:14.000Z",
+    "description": "[EN] Micro Earthquake (1.9 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.9 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16352",
     "latitude": 15.888,
@@ -1053,50 +1097,6 @@
     "magnitude": 4.3,
     "time": "2026-02-15T02:47:19.000Z",
     "description": "[EN] Light Earthquake (4.3 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.3 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเวียดนาม Vietnam",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16255",
-    "latitude": 14.876,
-    "longitude": 107.936,
-    "depth": 10,
-    "magnitude": 4.6,
-    "time": "2026-02-14T23:29:47.000Z",
-    "description": "[EN] Light Earthquake (4.6 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.6 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16254",
-    "latitude": 6.965,
-    "longitude": 93.671,
-    "depth": 10,
-    "magnitude": 4.2,
-    "time": "2026-02-14T21:02:17.000Z",
-    "description": "[EN] Light Earthquake (4.2 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.2 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.วาวี อ.แม่สรวย จ.เชียงราย Tambon Wawee, Amphoe MaeSuai, ChiangRai",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16253",
-    "latitude": 19.738,
-    "longitude": 99.531,
-    "depth": 1,
-    "magnitude": 1.3,
-    "time": "2026-02-14T18:28:17.000Z",
-    "description": "[EN] Micro Earthquake (1.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ตอนเหนือของหมู่เกาะสุมาตรา ประเทศอินโดนีเซีย Northern Sumatra, Indonesia",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16252",
-    "latitude": 4.393,
-    "longitude": 97.569,
-    "depth": 6,
-    "magnitude": 4.1,
-    "time": "2026-02-13T21:37:05.000Z",
-    "description": "[EN] Light Earthquake (4.1 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.\n\n[TH] แผ่นดินไหวระดับLight (4.1 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น",
     "timezone": "Asia/Bangkok"
   }
 ]
