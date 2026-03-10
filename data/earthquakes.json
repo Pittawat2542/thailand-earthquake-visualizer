@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.เขาพัง อ.บ้านตาขุน จ.สุราษฎร์ธานี Tambon Khao Phang, Amphoe BanTaKhun, SuratThani",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16373",
+    "latitude": 9.064,
+    "longitude": 98.74,
+    "depth": 1,
+    "magnitude": 1.6,
+    "time": "2026-03-09T22:04:09.000Z",
+    "description": "[EN] Micro Earthquake (1.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ประเทศเวียดนาม Vietnam",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16372",
     "latitude": 15.073,
@@ -1085,17 +1096,6 @@
     "depth": 1,
     "magnitude": 2.3,
     "time": "2026-02-18T19:57:47.000Z",
-    "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16273",
-    "latitude": 19.592,
-    "longitude": 97.71,
-    "depth": 4,
-    "magnitude": 2.3,
-    "time": "2026-02-17T22:43:38.000Z",
     "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
