@@ -1,5 +1,16 @@
 [
   {
+    "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16857",
+    "latitude": 19.521,
+    "longitude": 97.654,
+    "depth": 5,
+    "magnitude": 2.4,
+    "time": "2026-07-20T20:55:39.000Z",
+    "description": "[EN] Micro Earthquake (2.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ต.วังเหนือ อ.วังเหนือ จ.ลำปาง Tambon wang nuea, Amphoe WangNuea, Lampang",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16856",
     "latitude": 19.151,
@@ -1086,17 +1097,6 @@
     "magnitude": 2.1,
     "time": "2026-06-23T10:52:47.000Z",
     "description": "[EN] Micro Earthquake (2.1 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.1 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.บ้านโคก อ.บ้านโคก จ.อุตรดิตถ์ Tambon Ban Khok, Amphoe BanKhok, Uttaradit",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16757",
-    "latitude": 17.957,
-    "longitude": 101.089,
-    "depth": 4,
-    "magnitude": 1.4,
-    "time": "2026-06-22T17:17:06.000Z",
-    "description": "[EN] Micro Earthquake (1.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
