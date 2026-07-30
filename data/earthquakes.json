@@ -1,6 +1,17 @@
 [
   {
     "title": "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",
+    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16900",
+    "latitude": 22.333,
+    "longitude": 98.941,
+    "depth": 10,
+    "magnitude": 3.7,
+    "time": "2026-07-30T06:16:02.000Z",
+    "description": "[EN] Minor Earthquake (3.7 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",
     "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16899",
     "latitude": 22.376,
     "longitude": 99.009,
@@ -1086,17 +1097,6 @@
     "magnitude": 2,
     "time": "2026-07-02T14:17:25.000Z",
     "description": "[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.แม่จัน  อ.แม่จัน จ.เชียงราย Tambon Mae Chan, Amphoe MaeChan, ChiangRai",
-    "link": "https://earthquake.tmd.go.th/inside-info.html?earthquake=16800",
-    "latitude": 20.077,
-    "longitude": 99.803,
-    "depth": 3,
-    "magnitude": 1.6,
-    "time": "2026-07-02T01:05:48.000Z",
-    "description": "[EN] Micro Earthquake (1.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
