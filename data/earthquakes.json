@@ -1,5 +1,16 @@
 [
   {
+    "title": "ประเทศเวียดนาม Vietnam",
+    "link": "https://earthquake.tmd.go.th//EQ17103",
+    "latitude": 15.03,
+    "longitude": 107.65,
+    "depth": 10,
+    "magnitude": 3.8,
+    "time": "2026-09-20T21:20:24.000Z",
+    "description": "[EN] Minor Earthquake (3.8 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "หมู่เกาะนิโคบาร์ ประเทศอินเดีย Nicobar Islands, India Region",
     "link": "https://earthquake.tmd.go.th//EQ17102",
     "latitude": 8.49,
@@ -2186,17 +2197,6 @@
     "magnitude": 3.7,
     "time": "2026-07-30T06:16:02.000Z",
     "description": "[EN] Minor Earthquake (3.7 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",
-    "link": "https://earthquake.tmd.go.th//EQ16899",
-    "latitude": 22.38,
-    "longitude": 99.01,
-    "depth": 10,
-    "magnitude": 3.4,
-    "time": "2026-07-30T01:26:01.000Z",
-    "description": "[EN] Minor Earthquake (3.4 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
     "timezone": "Asia/Bangkok"
   }
 ]
