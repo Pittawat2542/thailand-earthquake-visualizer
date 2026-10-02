@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.นาคอเรือ  อ.ฮอด จ.เชียงใหม่ Tambon Na Kho Ruea, Amphoe Hot, ChiangMai",
+    "link": "https://earthquake.tmd.go.th//EQ17155",
+    "latitude": 18.01,
+    "longitude": 98.53,
+    "depth": 2,
+    "magnitude": 1.5,
+    "time": "2026-10-01T20:24:36.000Z",
+    "description": "[EN] Micro Earthquake (1.5 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.5 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "ต.นาคอเรือ อ.ฮอด จ.เชียงใหม่ Tambon Na Kho Ruea, Amphoe Hot, ChiangMai",
     "link": "https://earthquake.tmd.go.th//EQ17154",
     "latitude": 18,
@@ -2186,17 +2197,6 @@
     "magnitude": 2.4,
     "time": "2026-08-10T09:10:55.000Z",
     "description": "[EN] Micro Earthquake (2.4 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.4 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ประเทศเมียนมา Myanmar",
-    "link": "https://earthquake.tmd.go.th//EQ16949",
-    "latitude": 18.74,
-    "longitude": 96.55,
-    "depth": 10,
-    "magnitude": 2.6,
-    "time": "2026-08-09T20:36:51.000Z",
-    "description": "[EN] Micro Earthquake (2.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
