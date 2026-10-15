@@ -1,10 +1,12 @@
 // Fetch earthquake data from Thai Meteorological Department and save as CSV
-const fetch = require('node-fetch');
-const jsdom = require('jsdom');
-const fs = require('fs');
-const path = require('path');
-const { DateTime } = require('luxon');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import jsdom from 'jsdom';
+import { DateTime } from 'luxon';
+
 const { JSDOM } = jsdom;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // URL for the earthquake data webpage
 const targetUrl = 'https://earthquake.tmd.go.th/inside.html?ps=200';
@@ -323,7 +325,8 @@ function parseHtmlTableData(htmlText) {
                     // Extract the URL from onclick="window.open('inside-info.html?earthquake=13023')"
                     const match = onclickAttr.match(/window\.open\('([^']+)'\)/);
                     if (match) {
-                        link = 'https://earthquake.tmd.go.th/' + match[1];
+                        const pathPart = match[1].startsWith('/') ? match[1] : `/${match[1]}`;
+                        link = `https://earthquake.tmd.go.th${pathPart}`;
                     }
                 }
                 

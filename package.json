@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Interactive visualization of earthquake data from Thailand",
   "main": "script.js",
+  "type": "module",
   "scripts": {
+    "test": "node --test tests/**/*.test.js",
     "fetch-data": "node scripts/fetch-earthquake-data.js",
-    "start": "http-server -p 8080"
+    "start": "http-server -p 8081"
   },
   "repository": {
     "type": "git",
