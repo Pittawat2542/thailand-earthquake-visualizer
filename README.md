@@ -1,56 +1,87 @@
-# Thai Earthquake Timeline Visualizer
+# Thailand Earthquake Visualizer (ระบบติดตามแผ่นดินไหว)
 
-An interactive visualization tool for earthquake data from Thailand and surrounding regions. This application displays earthquake information from the Thai Meteorological Department's website in an easy-to-understand timeline format.
+An interactive seismic observatory dashboard and timeline visualization for earthquake data from Thailand and surrounding regions. Data is sourced from the Thai Meteorological Department (TMD).
 
-## How to Use
+![Thailand Earthquake Visualizer](public/img/og-image.png)
 
-1. Open `index.html` in a web browser
-2. The application will automatically fetch the latest earthquake data
-3. By default, only earthquakes after March 28th are displayed
-4. Use the time range filter to switch between recent events and all events
-5. Hover over dots on the timeline to see basic information
-6. Click on a dot to view detailed information about that specific earthquake
-7. Use mouse wheel or touchpad to zoom in/out of the timeline
-8. Click and drag to pan the timeline when zoomed in
-9. Use the "Reset Zoom" button to return to the original view
-10. The last update time is displayed at the top of the page
-11. Switch between English and Thai using the language selector buttons
+## Key Features
 
-## Data Source
+- **Interactive Seismic Map**: Built with Leaflet and high-performance Canvas rendering for 60fps pan and zoom, colored by Richter magnitude with pulsing epicenter highlights.
+- **D3.js Earthquake Timeline**: Smooth pan, zoom, brush, and reference threshold lines with DOM recycling and zero tooltip memory leaks.
+- **Bidirectional Map & Timeline Synchronization**: Clicking or hovering on either the map or timeline immediately highlights the event on the other view and populates the inspector.
+- **Earthquake Inspector**: Real-time focal depth gauge, Richter magnitude badge, copyable coordinates, Google Maps shortcut, and structured bilingual safety recommendations.
+- **Theme Modes**: Seamless Dark Mode and Light Mode switching with matched map tile layers (CartoDB Dark Matter / CartoDB Positron).
+- **Comprehensive Filtering**:
+  - Quick Date Presets (`24H`, `7D`, `30D`, `All Time`, plus custom date ranges).
+  - Dynamic Region & Location filtering.
+  - Minimum Magnitude selector (M2.0+, M3.0+, M4.0+, etc.).
+  - Free-text search by location name or description.
+  - Interactive Richter Scale Legend Bar (click any severity level to filter directly).
+- **Bilingual**: Full English and Thai language support with instant switching.
+- **Offline & Cache-First Resilience**: Data loads instantly from cached JSON and `localStorage`; never crashes on network failure.
+- **Deep-linking**: Filter states serialize to URL query parameters (`?minMag=4&preset=7d&loc=myanmar`) for easy bookmarking and sharing.
 
-The earthquake data is now sourced directly from the Thai Meteorological Department's website:
-[https://earthquake.tmd.go.th/inside.html?ps=200](https://earthquake.tmd.go.th/inside.html?ps=200)
+## Architecture
+
+The project is structured into clean, modular ES modules:
+
+```
+├── index.html                     # Semantic dashboard markup & metadata
+├── style.css                      # Modern CSS design system (Dark & Light tokens)
+├── script.js                      # Backward-compatible entrypoint
+├── js/
+│   ├── app.js                     # Main application controller & state store
+│   ├── constants.js               # Localization strings, severity levels, map configs
+│   ├── data-service.js            # Fetching, caching, filtering, & statistical calculations
+│   ├── map-view.js                # Leaflet map management (Canvas renderer)
+│   ├── timeline-view.js           # D3 timeline visualization (DOM recycling & tooltip singleton)
+│   ├── details-view.js            # Earthquake Inspector card & safety advice
+│   └── utils.js                   # Timezone, date formatting, severity math, & DOM helpers
+├── data/
+│   ├── earthquakes.json           # Cached JSON earthquake data
+│   ├── earthquakes.csv            # CSV export of earthquakes
+│   └── last-update.json           # Ingestion status and timestamp
+├── scripts/
+│   └── fetch-earthquake-data.js   # Automated TMD scraper (ES module)
+└── tests/
+    ├── data-service.test.js       # Unit tests for filtering & statistics
+    └── utils.test.js              # Unit tests for timezone, formatting, & math
+```
 
 ## Local Development
 
 To run this project locally:
 
-1. Clone the repository
-2. Open the project folder in your preferred code editor
-3. Use a local development server to serve the files (to avoid CORS issues)
-4. Open `index.html` through the local server
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Pittawat2542/thailand-earthquake-visualizer.git
+   cd thailand-earthquake-visualizer
+   ```
 
-Example using Python's built-in HTTP server:
+2. Start a local server (to allow loading JSON and ES modules):
+   ```bash
+   npm start
+   # or with Python:
+   python3 -m http.server 8080
+   ```
+
+3. Open `http://localhost:8080` in your web browser.
+
+## Running Tests
+
+Run the automated test suite using Node's native test runner:
+
 ```bash
-python -m http.server
+npm test
 ```
-Then visit `http://localhost:8000` in your browser.
+
+## Data Source
+
+Earthquake data is sourced from the Thai Meteorological Department (TMD):
+[https://earthquake.tmd.go.th/inside.html?ps=200](https://earthquake.tmd.go.th/inside.html?ps=200)
+
+Automated updates run periodically via GitHub Actions (`.github/workflows/update-earthquake-data.yml`).
 
 ## License
 
-This project is open source and available under the MIT License.
-
-## Contributing
-
-Contributions to this project are welcome and appreciated! If you'd like to contribute, here are some ways you can help:
-
-- **Bug Reports**: If you find a bug, please create an issue with detailed steps to reproduce it.
-- **Feature Requests**: Have ideas for new features? Open an issue to suggest them.
-- **Code Contributions**: Feel free to fork the repository and submit pull requests.
-  - Improve the visualization
-  - Add new data filters
-  - Enhance mobile experience
-  - Optimize performance
-  - Add new features
-- **Documentation**: Help improve or translate the documentation.
-- **Translations**: Contribute additional language translations.
+This project is open source and available under the [MIT License](LICENSE).
