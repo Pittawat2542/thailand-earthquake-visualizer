@@ -1,5 +1,16 @@
 [
   {
+    "title": "ต.คลองยาง อ.สวรรคโลก จ.สุโขทัย Tambon Khlong Yang, Amphoe Sawankhalok, Sukhothai",
+    "link": "https://earthquake.tmd.go.th/EQ17233",
+    "latitude": 17.34,
+    "longitude": 99.93,
+    "depth": 3,
+    "magnitude": 1.7,
+    "time": "2026-10-16T19:12:02.000Z",
+    "description": "[EN] Micro Earthquake (1.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
     "title": "หมู่เกาะอันดามัน ประเทศอินเดีย Andaman Islands, India Region",
     "link": "https://earthquake.tmd.go.th/EQ17232",
     "latitude": 10.37,
@@ -2186,17 +2197,6 @@
     "magnitude": 1.6,
     "time": "2026-09-02T13:27:17.000Z",
     "description": "[EN] Micro Earthquake (1.6 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.6 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "ต.แม่สอด อ.แม่สอด จ.ตาก Tambon Mae Sot, Amphoe MaeSot, Tak",
-    "link": "https://earthquake.tmd.go.th/EQ17029",
-    "latitude": 16.73,
-    "longitude": 98.58,
-    "depth": 1,
-    "magnitude": 2.3,
-    "time": "2026-09-02T12:03:26.000Z",
-    "description": "[EN] Micro Earthquake (2.3 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.3 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
     "timezone": "Asia/Bangkok"
   }
 ]
