@@ -1,4 +1,7 @@
 title,link,latitude,longitude,depth,magnitude,time,timezone,description
+"ประเทศเมียนมา Myanmar",https://earthquake.tmd.go.th/EQ17444,19.99,94.86,10,4,2026-11-15T14:32:03.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.0 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
+
+[TH] แผ่นดินไหวระดับLight (4.0 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
 "ต.หางดง อ.ฮอด จ.เชียงใหม่ Tambon Hang Dong, Amphoe Hot, ChiangMai",https://earthquake.tmd.go.th/EQ17443,18.22,98.57,4,1.7,2026-11-15T09:20:15.000Z,Asia/Bangkok,"[EN] Micro Earthquake (1.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
 
 [TH] แผ่นดินไหวระดับMicro (1.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
@@ -596,6 +599,3 @@ title,link,latitude,longitude,depth,magnitude,time,timezone,description
 "พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",https://earthquake.tmd.go.th/EQ17239,22.16,99.15,10,4.9,2026-10-17T21:08:20.000Z,Asia/Bangkok,"[EN] Light Earthquake (4.9 ML) - SAFETY ADVICE: Stay alert: Be aware of possible light shaking. Secure loose objects that could fall. No immediate action typically needed, but be prepared to take cover if shaking intensifies.
 
 [TH] แผ่นดินไหวระดับLight (4.9 ML) - คำแนะนำความปลอดภัย: เตรียมพร้อม: ระวังการสั่นไหวเล็กน้อยที่อาจเกิดขึ้น ยึดวัตถุที่อาจร่วงหล่น โดยทั่วไปไม่จำเป็นต้องดำเนินการทันที แต่เตรียมพร้อมที่จะหาที่กำบังหากการสั่นไหวรุนแรงขึ้น"
-"พรมแดนประเทศเมียนมา - ประเทศจีน Myanmar - China Border Region",https://earthquake.tmd.go.th/EQ17240,21.37,100.22,10,2.8,2026-10-17T21:05:14.000Z,Asia/Bangkok,"[EN] Micro Earthquake (2.8 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.
-
-[TH] แผ่นดินไหวระดับMicro (2.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น"
