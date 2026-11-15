@@ -1,6 +1,17 @@
 [
   {
     "title": "ประเทศเมียนมา Myanmar",
+    "link": "https://earthquake.tmd.go.th/EQ17437",
+    "latitude": 20.8,
+    "longitude": 99.87,
+    "depth": 10,
+    "magnitude": 2,
+    "time": "2026-11-14T19:40:25.000Z",
+    "description": "[EN] Micro Earthquake (2.0 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (2.0 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "title": "ประเทศเมียนมา Myanmar",
     "link": "https://earthquake.tmd.go.th/EQ17436",
     "latitude": 20.04,
     "longitude": 97.95,
@@ -2186,17 +2197,6 @@
     "magnitude": 1.7,
     "time": "2026-10-16T19:12:02.000Z",
     "description": "[EN] Micro Earthquake (1.7 ML) - SAFETY ADVICE: No action required: These micro-earthquakes are rarely felt and pose no danger. They are only detectable by seismographs.\n\n[TH] แผ่นดินไหวระดับMicro (1.7 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการใดๆ: แผ่นดินไหวขนาดเล็กมากเหล่านี้แทบจะไม่รู้สึกและไม่ก่อให้เกิดอันตราย สามารถตรวจพบได้โดยเครื่องวัดแผ่นดินไหวเท่านั้น",
-    "timezone": "Asia/Bangkok"
-  },
-  {
-    "title": "หมู่เกาะอันดามัน ประเทศอินเดีย Andaman Islands, India Region",
-    "link": "https://earthquake.tmd.go.th/EQ17232",
-    "latitude": 10.37,
-    "longitude": 93.3,
-    "depth": 10,
-    "magnitude": 3.8,
-    "time": "2026-10-16T18:20:47.000Z",
-    "description": "[EN] Minor Earthquake (3.8 ML) - SAFETY ADVICE: No special actions needed: Earthquake likely only felt by sensitive individuals at rest, especially on upper floors of buildings. Be mindful of your surroundings and stay informed.\n\n[TH] แผ่นดินไหวระดับMinor (3.8 ML) - คำแนะนำความปลอดภัย: ไม่จำเป็นต้องดำเนินการพิเศษ: แผ่นดินไหวมักจะรู้สึกได้เฉพาะบุคคลที่ไวต่อความรู้สึกขณะพัก โดยเฉพาะบนชั้นบนของอาคาร ให้ระมัดระวังสิ่งรอบตัวและติดตามข้อมูล",
     "timezone": "Asia/Bangkok"
   }
 ]
